@@ -2,7 +2,9 @@
 
 ## about
 
-i started working on this project because there were a few things about vanilla TeXstudio (`txs`) that really pissed me off in terms of the way some features were implemented. the biggest offender by far was the following:
+this repository contains a clone of th source code of TeXstudio (`txs`) 4.9.3 i have modded to make it better to use for me
+
+i started working on this project because there were a few things about vanilla TeXstudio that really pissed me off in terms of the way some features were implemented. the biggest offender by far was the following:
 
 - in vanilla TeXstudio, when you moved left/right 1 character, there was an active selection and you were not trying to keep the selection alive, you would just end up moving left or right as normal and unselect the text, as if you hadn't even selected the text
 
