@@ -7935,19 +7935,19 @@ void Texstudio::setCurrentDocAsExplicitRoot()
 }
 
 ////////////////// VIEW ////////////////
-void updatePdfInViewer() {
+void Texstudio::updatePdfViewer() {
     QString file = getCurrentFileName();
     qsizetype idxExt = file.lastIndexOf(".tex");
     qsizetype idxDir = file.lastIndexOf("/");
 
     // if you switch to a file that isn't *.tex, don't do anything extra
     if(idxExt != -1 && idxDir != -1) {
-        QString pdf = file.first(idxExt).append("pdf");
-        QString dir = file.first(idxDir);
+        QString pdf = file.chopped(file.size() - idxExt).append(".pdf");
+        QString dir = file.chopped(file.size() - idxDir);
 
-        // also don't do extra if the file you switched to has no associated .pdf
+        // can't do anything if the file you switched to has no associated .pdf
         if(fileExists(pdf)) {
-            runInternalCommand("txs:///view-pdf", pdf);
+            runInternalCommand("txs:///view-pdf-internal", QFileInfo(pdf), "--embedded");
         }
     }
 }
@@ -7956,14 +7956,14 @@ void Texstudio::gotoNextDocument()
 {
     // TODO check: can we have managed action connecting to the Editors slot directly? Then we could remove this slot
     editors->activateNextEditor();
-    updatePdfInViewer();
+    updatePdfViewer();
 }
 
 void Texstudio::gotoPrevDocument()
 {
     // TODO check: can we have managed action connecting to the Editors slot directly? Then we could remove this slot
     editors->activatePreviousEditor();
-    updatePdfInViewer();
+    updatePdfViewer();
 }
 
 void Texstudio::gotoOpenDocument()

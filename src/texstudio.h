@@ -89,6 +89,7 @@ public:
     bool tobemaximized, tobefullscreen;
 
     Q_INVOKABLE void runInternalCommand(const QString &cmd, const QString &master, const QString &options);
+    Q_INVOKABLE void updatePdfViewer();
 
     friend class TexStudioTest;
 
@@ -588,7 +589,6 @@ protected slots:
     void updateOpenDocumentMenu(bool localChange = false);
     void onEditorsReordered();
 
-    void updatePdfInViewer();
     void focusEditor();
     void focusViewer();
     void enlargeEmbeddedPDFViewer();
