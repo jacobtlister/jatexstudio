@@ -922,9 +922,9 @@ void Texstudio::setupMenus()
     recentSessionList->updateMostRecentMenu();
 
     menu->addSeparator();
-    actSave = newManagedAction(menu, "save", tr("&Save"), SLOT(fileSave()), QKeySequence::Save, "document-save");
-    newManagedAction(menu, "saveas", tr("Save &As..."), SLOT(fileSaveAs()), filterLocaleShortcut(Qt::CTRL | Qt::ALT | Qt::Key_S));
-    newManagedAction(menu, "saveall", tr("Save A&ll"), SLOT(fileSaveAll()), Qt::CTRL | Qt::SHIFT | Qt::Key_S);
+    actSave = newManagedAction(menu, "save", tr("&Save"), SLOT(fileSave()), QKeySequence(), "document-save");
+    newManagedAction(menu, "saveas", tr("Save &As..."), SLOT(fileSaveAs()), QKeySequence());
+    newManagedAction(menu, "saveall", tr("Save A&ll"), SLOT(fileSaveAll()), QKeySequence());
     newManagedAction(menu, "maketemplate", tr("&Make Template..."), SLOT(fileMakeTemplate()));
 
 
@@ -963,39 +963,39 @@ void Texstudio::setupMenus()
     newManagedEditorAction(menu, "print", tr("Print Source Code..."), "print");
 
     menu->addSeparator();
-    newManagedAction(menu, "exit", tr("Exit"), SLOT(fileExit()), Qt::CTRL | Qt::Key_Q)->setMenuRole(QAction::QuitRole);
+    newManagedAction(menu, "exit", tr("Exit"), SLOT(fileExit()), QKeySequence())->setMenuRole(QAction::QuitRole);
 
     //edit
     menu = newManagedMenu("main/edit", tr("&Edit"));
-    actUndo = newManagedAction(menu, "undo", tr("&Undo"), SLOT(editUndo()), QKeySequence::Undo, "edit-undo");
-    actRedo = newManagedAction(menu, "redo", tr("&Redo"), SLOT(editRedo()), QKeySequence::Redo, "edit-redo");
+    actUndo = newManagedAction(menu, "undo", tr("&Undo"), SLOT(editUndo()), QKeySequence(), "edit-undo");
+    actRedo = newManagedAction(menu, "redo", tr("&Redo"), SLOT(editRedo()), QKeySequence(), "edit-redo");
 #ifndef QT_NO_DEBUG
     newManagedAction(menu, "debughistory", tr("Debug undo stack"), SLOT(editDebugUndoStack()));
 #endif
     menu->addSeparator();
-    newManagedEditorAction(menu, "cut", tr("C&ut"), "cut", QKeySequence::Cut, "edit-cut");
-    newManagedAction(menu, "copy", tr("&Copy"), SLOT(editCopy()), QKeySequence::Copy, "edit-copy");
-    newManagedAction(menu, "paste", tr("&Paste"), SLOT(editPaste()), QKeySequence::Paste, "edit-paste");
+    newManagedEditorAction(menu, "cut", tr("C&ut"), "cut", QKeySequence(), "edit-cut");
+    newManagedAction(menu, "copy", tr("&Copy"), SLOT(editCopy()), QKeySequence(), "edit-copy");
+    newManagedAction(menu, "paste", tr("&Paste"), SLOT(editPaste()), QKeySequence(), "edit-paste");
 
     submenu = newManagedMenu(menu, "selection", tr("&Selection"));
-    newManagedEditorAction(submenu, "selectAll", tr("Select &All"), "selectAll", Qt::CTRL | Qt::Key_A);
+    newManagedEditorAction(submenu, "selectAll", tr("Select &All"), "selectAll", QKeySequence());
     newManagedEditorAction(submenu, "selectAllOccurences", tr("Select All &Occurrences"), "selectAllOccurences");
     newManagedEditorAction(submenu, "selectPrevOccurence", tr("Select &Prev Occurrence"), "selectPrevOccurence");
     newManagedEditorAction(submenu, "selectNextOccurence", tr("Select &Next Occurrence"), "selectNextOccurence");
     newManagedEditorAction(submenu, "selectPrevOccurenceKeepMirror", tr("Also Select Prev Occurrence"), "selectPrevOccurenceKeepMirror");
     newManagedEditorAction(submenu, "selectNextOccurenceKeepMirror", tr("Also Select Next Occurrence"), "selectNextOccurenceKeepMirror");
-    newManagedEditorAction(submenu, "expandSelectionToWord", tr("Expand Selection to Word"), "selectExpandToNextWord", Qt::CTRL | Qt::Key_D);
-    newManagedEditorAction(submenu, "expandSelectionToLine", tr("Expand Selection to Line"), "selectExpandToNextLine", MAC_OR_DEFAULT(0,Qt::CTRL | Qt::Key_L));
+    newManagedEditorAction(submenu, "expandSelectionToWord", tr("Expand Selection to Word"), "selectExpandToNextWord", QKeySequence());
+    newManagedEditorAction(submenu, "expandSelectionToLine", tr("Expand Selection to Line"), "selectExpandToNextLine", QKeySequence());
 
     submenu = newManagedMenu(menu, "lineoperations", tr("&Line Operations"));
-    newManagedAction(submenu, "deleteLine", tr("Delete &Line"), SLOT(editDeleteLine()), Qt::CTRL | Qt::Key_K);
-    newManagedAction(submenu, "cutLine", tr("C&ut Line or Selection"), SLOT(editCutLine()), Qt::SHIFT | Qt::Key_Delete);
+    newManagedAction(submenu, "deleteLine", tr("Delete &Line"), SLOT(editDeleteLine()), QKeySequence());
+    newManagedAction(submenu, "cutLine", tr("C&ut Line or Selection"), SLOT(editCutLine()), QKeySequence());
 #if QT_VERSION>=QT_VERSION_CHECK(6,0,0)
-    newManagedAction(submenu, "deleteToEndOfLine", tr("Delete To &End Of Line"), SLOT(editDeleteToEndOfLine()), MAC_OR_DEFAULT(Qt::CTRL | Qt::Key_Delete,  Qt::AltModifier | Qt::Key_K));
+    newManagedAction(submenu, "deleteToEndOfLine", tr("Delete To &End Of Line"), SLOT(editDeleteToEndOfLine()), QKeySequence());
 #else
-    newManagedAction(submenu, "deleteToEndOfLine", tr("Delete To &End Of Line"), SLOT(editDeleteToEndOfLine()), MAC_OR_DEFAULT(Qt::CTRL | Qt::Key_Delete,  Qt::AltModifier + Qt::Key_K));
+    newManagedAction(submenu, "deleteToEndOfLine", tr("Delete To &End Of Line"), SLOT(editDeleteToEndOfLine()), QKeySequence());
 #endif
-    newManagedAction(submenu, "deleteFromStartOfLine", tr("Delete From &Start Of Line"), SLOT(editDeleteFromStartOfLine()), MAC_OR_DEFAULT(Qt::CTRL | Qt::Key_Backspace, 0));
+    newManagedAction(submenu, "deleteFromStartOfLine", tr("Delete From &Start Of Line"), SLOT(editDeleteFromStartOfLine()), QKeySequence());
     newManagedAction(submenu, "moveLineUp", tr("Move Line &Up"), SLOT(editMoveLineUp()));
     newManagedAction(submenu, "moveLineDown", tr("Move Line &Down"), SLOT(editMoveLineDown()));
     newManagedAction(submenu, "duplicateLine", tr("Du&plicate Line"), SLOT(editDuplicateLine()));
@@ -1011,14 +1011,14 @@ void Texstudio::setupMenus()
 
     menu->addSeparator();
     submenu = newManagedMenu(menu, "searching", tr("&Searching"));
-    newManagedAction(submenu, "find", tr("&Find"), SLOT(editFind()), QKeySequence::Find);
-    newManagedEditorAction(submenu, "findnext", tr("Find &Next"), "findNext", MAC_OR_DEFAULT(Qt::CTRL | Qt::Key_G, Qt::Key_F3));
-    newManagedEditorAction(submenu, "findprev", tr("Find &Prev"), "findPrev", MAC_OR_DEFAULT(Qt::CTRL | Qt::SHIFT | Qt::Key_G, Qt::SHIFT | Qt::Key_F3));
+    newManagedAction(submenu, "find", tr("&Find"), SLOT(editFind()), QKeySequence());
+    newManagedEditorAction(submenu, "findnext", tr("Find &Next"), "findNext", QKeySequence());
+    newManagedEditorAction(submenu, "findprev", tr("Find &Prev"), "findPrev", QKeySequence());
     newManagedEditorAction(submenu, "findinsamedir", tr("Continue F&ind"), "findInSameDir");
     newManagedEditorAction(submenu, "findcount", tr("&Count"), "findCount");
     newManagedEditorAction(submenu, "select", tr("&Select all matches..."), "selectAllMatches");
     submenu->addSeparator();
-    newManagedEditorAction(submenu, "replace", tr("&Replace"), "replacePanel", Qt::CTRL | Qt::Key_R);
+    newManagedEditorAction(submenu, "replace", tr("&Replace"), "replacePanel", QKeySequence());
     newManagedEditorAction(submenu, "replacenext", tr("Replace Next"), "replaceNext");
     newManagedEditorAction(submenu, "replaceprev", tr("Replace Prev"), "replacePrev");
     newManagedEditorAction(submenu, "replaceall", tr("Replace &All"), "replaceAll");
@@ -1026,20 +1026,20 @@ void Texstudio::setupMenus()
     menu->addSeparator();
     submenu = newManagedMenu(menu, "goto", tr("Go to"));
 
-    newManagedEditorAction(submenu, "line", tr("Line"), "gotoLine", MAC_OR_DEFAULT(Qt::CTRL + Qt::Key_L, Qt::CTRL | Qt::Key_G), "goto");
-    newManagedEditorAction(submenu, "lastchange", tr("Previous Change"), "jumpChangePositionBackward", Qt::CTRL | Qt::Key_H);
+    newManagedEditorAction(submenu, "line", tr("Line"), "gotoLine", QKeySequence(), "goto");
+    newManagedEditorAction(submenu, "lastchange", tr("Previous Change"), "jumpChangePositionBackward", QKeySequence());
 #if (QT_VERSION>=QT_VERSION_CHECK(6,0,0))
-    newManagedEditorAction(submenu, "nextchange", tr("Next Change"), "jumpChangePositionForward", QKeyCombination(Qt::CTRL | Qt::SHIFT , Qt::Key_H));
+    newManagedEditorAction(submenu, "nextchange", tr("Next Change"), "jumpChangePositionForward", QKeySequence());
 #else
-    newManagedEditorAction(submenu, "nextchange", tr("Next Change"), "jumpChangePositionForward", Qt::CTRL | Qt::SHIFT | Qt::Key_H);
+    newManagedEditorAction(submenu, "nextchange", tr("Next Change"), "jumpChangePositionForward", QKeySequence());
 #endif
     submenu->addSeparator();
-    newManagedAction(submenu, "markprev", tr("Previous mark"), "gotoMark", MAC_OR_DEFAULT(0, Qt::CTRL | Qt::Key_Up), "", QList<QVariant>() << true << -1); //, ":/images/errorprev.png");
-    newManagedAction(submenu, "marknext", tr("Next mark"), "gotoMark", MAC_OR_DEFAULT(0, Qt::CTRL | Qt::Key_Down), "", QList<QVariant>() << false << -1); //, ":/images/errornext.png");
+    newManagedAction(submenu, "markprev", tr("Previous mark"), "gotoMark", QKeySequence(), "", QList<QVariant>() << true << -1); //, ":/images/errorprev.png");
+    newManagedAction(submenu, "marknext", tr("Next mark"), "gotoMark", QKeySequence(), "", QList<QVariant>() << false << -1); //, ":/images/errornext.png");
     submenu->addSeparator();
     if (cursorHistory) {
-        cursorHistory->setBackAction(newManagedAction(submenu, "goback", tr("Go Back"), SLOT(goBack()), MAC_OR_DEFAULT(0, Qt::ALT | Qt::Key_Left), "back"));
-        cursorHistory->setForwardAction(newManagedAction(submenu, "goforward", tr("Go Forward"), SLOT(goForward()), MAC_OR_DEFAULT(0, Qt::ALT | Qt::Key_Right), "forward"));
+        cursorHistory->setBackAction(newManagedAction(submenu, "goback", tr("Go Back"), SLOT(goBack()), QKeySequence(), "back"));
+        cursorHistory->setForwardAction(newManagedAction(submenu, "goforward", tr("Go Forward"), SLOT(goForward()), QKeySequence(), "forward"));
     }
 
     submenu = newManagedMenu(menu, "gotoBookmark", tr("Goto Bookmark"));
@@ -1048,11 +1048,11 @@ void Texstudio::setupMenus()
         QKeySequence shortcut;
 #if (QT_VERSION>=QT_VERSION_CHECK(6,0,0))
         if (i != 0){
-            shortcut = Qt::CTRL | static_cast<Qt::Key>(static_cast<int>(Qt::Key_0) + i);
+            shortcut = QKeySequence();
         }
 #else
         if (i != 0){
-            shortcut = Qt::CTRL + Qt::Key_0 + i;
+            shortcut = QKeySequence();
         }
 #endif
         newManagedEditorAction(submenu, QString("bookmark%1").arg(i), tr("Bookmark %1").arg(i), "jumpToBookmark", shortcut, "", QList<QVariant>() << i);
@@ -1062,13 +1062,13 @@ void Texstudio::setupMenus()
     submenu = newManagedMenu(menu, "toggleBookmark", tr("Toggle Bookmark"));
 
 #if (QT_VERSION>=QT_VERSION_CHECK(6,0,0))
-    newManagedEditorAction(submenu, QString("bookmark"), tr("Unnamed Bookmark"), "toggleBookmark", QKeyCombination(Qt::CTRL | Qt::SHIFT , Qt::Key_B), "", QList<QVariant>() << -1);
+    newManagedEditorAction(submenu, QString("bookmark"), tr("Unnamed Bookmark"), "toggleBookmark", QKeySequence(), "", QList<QVariant>() << -1);
         foreach (int i, bookmarkIndicies)
-            newManagedEditorAction(submenu, QString("bookmark%1").arg(i), tr("Bookmark %1").arg(i), "toggleBookmark", QKeyCombination(Qt::CTRL | Qt::SHIFT , static_cast<Qt::Key>(static_cast<int>(Qt::Key_0) + i)), "", QList<QVariant>() << i);
+            newManagedEditorAction(submenu, QString("bookmark%1").arg(i), tr("Bookmark %1").arg(i), "toggleBookmark", QKeySequence(), "", QList<QVariant>() << i);
 #else
-    newManagedEditorAction(submenu, QString("bookmark"), tr("Unnamed Bookmark"), "toggleBookmark", Qt::CTRL | Qt::SHIFT | Qt::Key_B, "", QList<QVariant>() << -1);
+    newManagedEditorAction(submenu, QString("bookmark"), tr("Unnamed Bookmark"), "toggleBookmark", QKeySequence(), "", QList<QVariant>() << -1);
     foreach (int i, bookmarkIndicies)
-        newManagedEditorAction(submenu, QString("bookmark%1").arg(i), tr("Bookmark %1").arg(i), "toggleBookmark", Qt::CTRL + Qt::SHIFT + Qt::Key_0 + i, "", QList<QVariant>() << i);
+        newManagedEditorAction(submenu, QString("bookmark%1").arg(i), tr("Bookmark %1").arg(i), "toggleBookmark", QKeySequence(), "", QList<QVariant>() << i);
 #endif
 
 
@@ -1091,23 +1091,23 @@ void Texstudio::setupMenus()
 
     newManagedAction(menu, "encoding", tr("Setup Encoding..."), SLOT(editSetupEncoding()))->setMenuRole(QAction::NoRole); // with the default "QAction::TextHeuristicRole" this was interperted as Preferences on OSX
 #if (QT_VERSION>=QT_VERSION_CHECK(6,0,0))
-    newManagedAction(menu, "unicodeChar", tr("Insert Unicode Character..."), SLOT(editInsertUnicode()), filterLocaleShortcut(QKeyCombination(Qt::ALT | Qt::CTRL , Qt::Key_U)));
+    newManagedAction(menu, "unicodeChar", tr("Insert Unicode Character..."), SLOT(editInsertUnicode()), QKeySequence());
 #else
-    newManagedAction(menu, "unicodeChar", tr("Insert Unicode Character..."), SLOT(editInsertUnicode()), filterLocaleShortcut(Qt::ALT | Qt::CTRL | Qt::Key_U));
+    newManagedAction(menu, "unicodeChar", tr("Insert Unicode Character..."), SLOT(editInsertUnicode()), QKeySequence());
 #endif
 
 
 
     //Edit 2 (for LaTeX related things)
     menu = newManagedMenu("main/edit2", tr("&Idefix"));
-    newManagedAction(menu, "eraseWord", tr("Erase &Word/Cmd/Env"), SLOT(editEraseWordCmdEnv()), MAC_OR_DEFAULT(0, Qt::ALT | Qt::Key_Delete));
+    newManagedAction(menu, "eraseWord", tr("Erase &Word/Cmd/Env"), SLOT(editEraseWordCmdEnv()), QKeySequence());
 
     menu->addSeparator();
-    newManagedAction(menu, "pasteAsLatex", tr("Pas&te as LaTeX"), SLOT(editPasteLatex()), QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_V), "editpaste");
+    newManagedAction(menu, "pasteAsLatex", tr("Pas&te as LaTeX"), SLOT(editPasteLatex()), QKeySequence(), "editpaste");
     newManagedAction(menu, "convertTo", tr("Co&nvert to LaTeX"), SLOT(convertToLatex()));
 
     menu->addSeparator();
-    newManagedAction(menu, "previewLatex", tr("Pre&view Selection/Parentheses"), SLOT(previewLatex()), Qt::ALT | Qt::Key_P);
+    newManagedAction(menu, "previewLatex", tr("Pre&view Selection/Parentheses"), SLOT(previewLatex()), QKeySequence());
     newManagedAction(menu, "removePreviewLatex", tr("C&lear Inline Preview"), SLOT(clearPreview()));
 
     submenu = newManagedMenu(menu, "previewMode", tr("Preview Dis&play Mode"));
@@ -1143,58 +1143,58 @@ void Texstudio::setupMenus()
     setCheckedPreviewModeAction();
 
     menu->addSeparator();
-    newManagedEditorAction(menu, "togglecomment", tr("Toggle &Comment"), "toggleCommentSelection", Qt::CTRL | Qt::Key_T);
+    newManagedEditorAction(menu, "togglecomment", tr("Toggle &Comment"), "toggleCommentSelection", Qt::CTRL | Qt::Key_R);
     newManagedEditorAction(menu, "comment", tr("&Comment"), "commentSelection");
-    newManagedEditorAction(menu, "uncomment", tr("&Uncomment"), "uncommentSelection", Qt::CTRL | Qt::Key_U);
-    newManagedEditorAction(menu, "indent", tr("&Indent"), "indentSelection");
-    newManagedEditorAction(menu, "unindent", tr("Unin&dent"), "unindentSelection");
+    newManagedEditorAction(menu, "uncomment", tr("&Uncomment"), "uncommentSelection", Qt::CTRL | Qt::Key_T);
+    newManagedEditorAction(menu, "indent", tr("&Indent"), "indentSelection", QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_Tab));
+    newManagedEditorAction(menu, "unindent", tr("Unin&dent"), "unindentSelection", QKeySequence(Qt::SHIFT | Qt::Key_Tab));
     newManagedAction(menu, "hardbreak", tr("Hard Line &Break..."), SLOT(editHardLineBreak()));
     newManagedAction(menu, "hardbreakrepeat", tr("R&epeat Hard Line Break"), SLOT(editHardLineBreakRepeat()));
 
     menu->addSeparator();
     submenu = newManagedMenu(menu, "goto", tr("&Go to"));
 
-    newManagedAction(submenu, "errorprev", tr("Previous Error"), "gotoNearLogEntry", MAC_OR_DEFAULT(0, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_Up)), "errorprev", QList<QVariant>() << LT_ERROR << true << tr("No LaTeX errors detected !"));
-    newManagedAction(submenu, "errornext", tr("Next Error"), "gotoNearLogEntry", MAC_OR_DEFAULT(0, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_Down)), "errornext", QList<QVariant>() << LT_ERROR << false << tr("No LaTeX errors detected !"));
+    newManagedAction(submenu, "errorprev", tr("Previous Error"), "gotoNearLogEntry", QKeySequence(), "errorprev", QList<QVariant>() << LT_ERROR << true << tr("No LaTeX errors detected !"));
+    newManagedAction(submenu, "errornext", tr("Next Error"), "gotoNearLogEntry", QKeySequence(), "errornext", QList<QVariant>() << LT_ERROR << false << tr("No LaTeX errors detected !"));
     newManagedAction(submenu, "warningprev", tr("Previous Warning"), "gotoNearLogEntry", QKeySequence(), "", QList<QVariant>() << LT_WARNING << true << tr("No LaTeX warnings detected !")); //, ":/images/errorprev.png");
     newManagedAction(submenu, "warningnext", tr("Next Warning"), "gotoNearLogEntry", QKeySequence(), "", QList<QVariant>() << LT_WARNING << false << tr("No LaTeX warnings detected !")); //, ":/images/errornext.png");
-    newManagedAction(submenu, "badboxprev", tr("Previous Bad Box"), "gotoNearLogEntry", MAC_OR_DEFAULT(0, QKeySequence(Qt::SHIFT | Qt::ALT | Qt::Key_Up)), "", QList<QVariant>() << LT_BADBOX << true << tr("No bad boxes detected !")); //, ":/images/errorprev.png");
-    newManagedAction(submenu, "badboxnext", tr("Next Bad Box"), "gotoNearLogEntry", MAC_OR_DEFAULT(0, QKeySequence(Qt::SHIFT | Qt::ALT | Qt::Key_Down)), "", QList<QVariant>() << LT_BADBOX << false << tr("No bad boxes detected !")); //, ":/images/errornext.png");
+    newManagedAction(submenu, "badboxprev", tr("Previous Bad Box"), "gotoNearLogEntry", QKeySequence(), "", QList<QVariant>() << LT_BADBOX << true << tr("No bad boxes detected !")); //, ":/images/errorprev.png");
+    newManagedAction(submenu, "badboxnext", tr("Next Bad Box"), "gotoNearLogEntry", QKeySequence(), "", QList<QVariant>() << LT_BADBOX << false << tr("No bad boxes detected !")); //, ":/images/errornext.png");
 
     submenu->addSeparator();
-    newManagedAction(submenu, "definition", tr("Definition"), SLOT(editGotoDefinition()), filterLocaleShortcut(QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_F)));
+    newManagedAction(submenu, "definition", tr("Definition"), SLOT(editGotoDefinition()), QKeySequence());
 
     menu->addSeparator();
     newManagedAction(menu, "generateMirror", tr("Re&name Environment"), SLOT(generateMirror()));
 
     submenu = newManagedMenu(menu, "parens", tr("Parenthesis"));
 #if (QT_VERSION>=QT_VERSION_CHECK(6,0,0))
-    newManagedAction(submenu, "jump", tr("Jump to Match"), SLOT(jumpToBracket()), QKeySequence(QKeyCombination(Qt::SHIFT | Qt::CTRL , Qt::Key_P), QKeyCombination(Qt::Key_J)));
-    newManagedAction(submenu, "selectBracketInner", tr("Select Inner"), SLOT(selectBracket()), QKeySequence(QKeyCombination(Qt::SHIFT | Qt::CTRL , Qt::Key_P), QKeyCombination(Qt::Key_I)))->setProperty("type", "inner");
-    newManagedAction(submenu, "selectBracketOuter", tr("Select Outer"), SLOT(selectBracket()), QKeySequence(QKeyCombination(Qt::SHIFT | Qt::CTRL , Qt::Key_P), QKeyCombination(Qt::Key_O)))->setProperty("type", "outer");
-    newManagedAction(submenu, "selectBracketCommand", tr("Select Command"), SLOT(selectBracket()), QKeySequence(QKeyCombination(Qt::SHIFT | Qt::CTRL , Qt::Key_P), QKeyCombination(Qt::Key_C)))->setProperty("type", "command");
-    newManagedAction(submenu, "selectBracketLine", tr("Select Line"), SLOT(selectBracket()), QKeySequence(QKeyCombination(Qt::SHIFT | Qt::CTRL , Qt::Key_P), QKeyCombination(Qt::Key_L)))->setProperty("type", "line");
-    newManagedAction(submenu, "generateInvertedBracketMirror", tr("Select Inverting"), SLOT(generateBracketInverterMirror()), QKeySequence(QKeyCombination(Qt::SHIFT | Qt::CTRL , Qt::Key_P), QKeyCombination(Qt::Key_S)));
+    newManagedAction(submenu, "jump", tr("Jump to Match"), SLOT(jumpToBracket()), QKeySequence());
+    newManagedAction(submenu, "selectBracketInner", tr("Select Inner"), SLOT(selectBracket()), QKeySequence())->setProperty("type", "inner");
+    newManagedAction(submenu, "selectBracketOuter", tr("Select Outer"), SLOT(selectBracket()), QKeySequence())->setProperty("type", "outer");
+    newManagedAction(submenu, "selectBracketCommand", tr("Select Command"), SLOT(selectBracket()), QKeySequence())->setProperty("type", "command");
+    newManagedAction(submenu, "selectBracketLine", tr("Select Line"), SLOT(selectBracket()), QKeySequence())->setProperty("type", "line");
+    newManagedAction(submenu, "generateInvertedBracketMirror", tr("Select Inverting"), SLOT(generateBracketInverterMirror()), QKeySequence());
 
     submenu->addSeparator();
-    newManagedAction(submenu, "findMissingBracket", tr("Find Mismatch"), SLOT(findMissingBracket()), QKeySequence(QKeyCombination(Qt::SHIFT | Qt::CTRL , Qt::Key_P), QKeyCombination(Qt::Key_M)));
+    newManagedAction(submenu, "findMissingBracket", tr("Find Mismatch"), SLOT(findMissingBracket()), QKeySequence());
 #else
-    newManagedAction(submenu, "jump", tr("Jump to Match"), SLOT(jumpToBracket()), QKeySequence(Qt::SHIFT | Qt::CTRL | Qt::Key_P, Qt::Key_J));
-    newManagedAction(submenu, "selectBracketInner", tr("Select Inner"), SLOT(selectBracket()), QKeySequence(Qt::SHIFT | Qt::CTRL | Qt::Key_P, Qt::Key_I))->setProperty("type", "inner");
-    newManagedAction(submenu, "selectBracketOuter", tr("Select Outer"), SLOT(selectBracket()), QKeySequence(Qt::SHIFT | Qt::CTRL | Qt::Key_P, Qt::Key_O))->setProperty("type", "outer");
-    newManagedAction(submenu, "selectBracketCommand", tr("Select Command"), SLOT(selectBracket()), QKeySequence(Qt::SHIFT | Qt::CTRL | Qt::Key_P, Qt::Key_C))->setProperty("type", "command");
-    newManagedAction(submenu, "selectBracketLine", tr("Select Line"), SLOT(selectBracket()), QKeySequence(Qt::SHIFT | Qt::CTRL |Qt::Key_P, Qt::Key_L))->setProperty("type", "line");
-    newManagedAction(submenu, "generateInvertedBracketMirror", tr("Select Inverting"), SLOT(generateBracketInverterMirror()), QKeySequence(QKeySequence(Qt::SHIFT | Qt::CTRL | Qt::Key_P, Qt::Key_S)));
+    newManagedAction(submenu, "jump", tr("Jump to Match"), SLOT(jumpToBracket()), QKeySequence());
+    newManagedAction(submenu, "selectBracketInner", tr("Select Inner"), SLOT(selectBracket()), QKeySequence())->setProperty("type", "inner");
+    newManagedAction(submenu, "selectBracketOuter", tr("Select Outer"), SLOT(selectBracket()), QKeySequence())->setProperty("type", "outer");
+    newManagedAction(submenu, "selectBracketCommand", tr("Select Command"), SLOT(selectBracket()), QKeySequence())->setProperty("type", "command");
+    newManagedAction(submenu, "selectBracketLine", tr("Select Line"), SLOT(selectBracket()), QKeySequence())->setProperty("type", "line");
+    newManagedAction(submenu, "generateInvertedBracketMirror", tr("Select Inverting"), SLOT(generateBracketInverterMirror()), QKeySequence());
 
     submenu->addSeparator();
-    newManagedAction(submenu, "findMissingBracket", tr("Find Mismatch"), SLOT(findMissingBracket()), QKeySequence(Qt::SHIFT | Qt::CTRL | Qt::Key_P, Qt::Key_M));
+    newManagedAction(submenu, "findMissingBracket", tr("Find Mismatch"), SLOT(findMissingBracket()), QKeySequence());
 #endif
 
     submenu = newManagedMenu(menu, "complete", tr("Complete"));
-    newManagedAction(submenu, "normal", tr("Normal"), SLOT(normalCompletion()), MAC_OR_DEFAULT(QKeySequence(Qt::META | Qt::Key_Space), QKeySequence(Qt::CTRL | Qt::Key_Space)));
-    newManagedAction(submenu, "environment", tr("\\begin{ Completion"), SLOT(insertEnvironmentCompletion()), QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Space));
-    newManagedAction(submenu, "text", tr("Normal Text"), SLOT(insertTextCompletion()), QKeySequence(Qt::SHIFT | Qt::ALT | Qt::Key_Space));
-    newManagedAction(submenu, "closeEnvironment", tr("Close latest open delimiter or environment"), SLOT(closeEnvironment()), QKeySequence(Qt::ALT | Qt::Key_Return));
+    newManagedAction(submenu, "normal", tr("Normal"), SLOT(normalCompletion()), QKeySequence());
+    newManagedAction(submenu, "environment", tr("\\begin{ Completion"), SLOT(insertEnvironmentCompletion()), QKeySequence());
+    newManagedAction(submenu, "text", tr("Normal Text"), SLOT(insertTextCompletion()), QKeySequence());
+    newManagedAction(submenu, "closeEnvironment", tr("Close latest open delimiter or environment"), SLOT(closeEnvironment()), QKeySequence());
 
     menu->addSeparator();
     newManagedAction(menu, "updateTOC", tr("update TOC"), SLOT(updateTOCs()));
@@ -1204,20 +1204,18 @@ void Texstudio::setupMenus()
     newManagedAction(menu, "removePlaceHolders", tr("Remove Placeholders"), SLOT(editRemovePlaceHolders()), QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_K));
     newManagedAction(menu, "removeCurrentPlaceHolder", tr("Remove Current Placeholder"), SLOT(editRemoveCurrentPlaceHolder()));
 
-    //tools
-
-
+    // tools
     menu = newManagedMenu("main/tools", tr("&Tools"));
     menu->setProperty("defaultSlot", QByteArray(SLOT(commandFromAction())));
-    newManagedAction(menu, "quickbuild", tr("&Build && View"), SLOT(commandFromAction()), (QList<QKeySequence>() << Qt::Key_F5 << Qt::Key_F1), "build")->setData(BuildManager::CMD_QUICK);
-    newManagedAction(menu, "compile", tr("&Compile"), SLOT(commandFromAction()), Qt::Key_F6, "compile")->setData(BuildManager::CMD_COMPILE);
+    newManagedAction(menu, "quickbuild", tr("&Build && View"), SLOT(commandFromAction()), QKeySequence(), "build")->setData(BuildManager::CMD_QUICK);
+    newManagedAction(menu, "compile", tr("&Compile"), SLOT(commandFromAction()), QKeySequence(), "compile")->setData(BuildManager::CMD_COMPILE);
     QAction *stopAction = new QAction(getRealIcon("stop"), tr("Stop Compile"), menu);
     connect(stopAction, SIGNAL(triggered()), &buildManager, SLOT(killCurrentProcess()));
     newManagedAction(menu, "stopcompile", stopAction)->setEnabled(false);
     connect(&buildManager,SIGNAL(buildRunning(bool)),this,SLOT(setBuildButtonsDisabled(bool)));
-    newManagedAction(menu, "view", tr("&View"), SLOT(commandFromAction()), Qt::Key_F7, "viewer")->setData(BuildManager::CMD_VIEW);
-    newManagedAction(menu, "bibtex", tr("&Bibliography"), SLOT(commandFromAction()), Qt::Key_F8)->setData(BuildManager::CMD_BIBLIOGRAPHY);
-    newManagedAction(menu, "glossary", tr("&Glossary"), SLOT(commandFromAction()), Qt::Key_F9)->setData(BuildManager::CMD_GLOSSARY);
+    newManagedAction(menu, "view", tr("&View"), SLOT(commandFromAction()), QKeySequence(), "viewer")->setData(BuildManager::CMD_VIEW);
+    newManagedAction(menu, "bibtex", tr("&Bibliography"), SLOT(commandFromAction()), QKeySequence())->setData(BuildManager::CMD_BIBLIOGRAPHY);
+    newManagedAction(menu, "glossary", tr("&Glossary"), SLOT(commandFromAction()), QKeySequence())->setData(BuildManager::CMD_GLOSSARY);
     newManagedAction(menu, "index", tr("&Index"), SLOT(commandFromAction()))->setData(BuildManager::CMD_INDEX);
 
     menu->addSeparator();
@@ -1271,8 +1269,8 @@ void Texstudio::setupMenus()
     newManagedAction(menu, "connectCollabServer", tr("Connect to other user for collaboration"), SLOT(connectCollabServer()));
     newManagedAction(menu, "disconnectCollabServer", tr("Disconnect from collaboration"), SLOT(disconnectCollabServer()));
     menu->addSeparator();
-    newManagedAction(menu, "spelling", tr("Check Spelling..."), SLOT(editSpell()), MAC_OR_DEFAULT(Qt::CTRL | Qt::SHIFT | Qt::Key_F7, Qt::CTRL | Qt::Key_Colon));
-    newManagedAction(menu, "thesaurus", tr("Thesaurus..."), SLOT(editThesaurus()), Qt::CTRL | Qt::SHIFT | Qt::Key_F8);
+    newManagedAction(menu, "spelling", tr("Check Spelling..."), SLOT(editSpell()), QKeySequence());
+    newManagedAction(menu, "thesaurus", tr("Thesaurus..."), SLOT(editThesaurus()), QKeySequence());
     newManagedAction(menu, "wordrepetions", tr("Find Word Repetitions..."), SLOT(findWordRepetions()));
 
     //  Latex/Math external
@@ -1280,8 +1278,8 @@ void Texstudio::setupMenus()
     // add some additional items
     menu = newManagedMenu("main/latex", tr("&LaTeX"));
     menu->setProperty("defaultSlot", QByteArray(SLOT(insertFromAction())));
-    newManagedAction(menu, "insertrefnextlabel", tr("Insert \\ref to Next Label"), SLOT(editInsertRefToNextLabel()), filterLocaleShortcut(Qt::ALT | Qt::CTRL | Qt::Key_R));
-    newManagedAction(menu, "insertrefprevlabel", tr("Insert \\ref to Previous Label"), SLOT(editInsertRefToPrevLabel()));
+    newManagedAction(menu, "insertrefnextlabel", tr("Insert \\ref to Next Label"), SLOT(editInsertRefToNextLabel()), QKeySequence());
+    newManagedAction(menu, "insertrefprevlabel", tr("Insert \\ref to Previous Label"), SLOT(editInsertRefToPrevLabel()), QKeySequence());
     submenu = newManagedMenu(menu, "tabularmanipulation", tr("Manipulate Tables", "table"));
     newManagedAction(submenu, "addRow", tr("Add Row", "table"), SLOT(addRowCB()), QKeySequence(), "addRow");
     newManagedAction(submenu, "addColumn", tr("Add Column", "table"), SLOT(addColumnCB()), QKeySequence(), "addCol");
@@ -1302,8 +1300,8 @@ void Texstudio::setupMenus()
 
     menu = newManagedMenu("main/math", tr("&Math"));
     menu->setProperty("defaultSlot", QByteArray(SLOT(insertFromAction())));
-    //wizards
 
+    // wizards
     menu = newManagedMenu("main/wizards", tr("&Wizards"));
     newManagedAction(menu, "start", tr("Quick &Start..."), SLOT(quickDocument()));
     newManagedAction(menu, "beamer", tr("Quick &Beamer Presentation..."), SLOT(quickBeamer()));
@@ -1375,14 +1373,14 @@ void Texstudio::setupMenus()
 
     //---view---
     menu = newManagedMenu("main/view", tr("&View"));
-    newManagedAction(menu, "prevdocument", tr("Previous Document"), SLOT(gotoPrevDocument()), QList<QKeySequence>() << QKeySequence(Qt::CTRL | Qt::Key_PageUp) << MAC_OR_DEFAULT(QKeySequence(Qt::META  | Qt::SHIFT | Qt::Key_Tab),QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_Tab)));
-    newManagedAction(menu, "nextdocument", tr("Next Document"), SLOT(gotoNextDocument()), QList<QKeySequence>() << QKeySequence(Qt::CTRL | Qt::Key_PageDown) << MAC_OR_DEFAULT(QKeySequence(Qt::META | Qt::Key_Tab),QKeySequence(Qt::CTRL | Qt::Key_Tab)));
+    newManagedAction(menu, "prevdocument", tr("Previous Document"), SLOT(gotoPrevDocument()), QKeySequence(Qt::CTRL | Qt::Key_PageUp));
+    newManagedAction(menu, "nextdocument", tr("Next Document"), SLOT(gotoNextDocument()), QKeySequence(Qt::CTRL | Qt::Key_PageDown));
     newManagedMenu(menu, "documents", tr("Open Documents"));
     newManagedAction(menu, "documentlist", tr("List Of Open Documents"), SLOT(viewDocumentList()));
     newManagedAction(menu, "documentlisthidden", tr("List Of Hidden Documents"), SLOT(viewDocumentListHidden()));
 
     newManagedAction(menu, "focuseditor", tr("Focus Editor"), SLOT(focusEditor()), QList<QKeySequence>() << QKeySequence(Qt::ALT | Qt::CTRL | Qt::Key_Left));
-    newManagedAction(menu, "focusviewer", tr("Focus Viewer"), SLOT(focusViewer()), QList<QKeySequence>() << QKeySequence(Qt::ALT | Qt::CTRL | Qt::Key_Right));
+    newManagedAction(menu, "focusviewer", tr("Focus Viewer"), SLOT(focusViewer()), QKeySequence());
 
     menu->addSeparator();
     submenu = newManagedMenu(menu, "show", tr("Show"));
@@ -1450,11 +1448,11 @@ void Texstudio::setupMenus()
 
     menu->addSeparator();
     submenu = newManagedMenu(menu, "editorZoom", tr("Editor Zoom"));
-    newManagedEditorAction(submenu, "zoomIn", tr("Zoom In"), "zoomIn", QKeySequence(Qt::CTRL | Qt::Key_Plus));
-    newManagedEditorAction(submenu, "zoomOut", tr("Zoom Out"), "zoomOut", QKeySequence(Qt::CTRL | Qt::Key_Minus));
-    newManagedEditorAction(submenu, "resetZoom", tr("Reset Zoom"), "resetZoom", QKeySequence(Qt::CTRL | Qt::Key_0));
+    newManagedEditorAction(submenu, "zoomIn", tr("Zoom In"), "zoomIn", QKeySequence());
+    newManagedEditorAction(submenu, "zoomOut", tr("Zoom Out"), "zoomOut", QKeySequence());
+    newManagedEditorAction(submenu, "resetZoom", tr("Reset Zoom"), "resetZoom", QKeySequence());
 
-    fullscreenModeAction = newManagedAction(menu, "fullscreenmode", tr("Full &Screen"), nullptr, QKeySequence::FullScreen);
+    fullscreenModeAction = newManagedAction(menu, "fullscreenmode", tr("Full &Screen"), nullptr, QKeySequence());
 
     fullscreenModeAction->setCheckable(true);
     connectUnique(fullscreenModeAction, SIGNAL(toggled(bool)), this, SLOT(setFullScreenMode()));
@@ -1574,7 +1572,7 @@ void Texstudio::setCheckedPreviewModeAction()
             getManagedAction("main/edit2/previewMode/PM_EMBEDDED")->setChecked(true);
             break;
 #endif
-        default:    // PM_INLINE
+        default: // PM_INLINE
             getManagedAction("main/edit2/previewMode/PM_INLINE")->setChecked(true);
     }
 }
@@ -2279,7 +2277,7 @@ LatexEditorView *Texstudio::load(const QString &f , bool asProject, bool recheck
             doc->startSyntaxChecker();
             existingView->editor->setLineWrapping(configManager.editorConfig->wordwrap > 0);
             documents.deleteDocument(existingView->document, true);
-            existingView->editor->setSilentReloadOnExternalChanges(existingView->document->remeberAutoReload);
+            existingView->editor->setSilentReloadOnExternalChanges(existingView->document->rememberAutoReload);
             existingView->editor->setHidden(false);
             documents.addDocument(existingView->document, false);
             editors->addEditor(existingView);
@@ -3243,7 +3241,7 @@ void Texstudio::fileUtilCopyMasterFileName()
 
 void Texstudio::fileClose()
 {
-    if (!currentEditorView())    return;
+    if (!currentEditorView()) return;
     bookmarks->updateBookmarks(currentEditorView());
     QFileInfo fi = currentEditorView()->document->getFileInfo();
 
@@ -4088,8 +4086,8 @@ void Texstudio::editEraseWordCmdEnv()
     // If the case |\cmd is encountered, we shift the
     // cursor by one to \|cmd so the regular erase approach works.
     int col = cursor.columnNumber();
-    if ((col < line.size())                        // not at end of line
-            && (line.at(col) == '\\')                    // likely a command/env - check further
+    if ((col < line.size())                                 // not at end of line
+            && (line.at(col) == '\\')                       // likely a command/env - check further
             && (col == 0 || line.at(col - 1).isSpace()))    // cmd is at start or previous char is space: non-ambiguous situation like word|\cmd
         // don't need to finally check for command |\c should be handled like \|c for any c (even space and empty)
     {
@@ -4527,8 +4525,8 @@ void Texstudio::editTextToTitlecase(bool smart)
     eng->setEditorView(currentEditorView());
     QString script =
         "/* \n" \
-        "    * To Title Case 2.1  http://individed.com/code/to-title-case/ \n" \
-        "    * Copyright © 20082013 David Gouch. Licensed under the MIT License.\n" \
+        "* To Title Case 2.1  http://individed.com/code/to-title-case/ \n" \
+        "* Copyright © 20082013 David Gouch. Licensed under the MIT License.\n" \
         "*/ \n" \
         "toTitleCase = function(text){\n" \
         "var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\\.?|via)$/i;\n" \
@@ -4999,7 +4997,7 @@ void Texstudio::editRemoveCurrentPlaceHolder()
 //////////TAGS////////////////
 void Texstudio::normalCompletion()
 {
-    if (!currentEditorView())    return;
+    if (!currentEditorView()) return;
 
     QString command;
     const QDocumentCursor c = currentEditorView()->editor->cursor();
@@ -5246,7 +5244,7 @@ void Texstudio::normalCompletion()
 
 void Texstudio::insertEnvironmentCompletion()
 {
-    if (!currentEditorView())    return;
+    if (!currentEditorView()) return;
     if (mCompleterNeedsUpdate) updateCompleter();
     QDocumentCursor c = currentEditorView()->editor->cursor();
     if (c.hasSelection()) {
@@ -5456,7 +5454,7 @@ void Texstudio::insertSymbol(const QString &text)
 
 void Texstudio::insertXmlTag(QListWidgetItem *item)
 {
-    if (!currentEditorView())    return;
+    if (!currentEditorView()) return;
     if (item  && !item->font().bold()) {
         QString code = item->data(Qt::UserRole).toString();
         QDocumentCursor c = currentEditorView()->editor->cursor();
@@ -5504,9 +5502,9 @@ void Texstudio::callToolButtonAction()
 void Texstudio::insertFromAction()
 {
     LatexEditorView *edView = currentEditorView();
-    if (!edView)    return;
+    if (!edView) return;
     QAction *action = qobject_cast<QAction *>(sender());
-    if (action)    {
+    if (action) {
         if (completer->isVisible())
             completer->close();
         execMacro(Macro::fromTypedTag(action->data().toString()), MacroExecContext(), true);
@@ -5525,8 +5523,8 @@ void Texstudio::insertTextFromAction()
 void Texstudio::insertFromTagList(QListWidgetItem *item)
 {
     LatexEditorView *edView = currentEditorView();
-    if (!edView)    return;
-    if (item)    {
+    if (!edView) return;
+    if (item) {
         if (completer->isVisible())
             completer->close();
         execMacro(Macro::fromTypedTag(item->data(Qt::UserRole).toString()), MacroExecContext(), true);
@@ -5536,7 +5534,7 @@ void Texstudio::insertFromTagList(QListWidgetItem *item)
 
 void Texstudio::insertBib()
 {
-    if (!currentEditorView())    return;
+    if (!currentEditorView()) return;
     //currentEditorView()->editor->viewport()->setFocus();
     QString tag;
     tag = QString("\\bibliography{");
@@ -5564,7 +5562,7 @@ void Texstudio::openFromExplorer(const QModelIndex &index)
  */
 void Texstudio::insertFromExplorer(bool )
 {
-    if ( !currentEditorView() )    return;
+    if ( !currentEditorView() ) return;
     auto index=fileView->currentIndex();
     QFileInfo fi = fileExplorerModel->fileInfo(index);
     const QString rootDir=fileExplorerModel->rootPath();
@@ -5575,7 +5573,7 @@ void Texstudio::insertFromExplorer(bool )
 
 void Texstudio::quickTabular(const QMimeData *d)
 {
-    if ( !currentEditorView() )    return;
+    if ( !currentEditorView() ) return;
     TabDialog *tabDialog = new TabDialog(this, "Tabular");
     if(d && d->hasFormat("text/plain")){
         tabDialog->insertTextIntoTable(d->text());
@@ -5594,7 +5592,7 @@ void Texstudio::quickTabular(const QMimeData *d)
 
 void Texstudio::quickArray()
 {
-    if (!currentEditorView())    return;
+    if (!currentEditorView()) return;
     ArrayDialog *arrayDlg = new ArrayDialog(this, "Array");
     if (arrayDlg->exec()) {
         insertTag(arrayDlg->getLatexText(), 0, 0);
@@ -5703,7 +5701,7 @@ void Texstudio::quickMath()
 
 void Texstudio::aiChat(const QString queryText)
 {
-    if(configManager.ai_apikey.isEmpty() && configManager.ai_provider<2){
+    if(configManager.ai_apikey.isEmpty() && configManager.ai_provider < 2){
         // message box for now, only for external ai provider
         QMessageBox::warning(this, tr("AI Chat"), tr("Please set the API key in the settings."));
         return;
@@ -5739,8 +5737,8 @@ void Texstudio::quickTabbing()
     if (!currentEditorView()) return;
     TabbingDialog *tabDlg = new TabbingDialog(this, "Tabbing");
     if (tabDlg->exec()) {
-        int    x = tabDlg->ui.spinBoxColumns->value();
-        int    y = tabDlg->ui.spinBoxRows->value();
+        int x = tabDlg->ui.spinBoxColumns->value();
+        int y = tabDlg->ui.spinBoxRows->value();
         QString s = tabDlg->ui.lineEdit->text();
         QString tag = QString("\\begin{tabbing}\n");
         for (int j = 1; j < x; j++) {
@@ -5999,7 +5997,7 @@ void Texstudio::insertRef(const QString &refCmd)
         foreach (const LatexDocument *doc, docs)
             labels << doc->labelItems();
     } else return;
-    QString listItemUseNoLabel = "<" + tr("empty") + ">";    // of course we can't insert in the document a ref to this label
+    QString listItemUseNoLabel = "<" + tr("empty") + ">"; // of course we can't insert in the document a ref to this label
     labels.sort();
     labels.prepend(listItemUseNoLabel);
     UniversalInputDialog dialog;
@@ -6720,7 +6718,7 @@ void Texstudio::webPublishSource()
 {
     if (!currentEditor()) return;
     QDocumentCursor cur = currentEditor()->cursor();
-    QString    html = currentEditor()->document()->exportAsHtml(cur.hasSelection() ? cur : QDocumentCursor(), true);
+    QString html = currentEditor()->document()->exportAsHtml(cur.hasSelection() ? cur : QDocumentCursor(), true);
     fileNew(getCurrentFileName() + ".html");
     currentEditor()->insertText(html);
     /*QLabel* htmll = new QLabel(html, this);
@@ -7937,11 +7935,7 @@ void Texstudio::setCurrentDocAsExplicitRoot()
 }
 
 ////////////////// VIEW ////////////////
-void Texstudio::gotoNextDocument()
-{
-    // TODO check: can we have managed action connecting to the Editors slot directly? Then we could remove this slot
-    editors->activateNextEditor();
-
+void updatePdfInViewer() {
     QString file = getCurrentFileName();
     qsizetype idxExt = file.lastIndexOf(".tex");
     qsizetype idxDir = file.lastIndexOf("/");
@@ -7958,25 +7952,18 @@ void Texstudio::gotoNextDocument()
     }
 }
 
+void Texstudio::gotoNextDocument()
+{
+    // TODO check: can we have managed action connecting to the Editors slot directly? Then we could remove this slot
+    editors->activateNextEditor();
+    updatePdfInViewer();
+}
+
 void Texstudio::gotoPrevDocument()
 {
     // TODO check: can we have managed action connecting to the Editors slot directly? Then we could remove this slot
     editors->activatePreviousEditor();
-
-    QString file = getCurrentFileName();
-    qsizetype idxExt = file.lastIndexOf(".tex");
-    qsizetype idxDir = file.lastIndexOf("/");
-
-    // if you switch to a file that isn't *.tex, don't do anything extra
-    if(idxExt != -1 && idxDir != -1) {
-        QString pdf = file.first(idxExt).append("pdf");
-        QString dir = file.first(idxDir);
-
-        // also don't do extra if the file you switched to has no associated .pdf
-        if(fileExists(pdf)) {
-            runInternalCommand("txs:///view-pdf", pdf);
-        }
-    }
+    updatePdfInViewer();
 }
 
 void Texstudio::gotoOpenDocument()
@@ -11282,7 +11269,7 @@ LatexDocument *Texstudio::diffLoadDocHidden(QString f)
     file.close();
 
     //if (edit->editor->fileInfo().suffix().toLower() != "tex")
-    //    m_languages->setLanguage(edit->editor, f_real);
+    // m_languages->setLanguage(edit->editor, f_real);
 
     //QTime time;
     //time.start();
