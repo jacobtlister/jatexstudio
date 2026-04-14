@@ -4785,29 +4785,22 @@ bool QDocumentCursorHandle::movePosition(int count, int op, const QDocumentCurso
 
     QDocumentLine l, l1 = m_doc->line(m_begLine), l2 = m_doc->line(m_endLine);
 
-    // selection can get killed in a bit so activeSelection was created for later possible
-    // reference. this is also the reason why the end boundary of the selection have variables
-    // declared. they only actually get initialized in the case where we are moving exactly
-    // one character right, a selection is active, and we are not keeping the selection alive
+    // selection can get killed in a bit so activeSelection was created for later possible reference
+    // this is also the reason why the end boundary of the selection have variables declared
     bool activeSelection = hasSelection();
-    int origEndLine, origEndOffset;
 
-    int origBegLine = m_begLine;
+    int origBegLine   = m_begLine;
     int origBegOffset = m_begOffset;
-    int &line = m_begLine;
+    int origEndLine   = m_endLine;
+    int origEndOffset = m_endOffset;
+
+    int &line   = m_begLine;
     int &offset = m_begOffset;
 
     static QRegularExpression rxWordStart("\\b\\w+$",QRegularExpression::UseUnicodePropertiesOption), rxWordEnd("\\w+\\b",QRegularExpression::UseUnicodePropertiesOption);
     static QRegularExpression rxWordOrCommandStart("\\\\?\\b\\w+$",QRegularExpression::UseUnicodePropertiesOption), rxWordOrCommandEnd("\\\\?\\w+\\b",QRegularExpression::UseUnicodePropertiesOption);
 
     if ( !(m & QDocumentCursor::KeepAnchor) ) {
-        // check that we are moving exactly 1 character right, a selection is active, and we are not keeping
-        // the selection alive. if all of this is true, store the end boundary of the selection for later use
-        if(count == 1 && op == QDocumentCursor::NextCharacter && activeSelection) {
-            origEndLine = m_endLine;
-            origEndOffset = m_endOffset;
-        }
-
         m_endLine = -1;
         m_endOffset = 0;
     } else if ( !l2.isValid() ) {
@@ -4890,8 +4883,10 @@ bool QDocumentCursorHandle::movePosition(int count, int op, const QDocumentCurso
             // of movement and clear the selection implementing this so that txs has parity with other software
             // (and other parts of itself!!! most non-editor text boxes in txs work like this!!!)
             else if ( count == 1 && activeSelection && !(m & QDocumentCursor::KeepAnchor) ) {
-                m_begLine = origBegLine;
-                m_begOffset = origBegOffset;
+                if(!(origBegLine < origEndLine || (origBegLine == origEndLine && origBegOffset < origEndOffset))) {
+                    m_begLine   = origEndLine;
+                    m_begOffset = origEndOffset;
+                } // this is where the end boundary of the selection gets used
 
                 return true;
             } else {
@@ -4944,14 +4939,13 @@ bool QDocumentCursorHandle::movePosition(int count, int op, const QDocumentCurso
             // of movement and clear the selection implementing this so that txs has parity with other software
             // (and other parts of itself!!! most non-editor text boxes in txs work like this!!!)
             else if ( count == 1 && activeSelection && !(m & QDocumentCursor::KeepAnchor) ) {
-                // this is where the end boundary of the selection gets used
-                m_begLine = origEndLine;
-                m_begOffset = origEndOffset;
+                if(origBegLine < origEndLine || (origBegLine == origEndLine && origBegOffset < origEndOffset)) {
+                    m_begLine   = origEndLine;
+                    m_begOffset = origEndOffset;
+                } // this is where the end boundary of the selection gets used
 
                 return true;
-            }
-
-            else {
+            } else {
                 int remaining = m_doc->line(line).length() - offset;
 
                 do {
