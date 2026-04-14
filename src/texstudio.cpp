@@ -7941,12 +7941,42 @@ void Texstudio::gotoNextDocument()
 {
 	// TODO check: can we have managed action connecting to the Editors slot directly? Then we could remove this slot
 	editors->activateNextEditor();
+
+    QString file = getCurrentFileName();
+    qsizetype idxExt = file.lastIndexOf(".tex");
+    qsizetype idxDir = file.lastIndexOf("/");
+
+    // if you switch to a file that isn't *.tex, don't do anything extra
+    if(idxExt != -1 && idxDir != -1) {
+        QString pdf = file.first(idxExt).append("pdf");
+        QString dir = file.first(idxDir);
+
+        // also don't do extra if the file you switched to has no associated .pdf
+        if(fileExists(pdf)) {
+            runInternalCommand("txs:///view-pdf", pdf);
+        }
+    }
 }
 
 void Texstudio::gotoPrevDocument()
 {
 	// TODO check: can we have managed action connecting to the Editors slot directly? Then we could remove this slot
 	editors->activatePreviousEditor();
+
+    QString file = getCurrentFileName();
+    qsizetype idxExt = file.lastIndexOf(".tex");
+    qsizetype idxDir = file.lastIndexOf("/");
+
+    // if you switch to a file that isn't *.tex, don't do anything extra
+    if(idxExt != -1 && idxDir != -1) {
+        QString pdf = file.first(idxExt).append("pdf");
+        QString dir = file.first(idxDir);
+
+        // also don't do extra if the file you switched to has no associated .pdf
+        if(fileExists(pdf)) {
+            runInternalCommand("txs:///view-pdf", pdf);
+        }
+    }
 }
 
 void Texstudio::gotoOpenDocument()
