@@ -4,10 +4,13 @@
 : <<'info'
     description
         deletes all of the files related to the current installation of
-        jatexstudio and reinstalls it. i made this to be able to quickly
-        test out changes i made to the source code
+        jatexstudio and reinstalls it
 
-        if you aren't me just use the
+        i made this to be able to quickly test out changes i made to
+        the source code
+
+        if you aren't me just use the BUILD.sh that's still in the
+        repository
 info
 
 # clean up the old installation to make way for the new one
