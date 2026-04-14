@@ -1,0 +1,318 @@
+#include "latexlogwidget.h"
+#include "encoding.h"
+#include "configmanager.h"
+#include "minisplitter.h"
+
+/*
+ * row heights of tables are quite large by default. Experimentally detect the
+ * optimal row height in a portable way by resizing to contents and getting
+ * the resulting row height
+ */
+int getOptimalRowHeight(QTableView *tableView)
+{
+	QAbstractItemModel *model = tableView->model();
+	QStandardItemModel testModel;
+	QStandardItem item("Test");
+	testModel.appendRow(&item);
+	tableView->setModel(&testModel);
+	tableView->resizeRowsToContents();
+	int height = tableView->rowHeight(0);
+	tableView->setModel(model);
+	return height;
+}
+
+LatexLogWidget::LatexLogWidget(QWidget *parent) :
+    QWidget(parent), logModel(nullptr), proxyModel(nullptr), logpresent(false), filterErrorAction(nullptr), filterWarningAction(nullptr), filterBadBoxAction(nullptr)
+{
+	logModel = new LatexLogModel(this);//needs loaded line marks
+
+	errorTable = new QTableView(this);
+	int rowHeight = getOptimalRowHeight(errorTable);
+	QFontMetrics fm(QApplication::font());
+	errorTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+	errorTable->setSelectionMode(QAbstractItemView::SingleSelection);
+	errorTable->setColumnWidth(0, UtilsUi::getFmWidth(fm, "> "));
+	errorTable->setColumnWidth(1, 20 * UtilsUi::getFmWidth(fm, "w"));
+	errorTable->setColumnWidth(2, UtilsUi::getFmWidth(fm, "WarningW"));
+	errorTable->setColumnWidth(3, UtilsUi::getFmWidth(fm, "Line WWWWW"));
+	errorTable->setColumnWidth(4, 20 * UtilsUi::getFmWidth(fm, "w"));
+	errorTable->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+	errorTable->horizontalHeader()->setSectionsMovable(true);
+    connect(errorTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(clickedOnLogModelIndex(const QModelIndex&)));
+    connect(errorTable->horizontalHeader(), SIGNAL(sectionResized(int, int, int)), this, SLOT(resizeRows()));
+
+	errorTable->setMinimumHeight(5 * rowHeight);
+	errorTable->setFrameShape(QFrame::NoFrame);
+	errorTable->setSortingEnabled(true);
+	errorTable->sortByColumn(-1,Qt::AscendingOrder);
+#if QT_VERSION >= QT_VERSION_CHECK(6,1,0)
+    errorTable->horizontalHeader()->setSortIndicatorClearable(true);
+#endif
+
+
+	proxyModel = new QSortFilterProxyModel(this);
+	proxyModel->setSourceModel(logModel);
+	errorTable->setModel(proxyModel);
+
+	QAction *act = new QAction(tr("&Copy"), errorTable);
+	connect(act, SIGNAL(triggered()), SLOT(copyRow()));
+	errorTable->addAction(act);
+	act = new QAction(tr("Copy All With Line &Numbers"), errorTable);
+	connect(act, SIGNAL(triggered()), SLOT(copyAllMessagesWithLineNumbers()));
+	errorTable->addAction(act);
+	act = new QAction(tr("Copy &All"), errorTable);
+	connect(act, SIGNAL(triggered()), SLOT(copyAllRows()));
+	errorTable->addAction(act);
+	errorTable->setContextMenuPolicy(Qt::ActionsContextMenu);
+
+	log = new LogEditor(this);
+	log->setFocusPolicy(Qt::ClickFocus);
+	log->setMinimumHeight(3 * (fm.lineSpacing() + 4));
+	log->setReadOnly(true);
+	log->setFrameShape(QFrame::NoFrame);
+	connect(log, SIGNAL(clickOnLogLine(int)), this, SLOT(gotoLogLine(int)));
+
+	QSplitter *splitter = new MiniSplitter(Qt::Vertical, this);
+	splitter->setChildrenCollapsible(false);
+	splitter->addWidget(errorTable);
+	splitter->addWidget(log);
+
+	infoLabel = new QLabel(tr("No log file available"), this);
+	infoLabel->setStyleSheet("color: black; background: #FFFBBF;");
+	infoLabel->setMargin(2);
+
+	QVBoxLayout *vLayout = new QVBoxLayout(); //contains the widgets for the normal mode (OutputTable + OutputLogTextEdit)
+	vLayout->setSpacing(0);
+#if QT_VERSION < QT_VERSION_CHECK(6,0,0)
+    vLayout->setMargin(0);
+#else
+    vLayout->setContentsMargins(0,0,0,0);
+#endif
+	vLayout->addWidget(infoLabel);
+	vLayout->addWidget(splitter);
+	setLayout(vLayout);
+
+	displayTableAction = new QAction(tr("Issues"), this);
+	displayTableAction->setCheckable(true);
+	connect(displayTableAction, SIGNAL(triggered(bool)), this, SLOT(setWidgetVisibleFromAction(bool)));
+	displayLogAction = new QAction(tr("Log File"), this);
+	displayLogAction->setCheckable(true);
+	connect(displayLogAction, SIGNAL(triggered(bool)), this, SLOT(setWidgetVisibleFromAction(bool)));
+	filterErrorAction = new QAction(getRealIcon("error"), tr("Show Error"), this);
+	filterErrorAction->setCheckable(true);
+	filterErrorAction->setChecked(true);
+	connect(filterErrorAction, SIGNAL(toggled(bool)), this, SLOT(filterChanged(bool)));
+	filterWarningAction = new QAction(getRealIcon("warning"), tr("Show Warning"), this);
+	filterWarningAction->setCheckable(true);
+	filterWarningAction->setChecked(true);
+	connect(filterWarningAction, SIGNAL(toggled(bool)), this, SLOT(filterChanged(bool)));
+	filterBadBoxAction = new QAction(getRealIcon("badbox"), tr("Show BadBox"), this);
+	filterBadBoxAction->setCheckable(true);
+	filterBadBoxAction->setChecked(true);
+	connect(filterBadBoxAction, SIGNAL(toggled(bool)), this, SLOT(filterChanged(bool)));
+
+	// initialize visibility
+	displayTableAction->setChecked(true);
+	errorTable->setVisible(true);
+	displayLogAction->setChecked(false);
+	log->setVisible(false);
+}
+
+void LatexLogWidget::resizeRows()
+{
+	this->errorTable->resizeRowsToContents();
+}
+
+bool LatexLogWidget::loadLogFile(const QString &logname, const QString &compiledFileName, QTextCodec* fallbackCodec)
+{
+	resetLog();
+	QFileInfo fi(logname);
+	if (logname.isEmpty() || !fi.exists()) {
+		setInfo(tr("Log file not found."));
+		return false;
+	}
+	if (!fi.isReadable()) {
+		setInfo(tr("Log file not readable."));
+		return false;
+	}
+
+	QFile f(logname);
+	if (f.open(QIODevice::ReadOnly)) {
+        ConfigManagerInterface *config=ConfigManagerInterface::getInstance();
+        double fileSizeLimitMB = config->getOption("LogView/WarnIfFileSizeLargerMB").toDouble();
+        UtilsUi::txsWarningState rememberChoice=static_cast<UtilsUi::txsWarningState>(config->getOption("LogView/RememberChoiceLargeFile",0).toInt());
+        if (f.size() > fileSizeLimitMB * 1024 * 1024){
+            bool result=UtilsUi::txsConfirmWarning(tr("The logfile is very large (%1 MB) are you sure you want to load it?").arg(double(f.size()) / 1024 / 1024, 0, 'f', 2),rememberChoice);
+            config->setOption("LogView/RememberChoiceLargeFile",static_cast<int>(rememberChoice));
+            if(!result)
+                return false;
+        }
+
+		QByteArray fullLog = f.readAll();
+		f.close();
+
+		int sure;
+		QTextCodec *codec = Encoding::guessEncodingBasic(fullLog, &sure);
+		if (sure < 2 || !codec) codec = fallbackCodec ? fallbackCodec : QTextCodec::codecForLocale();
+
+		log->setPlainText(codec->toUnicode(fullLog));
+
+		logModel->parseLogDocument(log->document(), compiledFileName);
+
+		logpresent = true;
+
+		errorTable->resizeColumnsToContents();
+		errorTable->horizontalHeader()->setStretchLastSection(true);
+
+		selectLogEntry(0);
+		emit logLoaded();
+		return true;
+	}
+
+	setInfo(tr("Log file not readable."));
+	return false;
+}
+
+bool LatexLogWidget::logPresent()
+{
+	return logpresent;
+}
+
+void LatexLogWidget::resetLog()
+{
+	log->clear();
+	logModel->clear();
+	logpresent = false;
+	setInfo("");
+	emit logResetted();
+}
+
+bool LatexLogWidget::logEntryNumberValid(int logEntryNumber)
+{
+	return logEntryNumber >= 0 && logEntryNumber < logModel->count();
+}
+
+void LatexLogWidget::selectLogEntry(int logEntryNumber)
+{
+	if (!logEntryNumberValid(logEntryNumber)) return;
+	QModelIndex index = proxyModel->mapFromSource(logModel->index(logEntryNumber, 1));
+	errorTable->scrollTo(index, QAbstractItemView::PositionAtCenter);
+	//errorTable->selectRow(logEntryNumber);
+	errorTable->selectRow(index.row());
+	log->setCursorPosition(logModel->at(logEntryNumber).logline, 0);
+}
+
+void LatexLogWidget::copy()
+{
+	if (log->isVisible())
+		log->copy();
+	else
+		copyRow();
+}
+
+// TODO what is this for?
+void LatexLogWidget::gotoLogEntry(int logEntryNumber)
+{
+	if (!logEntryNumberValid(logEntryNumber)) return;
+	//select entry in table view/log
+	//OutputTable->scrollTo(logModel->index(logEntryNumber,1),QAbstractItemView::PositionAtCenter);
+	//OutputLogTextEdit->setCursorPosition(logModel->at(logEntryNumber).logline, 0);
+	selectLogEntry(logEntryNumber);
+	//notify editor
+	emit logEntryActivated(logEntryNumber);
+}
+
+void LatexLogWidget::clickedOnLogModelIndex(const QModelIndex &index)
+{
+	QModelIndex idx = proxyModel->mapToSource(index);
+	gotoLogEntry(idx.row());
+}
+
+void LatexLogWidget::gotoLogLine(int logLine)
+{
+	gotoLogEntry(logModel->logLineNumberToLogEntryNumber(logLine));
+}
+
+void LatexLogWidget::copyRow()
+{
+	QModelIndex curMessage = proxyModel->mapToSource(errorTable->currentIndex());
+	if (!curMessage.isValid()) return;
+	copyRowsWithColumnRange(curMessage.row(),1,0,3);
+}
+
+void LatexLogWidget::copyAllMessagesWithLineNumbers()
+{
+	copyRowsWithColumnRange(0,logModel->count(),2,3);
+}
+
+void LatexLogWidget::copyAllRows()
+{
+	copyRowsWithColumnRange(0,logModel->count(),0,3);
+}
+
+void LatexLogWidget::copyRowsWithColumnRange(int firstRow, int rows, int first, int last)
+{
+	QStringList result;
+	for (int i = firstRow; i < firstRow + rows; i++) {
+		QString columns;
+		for (int j = first; j < last; j++) {
+			columns += logModel->data(logModel->index(i, j), Qt::DisplayRole).toString() + ": ";
+		}
+		result << columns + logModel->data(logModel->index(i, last), Qt::DisplayRole).toString();
+	}
+	REQUIRE(QApplication::clipboard());
+	QApplication::clipboard()->setText(result.join("\n"));
+}
+
+void LatexLogWidget::setWidgetVisibleFromAction(bool visible)
+{
+	QAction *act = qobject_cast<QAction *>(sender());
+	if (act == displayTableAction) {
+		errorTable->setVisible(visible);
+		if (!visible && !log->isVisible()) {
+			displayLogAction->setChecked(true); // fallback, one widget should always be visible
+			log->setVisible(true);
+		}
+	} else if (act == displayLogAction) {
+		log->setVisible(visible);
+		if (!visible && !errorTable->isVisible()) {
+			displayTableAction->setChecked(true);  // fallback, one widget should always be visible
+			errorTable->setVisible(true);
+		}
+	}
+}
+
+void LatexLogWidget::setInfo(const QString &message)
+{
+	infoLabel->setText(message);
+	infoLabel->setVisible(!message.isEmpty());
+}
+
+QList<QAction *> LatexLogWidget::displayActions()
+{
+	QList<QAction *> result;
+	QAction *sep1 = new QAction(this);
+	sep1->setSeparator(true);
+	QAction *sep2 = new QAction(this);
+	sep2->setSeparator(true);
+	result << displayLogAction << displayTableAction << sep1 << filterErrorAction << filterWarningAction << filterBadBoxAction << sep2;
+	return result;
+}
+
+void LatexLogWidget::filterChanged(bool )
+{
+	QStringList lst;
+	if (filterErrorAction && filterErrorAction->isChecked())
+		lst << logModel->returnString(LT_ERROR);
+	if (filterWarningAction && filterWarningAction->isChecked())
+		lst << logModel->returnString(LT_WARNING);
+	if (filterBadBoxAction && filterBadBoxAction->isChecked())
+		lst << logModel->returnString(LT_BADBOX);
+	QString rg = lst.join("|");
+#if QT_VERSION>=QT_VERSION_CHECK(5,12,0)
+    proxyModel->setFilterRegularExpression(rg);
+#else
+    proxyModel->setFilterRegExp(rg);
+#endif
+	proxyModel->setFilterKeyColumn(1);
+}

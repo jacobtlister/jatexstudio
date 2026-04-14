@@ -1,0 +1,1204 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Background information" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="background.html" />
+<meta property="og:site_name" content="TeXstudio" />
+<meta property="og:description" content="About documents separated into several files: LaTeX documents may be spread over multiple files. TeXstudio automatically understands parent/child relations of loaded documents. This includes the de..." />
+<meta name="description" content="About documents separated into several files: LaTeX documents may be spread over multiple files. TeXstudio automatically understands parent/child relations of loaded documents. This includes the de..." />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="CHANGELOG" href="CHANGELOG.html"><link rel="prev" title="Configuring TeXstudio" href="configuration.html">
+        <link rel="prefetch" href="_static/texstudio128x128.webp" as="image">
+
+    <link rel="shortcut icon" href="_static/texstudio.ico"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Background information - TeXstudio 4.9.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">TeXstudio 4.9.3 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="_static/texstudio128x128.webp" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">TeXstudio 4.9.3 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editing.html">Editing a TeX document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling a document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viewing.html">Viewing a document (pdf)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuring TeXstudio</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Background information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">CHANGELOG</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="background-information">
+<h1>Background information<a class="headerlink" href="#background-information" title="Link to this heading">¶</a></h1>
+<!--
+ini file / reset to default
+profile 
+-->
+<section id="about-documents-separated-into-several-files">
+<h2>About documents separated into several files<a class="headerlink" href="#about-documents-separated-into-several-files" title="Link to this heading">¶</a></h2>
+<p>LaTeX documents may be spread over multiple files. TeXstudio
+automatically understands parent/child relations of loaded documents.
+This includes the detection of the root document and knowledge of
+defined labels and commands.</p>
+<section id="root-document">
+<h3>Root Document<a class="headerlink" href="#root-document" title="Link to this heading">¶</a></h3>
+<p>The root document is the topmost file in a multi-file document. For a
+single-file document, this is the file itself. By default, all calls to
+LaTeX will be performed on the root document, except if a class <code class="docutils literal notranslate"><span class="pre">subfiles</span></code> is used. Then the next higher file with that document class is compiled.</p>
+<p>TeXstudio automatically detects the root document. If that does not
+work, you can place a magic comment <code class="docutils literal notranslate"><span class="pre">%</span> <span class="pre">!TeX</span> <span class="pre">root</span> <span class="pre">=</span> <span class="pre">root-filename</span></code> at the
+top of your included files.</p>
+<p>As a last resort, you may set an <em>explicit root document</em> via
+<code class="docutils literal notranslate"><span class="pre">Options</span> <span class="pre">-&gt;</span> <span class="pre">Root</span> <span class="pre">Document</span> <span class="pre">-&gt;</span> <span class="pre">Set</span> <span class="pre">Current</span> <span class="pre">Document</span> <span class="pre">As</span> <span class="pre">Explicit</span> <span class="pre">Root</span></code>.
+This setting takes absolute precedence. All the commands of the
+“Tools” menu will be called on this document (to be more precise, the
+build system will expand the placeholder <code class="docutils literal notranslate"><span class="pre">%</span></code> to the root document), no
+matter which document is active in the editor. Additionally, labels and
+user commands which are defined in any open document, can be used for
+completion in any open document.</p>
+<p>In earlier versions, the <em>explicit root document</em> was somewhat
+misleadingly called <em>master document</em>.</p>
+</section>
+<section id="loaded-documents">
+<h3>Loaded Documents<a class="headerlink" href="#loaded-documents" title="Link to this heading">¶</a></h3>
+<p>Obviously, TeXstudio can only use information (defined commands, labels,
+document hierarchy, etc.) that it is aware of. We use the information in
+all opened files, but if a label in a multi-file document is defined in
+a not-loaded file, TeXstudio does not know about it and will mark it as
+missing in references. To remedy this, you can just open the
+corresponding file as well.</p>
+<p>TeXstudio has an advanced option
+<code class="docutils literal notranslate"><span class="pre">Editor</span> <span class="pre">-&gt;</span> <span class="pre">Automatically</span> <span class="pre">load</span> <span class="pre">included</span> <span class="pre">files</span></code>.
+TeXstudio will automatically load and parse all files of
+multi-file documents as soon as one of the files is opened. You may have
+to set the magic comment <code class="docutils literal notranslate"><span class="pre">%</span> <span class="pre">!TeX</span> <span class="pre">root</span> <span class="pre">=</span> <span class="pre">root-filename</span></code> if you do not
+have the root document open. With this option enabled, TeXstudio will
+always know about your complete document and act accordingly when
+performing highlighting or completion.</p>
+<p>The option <code class="docutils literal notranslate"><span class="pre">Editor</span> <span class="pre">-&gt;</span> <span class="pre">Cache</span> <span class="pre">documents</span> <span class="pre">for</span> <span class="pre">faster</span> <span class="pre">reopening</span></code> lets TeXstudio store important information about opened files on the disk.
+If the files are reopened, it uses the cached information to speed up loading. Only if a file is explicitly opened in a tab does TeXstudio load the complete file from disk.
+In cached files, TeXstudio does not search, e.g., with find usages or find in project. The preview for labels does not work if the label is defined in a cached file. If that functionality is important for you, deactivate caching or explicitly load the files when needed.</p>
+</section>
+</section>
+<section id="overview-of-texstudio-command-line-options">
+<h2>Overview of TeXstudio command-line options<a class="headerlink" href="#overview-of-texstudio-command-line-options" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">texstudio</span> <span class="pre">file</span> <span class="pre">[--config</span> <span class="pre">DIR]</span> <span class="pre">[--root]</span> <span class="pre">[--line</span> <span class="pre">xx[:cc]]</span> <span class="pre">[--insert-cite</span> <span class="pre">citation]</span> <span class="pre">[--start-always]</span> <span class="pre">[--pdf-viewer-only]</span> <span class="pre">[--page</span> <span class="pre">yy]</span> <span class="pre">[--no-session]</span></code></p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>option</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--config</span> <span class="pre">DIR</span></code></p></td>
+<td><p>use the specified settings directory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--ini-file</span> <span class="pre">FILE</span></code></p></td>
+<td><p><em>deprecated</em>: use <code class="docutils literal notranslate"><span class="pre">--config</span></code> instead.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--texpath</span></code></p></td>
+<td><p>option to specify a path to search for the TeX binaries</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--root</span></code></p></td>
+<td><p>defines the document as <em>explicit root document</em> (formerly called <em>master document</em>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--master</span></code></p></td>
+<td><p><em>deprecated</em>: use <code class="docutils literal notranslate"><span class="pre">--root</span></code> instead.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--line</span> <span class="pre">xx[:cc]</span></code></p></td>
+<td><p>position the cursor at line LINE and column COL, e.g. “–line 2:5” will jump to column 5 in line 2.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--insert-cite</span> <span class="pre">citation</span></code></p></td>
+<td><p>pushes a bibtex key to TeXstudio, that will be inserted at the cursor position. This is intended as an interface for external bibliography managers to push citations to TeXstudio. You may either pass an (also custom) command like \mycite{key} or just the key. In the latter case, it is expanded to \cite{key}. Also comma separated key-lists are supported. TeXstudio recognizes, if the cursor is already within a citation macro. If so, only the key is inserted at an appropriate position, otherwise the full citation command is inserted.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--start-always</span></code></p></td>
+<td><p>start a new instance, even if TXS is already running. This allows using of multiple instances.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--pdf-viewer-only</span></code></p></td>
+<td><p>run as a standalone pdf viewer without an editor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--page</span></code></p></td>
+<td><p>display a certain page in the pdf viewer</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--no-session</span></code></p></td>
+<td><p>do not load/save the session at startup/close</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Additional options only available in debug versions of TeXstudio:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>option</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-tests</span></code></p></td>
+<td><p>Prevent running any tests.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--execute-tests</span></code></p></td>
+<td><p>Force running the most common tests.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--execute-all-tests</span></code></p></td>
+<td><p>Force running all tests.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--update-translations</span></code></p></td>
+<td><p>generate file <code class="docutils literal notranslate"><span class="pre">additionaltranslation.cpp</span></code>which contains translatable string from <code class="docutils literal notranslate"><span class="pre">uiconfig.xml</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Note: The most common tests are run automatically, if there were changes
+to the executable (i.e. TXS has been compiled since the last run).
+Furthermore all tests are run once a week.</p>
+</section>
+<section id="collaborative-editing-background">
+<h2>Collaborative editing background<a class="headerlink" href="#collaborative-editing-background" title="Link to this heading">¶</a></h2>
+<p>This description assumes teamtype version 0.9. The program is currently only available for macOS and Linux.</p>
+<p>TeXstudio uses <a class="reference external" href="https://github.com/teamtype/teamtype">teamtype</a> to realize collaborative editing. The teamtype binary provides either a server which connects to other servers in order to exchange files and update information, or a “client” which connects an editor, i.e. TeXstudio, with the server.</p>
+<p>“teamtype” utilizes two types of servers: the host server, which shares its folder with the rest of the world, and guest servers, which connect to that server and copy all files to local folders.</p>
+<p>The host can be started with:
+<code class="docutils literal notranslate"><span class="pre">teamtype</span> <span class="pre">share</span></code> in the target folder.</p>
+<p>It prints a connection code for guest servers. The code can only be used for one guest; it will be regenerated after a guest has connected to it.</p>
+<p>The guest server is started with:
+<code class="docutils literal notranslate"><span class="pre">teamtype</span> <span class="pre">join</span> <span class="pre">code</span></code> in a folder which will be used to download the shared files.</p>
+<p>Editors like nvim, vscode or TeXstudio can now connect to that server by opening files in the shared folder (and automatically starting a client process to communicate with the server).</p>
+<p>TeXstudio will also start host or guest servers when told to; see <a class="reference internal" href="editing.html#collaborative-editing-pair-programming"><span class="std std-ref">collaborative editing.</span></a></p>
+</section>
+<section id="description-of-the-cwl-format">
+<h2>Description of the cwl format<a class="headerlink" href="#description-of-the-cwl-format" title="Link to this heading">¶</a></h2>
+<p>cwl stands for completion word list and is a file format originally used
+in Kile to define the commands listed in the completer. TeXstudio uses
+an extended format of cwls to include additional semantic information
+and allow for cursor and placeholder placement. It uses them for the
+following purposes:</p>
+<ul class="simple">
+<li><p>Populating the autocompletion</p></li>
+<li><p>Knowledge of the valid commands in the current document (depending
+on \usepackage statements)</p></li>
+<li><p>Semantic information that provides additional context in the editor;
+e.g. a \ref-like command will check for the existence of the
+referenced label</p></li>
+</ul>
+<section id="cwl-file-format">
+<h3>cwl file format<a class="headerlink" href="#cwl-file-format" title="Link to this heading">¶</a></h3>
+<p>Each line of a cwl file defines a command. Comment lines are possible
+and start with <code class="docutils literal notranslate"><span class="pre">#</span></code>. The command syntax is</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;command&gt;[#classification]</span></code></p>
+<p>If no classification is given, the command is considered valid at any
+position in a LaTeX document. The char <code class="docutils literal notranslate"><span class="pre">#</span></code> cannot be used inside a
+<code class="docutils literal notranslate"><span class="pre">command</span></code>, as it has special meaning:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#include:&lt;packagename&gt;</span></code> (at start of line): also load
+packagename.cwl. This should be used to indicate that a package
+depends on other packages.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#repl:&lt;search&gt;</span> <span class="pre">&lt;replacement&gt;</span></code> (at start of line): define a letter
+replacement, e.g. “a -&gt; ä for German. Only used for letter
+replacement in spell checking (babel)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#keyvals:&lt;command[,command,...]&gt;</span></code> (at start of line): start
+definition of keyvals for <code class="docutils literal notranslate"><span class="pre">command</span></code>, see graphicx.cwl in source
+code. To specify possible values for keys, add them after # e.g.
+<code class="docutils literal notranslate"><span class="pre">mode=#text,math</span></code><br />
+Instead of single keys/values, complete special lists can be given,
+e.g. <code class="docutils literal notranslate"><span class="pre">color=#%color</span></code>, see also tikz.cwl.<br />
+<code class="docutils literal notranslate"><span class="pre">command</span></code> can consist of two parts, e.g. \documentclass/thesis
+which is only valid when the command \documentclass uses thesis as
+argument.<br />
+If #c is added, the keyvals are only used for completion, not for
+syntax checking<br />
+If #o<em>n</em> is added (<em>n</em>&gt;=1), the keyvals are valid for argument #<em>n</em>. This applies only if multiple keyval arguments are defined for one command. Only the keyval arguments are counted from right to left, starting with 0 which does not need the <code class="docutils literal notranslate"><span class="pre">\#o0</span></code> argument.
+(see tcolorbox.cwl)<br />
+If ##L is added to a key, a length is expected as argument.<br />
+If ##l is added to a key, the argument is defining a label. (see
+listings.cwl)<br />
+If ##d is added to a key, the argument is treated same like command definition, i.e. no syntax check. (see
+listings.cwl)<br />
+If <code class="docutils literal notranslate"><span class="pre">=%&lt;text%&gt;</span></code> is added to a key, the argument is treated as text, i.e. it is spell-checked.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#endkeyvals</span></code> (at start of line): end definition of keyvals, see
+graphicx.cwl in source code</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#ifOption:&lt;option&gt;</span></code> (at start of line): the following block is only
+loaded if &lt;option&gt; was used in the usepackage command, e.g.
+\usepackage[svgnames]{color} -&gt; option=svgnames</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#endif</span></code> (at start of line): end conditional block</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#</span></code> (at start of line with the exception of <code class="docutils literal notranslate"><span class="pre">#include</span></code>, <code class="docutils literal notranslate"><span class="pre">#repl</span></code>,
+<code class="docutils literal notranslate"><span class="pre">#keyvals</span></code> or <code class="docutils literal notranslate"><span class="pre">#endkeyvals</span></code>): This line is a comment and will be
+ignored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#</span></code> (in the middle of a line): Separates the command from the
+classification</p></li>
+</ul>
+<p>cwl files should be encoded as UTF-8.</p>
+</section>
+<section id="command-format">
+<h3>Command format<a class="headerlink" href="#command-format" title="Link to this heading">¶</a></h3>
+<p>In its simplest form, the command is just a valid LaTeX expression as you
+find it in the documentation, e.g. <code class="docutils literal notranslate"><span class="pre">\section{title}</span></code>. By default, every
+option is treated as a placeholder. Alternatively, you may either
+define a stop position for the cursor by <code class="docutils literal notranslate"><span class="pre">%|</span></code> (Example:
+<code class="docutils literal notranslate"><span class="pre">\left(%|\right)</span></code>) or use <code class="docutils literal notranslate"><span class="pre">%&lt;</span> <span class="pre">%&gt;</span></code> to mark only part of an option as a
+placeholder (Example: <code class="docutils literal notranslate"><span class="pre">\includegraphics[scale=%&lt;1%&gt;]{file}</span></code>). New lines
+can be included in a command by <code class="docutils literal notranslate"><span class="pre">%\</span></code>.</p>
+<section id="argument-names">
+<h4>Argument Names<a class="headerlink" href="#argument-names" title="Link to this heading">¶</a></h4>
+<p>The argument names are visible in the completer window and, after
+completion, as placeholders in the editor. In general, you are free to
+name the arguments as you like. We encourage you to provide meaningful names
+e.g. <code class="docutils literal notranslate"><span class="pre">\parbox[position]{width}{text}</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">\parbox[arg1]{arg2}{arg3}</span></code>.</p>
+<p>There are a few argument names that have special meaning:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">text</span></code> or ends with <code class="docutils literal notranslate"><span class="pre">%text</span></code>: The spellchecker will operate inside
+this argument (by default arguments are not spellchecked).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>, ends with <code class="docutils literal notranslate"><span class="pre">%title</span></code>, <code class="docutils literal notranslate"><span class="pre">short</span> <span class="pre">title</span></code> or ends with
+<code class="docutils literal notranslate"><span class="pre">%short</span> <span class="pre">title</span></code>: The spellchecker will operate inside this argument
+(by default arguments are not spellchecked). Furthermore the
+argument will be set in bold text (like in section).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bibid</span></code> and <code class="docutils literal notranslate"><span class="pre">keylists</span></code>: If used in a command classified as “C”.
+See the classifier description below.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cmd</span></code> and <code class="docutils literal notranslate"><span class="pre">command</span></code> or ends with <code class="docutils literal notranslate"><span class="pre">%cmd</span></code>: definition for command,
+e.g. \newcommand{cmd}. This “cmd” will considered to have no
+arguments and convey no functionality.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">def</span></code> and <code class="docutils literal notranslate"><span class="pre">definition</span></code> or ends with <code class="docutils literal notranslate"><span class="pre">%definition</span></code>: actual definition
+for command, e.g. \newcommand{cmd}{definition}. This “definition”
+will ignored for syntax check.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">args</span></code>: number of arguments for command, e.g.
+\newcommand{cmd}[args]{definition}.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">package</span></code>: package name, e.g. \usepackage{package}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">citekey</span></code>: definition of new citation key name, e.g.
+\bibitem{citekey}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">short</span> <span class="pre">title</span></code>: section name, e.g. \section[short
+title]{title}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color</span></code>: color name, e.g. \textcolor{color}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">length</span></code>, <code class="docutils literal notranslate"><span class="pre">height</span></code> or ends with <code class="docutils literal notranslate"><span class="pre">%l</span></code>: width or length
+option e.g. \abc{size%l}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cols</span></code> and <code class="docutils literal notranslate"><span class="pre">preamble</span></code>: columns definition in tabular, etc., e.g.
+\begin{tabular}{cols}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code> or ends with <code class="docutils literal notranslate"><span class="pre">%file</span></code>: file name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">URL</span></code>: URL</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">options</span></code>: package options, e.g. \usepackage[options]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imagefile</span></code>: file name of an image</p></li>
+<li><p>ends with <code class="docutils literal notranslate"><span class="pre">%todo</span></code>: The argument is highlighted as todo. Note: To add
+the element to the todo list in the structure panel, you have to
+additionally add the classifier <code class="docutils literal notranslate"><span class="pre">D</span></code>. See todonotes.cwl for an
+example.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">key</span></code>, <code class="docutils literal notranslate"><span class="pre">key1</span></code>, and <code class="docutils literal notranslate"><span class="pre">key2</span></code>: label/ref key</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code> with option <code class="docutils literal notranslate"><span class="pre">#r</span></code> or key ending with <code class="docutils literal notranslate"><span class="pre">%ref</span></code>: ref key</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code> with option <code class="docutils literal notranslate"><span class="pre">#l</span></code> or key ending with <code class="docutils literal notranslate"><span class="pre">%labeldef</span></code>: defines a
+label</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">labellist</span></code>: list of labels as employed by cleveref</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bib</span> <span class="pre">file</span></code> and <code class="docutils literal notranslate"><span class="pre">bib</span> <span class="pre">files</span></code>: bibliography file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">class</span></code>: document class</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">placement</span></code> and <code class="docutils literal notranslate"><span class="pre">position</span></code>: position of env</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%plain</span></code>: options ending with <code class="docutils literal notranslate"><span class="pre">%plain</span></code> are interpreted to have no
+special meaning. This way, you can e.g. define <code class="docutils literal notranslate"><span class="pre">label%plain</span></code> to have
+a placeholder named <code class="docutils literal notranslate"><span class="pre">label</span></code> without the semantics that it defines a
+label.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">beamertheme</span></code>: beamer theme, e.g. \usebeamertheme{beamertheme}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keys</span></code>, <code class="docutils literal notranslate"><span class="pre">keyvals</span></code>, <code class="docutils literal notranslate"><span class="pre">%&lt;options%&gt;</span></code> or ends with <code class="docutils literal notranslate"><span class="pre">%keyvals</span></code>: key/value
+list</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">envname</span></code>, <code class="docutils literal notranslate"><span class="pre">environment</span> <span class="pre">name</span></code> or ends with <code class="docutils literal notranslate"><span class="pre">%envname</span></code>: environment
+name for \newtheorem, e.g. \newtheorem{envname}#N (classification
+N needs to be present!)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verbatimSymbol</span></code>: verbatim argument, e.g. <code class="docutils literal notranslate"><span class="pre">\verb|%&lt;text%&gt;|</span></code> and
+<code class="docutils literal notranslate"><span class="pre">\verb{verbatimSymbol}#S</span></code> from latex-document.cwl in source code.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">formula</span></code> or ends with <code class="docutils literal notranslate"><span class="pre">%formula</span></code>: The argument is always treated as
+if in math-mode. See chemformula.cwl for an example.</p></li>
+<li><p>ends with <code class="docutils literal notranslate"><span class="pre">%special</span></code>: special argument which relates to data defined via special definition, see classifier ‘s’. The database is the text before <code class="docutils literal notranslate"><span class="pre">%</span></code>.</p></li>
+<li><p>ends with <code class="docutils literal notranslate"><span class="pre">%specialMultiArg</span></code>: like <code class="docutils literal notranslate"><span class="pre">%special</span></code>, but the argument may contain more than one element, each of which is checked individually for syntax</p></li>
+<li><p>ends with <code class="docutils literal notranslate"><span class="pre">%specialDef</span></code>: special argument which defines data for a database, see classifier ‘s’.</p></li>
+</ul>
+<p>A %-suffix takes precedence over detection by name, i.e. an argument
+<code class="docutils literal notranslate"><span class="pre">file%text</span></code> will be treated as text not as file.</p>
+</section>
+</section>
+<section id="classification-format">
+<h3>Classification format<a class="headerlink" href="#classification-format" title="Link to this heading">¶</a></h3>
+<p>The following classifications are known to TXS:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Classifier</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>*</p></td>
+<td><p>unusual command which is used for completion only in with the “all” tab. This marker may be followed by other classifications.</p></td>
+</tr>
+<tr class="row-odd"><td><p>S</p></td>
+<td><p>do not show in completer at all. This marker may be followed by other classifications.</p></td>
+</tr>
+<tr class="row-even"><td><p>M</p></td>
+<td><p>do not use this as command description.</p></td>
+</tr>
+<tr class="row-odd"><td><p>m</p></td>
+<td><p>valid only in math environment</p></td>
+</tr>
+<tr class="row-even"><td><p>t</p></td>
+<td><p>valid only in tabular environment (or similar)</p></td>
+</tr>
+<tr class="row-odd"><td><p>T</p></td>
+<td><p>valid only in tabbing environment</p></td>
+</tr>
+<tr class="row-even"><td><p>n</p></td>
+<td><p>valid only in text environment (i.e. not math env)</p></td>
+</tr>
+<tr class="row-odd"><td><p>r</p></td>
+<td><p>this command declares a reference like “\ref{key}”</p></td>
+</tr>
+<tr class="row-even"><td><p>c</p></td>
+<td><p>this command declares a citation like “\cite{key}”</p></td>
+</tr>
+<tr class="row-odd"><td><p>C</p></td>
+<td><p>this command declares a complex citation like “\textcquote{bibid}{text}”. The key needs to be given as <code class="docutils literal notranslate"><span class="pre">bibid</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>l</p></td>
+<td><p>this command declares a label like “\label{key}”</p></td>
+</tr>
+<tr class="row-odd"><td><p>L</p></td>
+<td><p>this command is a length</p></td>
+</tr>
+<tr class="row-even"><td><p>d</p></td>
+<td><p>this command declares a definition command like “\newcommand{cmd}{def}”</p></td>
+</tr>
+<tr class="row-odd"><td><p>d1</p></td>
+<td><p>this command declares a definition command like “\tcolorbox{cmd}{def}”. This commands define a new command with an automatic extra mandatory argument</p></td>
+</tr>
+<tr class="row-even"><td><p>g</p></td>
+<td><p>this command declares an include graphics command like “\includegraphics{file}”</p></td>
+</tr>
+<tr class="row-odd"><td><p>i</p></td>
+<td><p>this command declares an include file command like “\include{file}”</p></td>
+</tr>
+<tr class="row-even"><td><p>I</p></td>
+<td><p>this command declares an import file command like “\import{path}{file}”</p></td>
+</tr>
+<tr class="row-odd"><td><p>u</p></td>
+<td><p>this command declares an used package like “\usepackage{package}”</p></td>
+</tr>
+<tr class="row-even"><td><p>b</p></td>
+<td><p>this command declares a bibliography like “\bibliography{bib}”</p></td>
+</tr>
+<tr class="row-odd"><td><p>U</p></td>
+<td><p>this command declares a url command like “\url{URL}, where URL is not checked”</p></td>
+</tr>
+<tr class="row-even"><td><p>K</p></td>
+<td><p>this command declares a bracket-like command like “\big{”</p></td>
+</tr>
+<tr class="row-odd"><td><p>D</p></td>
+<td><p>this command declares a todo item (will be added to the todo list in the side panel). Note: To highlight the item in the editor, you have to additionally add the suffix <code class="docutils literal notranslate"><span class="pre">%todo</span></code>. See todonotes.cwl for an example.</p></td>
+</tr>
+<tr class="row-even"><td><p>B</p></td>
+<td><p>this command declares a color (will be used for color completion only, no syntax checking)</p></td>
+</tr>
+<tr class="row-odd"><td><p>s</p></td>
+<td><p>this command declares a special definition, the definition class is given after a “#”. The class name needs a preceding %. (e.g. %color), also see the examples below. Data is inserted again in <code class="docutils literal notranslate"><span class="pre">%special</span></code> argument or via keyvals.</p></td>
+</tr>
+<tr class="row-even"><td><p>V</p></td>
+<td><p>this command declares a verbatim-like environment “\begin{Verbatim}”</p></td>
+</tr>
+<tr class="row-odd"><td><p>N</p></td>
+<td><p>this command declares a newtheorem-like command like “\newtheorem{envname}”</p></td>
+</tr>
+<tr class="row-even"><td><p>L0 to L5</p></td>
+<td><p>this command declares a structure command. The level is between L0 (<code class="docutils literal notranslate"><span class="pre">\part</span></code>-like) down to L5 (<code class="docutils literal notranslate"><span class="pre">\subparagraph</span></code>-like). Structure commands are highlighted in the code, can be folded and appear in the structure outline.</p></td>
+</tr>
+<tr class="row-odd"><td><p>/env1,env2,…</p></td>
+<td><p>valid only in environment env1 or env2 etc.</p></td>
+</tr>
+<tr class="row-even"><td><p>\env</p></td>
+<td><p>environment alias, means that the environment is handled like the “env” environment. This is useful for env=math or tabular.</p></td>
+</tr>
+<tr class="row-odd"><td><p>beginEnv</p></td>
+<td><p>this command declares environment start command, the environment name is given after a “#”</p></td>
+</tr>
+<tr class="row-even"><td><p>endEnv</p></td>
+<td><p>this command declares environment stop command, the environment name is given after a “#”</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Examples:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">test</span></code></p></td>
+<td><p>comment</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\typein{msg}#*</span></code></p></td>
+<td><p>unusual command which is only shown in completion “all”</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\sqrt{arg}#m</span></code></p></td>
+<td><p>only in math mode valid</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\pageref{key}#r</span></code></p></td>
+<td><p>declares a reference command which is used correctly for completion</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\vector(xslope,yslope){length}#*/picture</span></code></p></td>
+<td><p>unusual command which is valid only in the picture environment</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\begin{align}#\math</span></code></p></td>
+<td><p>declares that the “align”-environment is handled like a math-env, concerning command validity and syntax highlighting!</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\definecolor{name%specialDef}{model}{color-spec}#s#%color</span></code></p></td>
+<td><p>adds <code class="docutils literal notranslate"><span class="pre">name</span></code> to the special list <code class="docutils literal notranslate"><span class="pre">%color</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\color{color%special}</span></code></p></td>
+<td><p>insert element from special list <code class="docutils literal notranslate"><span class="pre">%color</span></code> (here used as example)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\myplot{file}{label}{params}#l</span></code></p></td>
+<td><p>defines the second argument as label. Note: the argument has to be named <code class="docutils literal notranslate"><span class="pre">label</span></code> for this to work.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\myplot{file}{customname%labeldef}</span></code></p></td>
+<td><p>defines the second argument as label, but you are free to choose the name <code class="docutils literal notranslate"><span class="pre">customname</span></code> which will be used as a placeholder in the completer.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\myplot{file}{label1%labeldef}{label2%labeldef}</span></code></p></td>
+<td><p>defines the second and third arguments as labels.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\ExplSyntaxOn#beginEnv#expl3</span></code></p></td>
+<td><p>define environment start, here <code class="docutils literal notranslate"><span class="pre">%expl3</span></code> which is an internal env used to check whether expl3 commands are valid</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="cwl-guidelines">
+<h3>cwl guidelines<a class="headerlink" href="#cwl-guidelines" title="Link to this heading">¶</a></h3>
+<p>Though TeXstudio can automatically create cwls from packages, these
+autogenerated cwls do not contain meaningful argument names and no
+classification of commands. Therefore we ship hand-tuned cwls for many
+packages. We encourage users to contribute new cwl files. These should
+have the following attributes:</p>
+<ul class="simple">
+<li><p><strong>package-based:</strong> Each cwl should correspond to a package. The
+exception are some cwls containing fundamental (La)TeX commands, but
+we’ve already written them so you should not have to bother. The
+cwl should be named like the package so that automatic loading
+works. If you <code class="docutils literal notranslate"><span class="pre">\usepackage{mypackage}</span></code> TeXstudio will load
+mypackage.cwl if available.</p></li>
+<li><p><strong>complete:</strong> The cwl should contain all commands in the package. If
+you use a non-specified command in the editor, the syntax-checker
+will mark it as unknown.</p></li>
+<li><p><strong>specific:</strong> The commands should be classified if possible. This
+allows TeXstudio to give additional context to the command (e.g.
+warn if a math command is used outside of a math environment or
+check references and citations.</p></li>
+<li><p><strong>prioritized:</strong> Some packages may specify very many commands. Mark
+the unusual ones by the *-classifier to prevent the completer from
+overcrowding with rarely used commands.</p></li>
+</ul>
+</section>
+<section id="cwl-file-placement">
+<h3>cwl file placement<a class="headerlink" href="#cwl-file-placement" title="Link to this heading">¶</a></h3>
+<p>cwl files can be provided from three locations. If present, the user
+provided cwl is taken, if not built-in versions are taken. As a last
+resort, txs automatically generates cwls from latex styles, though these
+only serve to provide syntax information. Context information for
+arguments are not available and no completion hints are given.</p>
+<ul class="simple">
+<li><p><strong>%appdata%\texstudio\completion\user or
+.config/texstudio/completion/user</strong> user generated cwls</p></li>
+<li><p><strong>built-in</strong></p></li>
+<li><p><strong>%appdata%\texstudio\completion\autogenerated or
+.config/texstudio/completion/autogenerated</strong> auto-generated cwls</p></li>
+</ul>
+<p>Additionally local packages are supported, see <a class="reference internal" href="advanced.html#local-packages"><span class="std std-ref">local packages</span></a>.</p>
+</section>
+</section>
+<section id="menu-definitions">
+<h2>Menu Definitions<a class="headerlink" href="#menu-definitions" title="Link to this heading">¶</a></h2>
+<p>TeXstudio allows the user to adapt the menu, see <a class="reference internal" href="configuration.html#configuring-the-menu-advanced-option"><span class="std std-ref">how to configure the Menu</span></a>.</p>
+<p>One way of doing this is by loading a definition file via the script command <code class="docutils literal notranslate"><span class="pre">loadManagedMenu</span></code>. Its format is described here.</p>
+<p>The definition file is an xml file, general description of xml can be found on the internet.</p>
+<p>The following shows an example which redefines the “\documentclass” entry in the latex menu and the “part” entry in the submenu “Sectioning”.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;TexMakerXUI&gt;</span>
+<span class="nt">&lt;menu</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;main/latex&quot;</span><span class="w"> </span><span class="na">text=</span><span class="s">&quot;&amp;amp;LaTeX&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;insert</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;documentclass&quot;</span><span class="w"> </span><span class="na">text=</span><span class="s">&quot;\documentclass (redefined)&quot;</span><span class="w"> </span><span class="na">insert=</span><span class="s">&quot;Redefined&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;menu</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;sectioning&quot;</span><span class="w"> </span><span class="na">text=</span><span class="s">&quot;&amp;amp;Sectioning&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;insert</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;part&quot;</span><span class="w"> </span><span class="na">text=</span><span class="s">&quot;part (redefined)&quot;</span><span class="w"> </span><span class="na">insert=</span><span class="s">&quot;Redefined part&quot;</span><span class="w"> </span><span class="na">icon=</span><span class="s">&quot;part&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/menu&gt;</span>
+<span class="nt">&lt;/menu&gt;</span>
+<span class="nt">&lt;/TexMakerXUI&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;TexMakerXUI&gt;...&lt;/TexMakerXUI&gt;</span></code>: mandatory tag to enclose the actual menu definition</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;menu</span> <span class="pre">...&gt;...&lt;/menu&gt;</span></code>: define a menu/submenu. All its entries need to be set between the tags.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code> attribute: unique identifier. “main/latex” is the “LaTeX” menu. The slash <code class="docutils literal notranslate"><span class="pre">/</span></code> is the hierarchy separator. Deeper hierarchies can be directly addressed. A new <code class="docutils literal notranslate"><span class="pre">id</span></code> adds entries instead of redefining them.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">text</span></code> attribute: The text that is shown as the menu name. <code class="docutils literal notranslate"><span class="pre">&amp;amp;</span></code> marks the following character as character shortcut to reach that menu.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;insert</span> <span class="pre">...&gt;</span></code>: insert a menu entry</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code> attribute: unique identifier. Here, for example “part”. A new <code class="docutils literal notranslate"><span class="pre">id</span></code> adds entries instead of redefining them.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">text</span></code> attribute: The text that is shown as the menu entry name. <code class="docutils literal notranslate"><span class="pre">&amp;amp;</span></code> marks the following character as character shortcut to reach that entry.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">insert</span></code> attribute: text to insert. This is a normal txs macro, so a script with the header <code class="docutils literal notranslate"><span class="pre">%SCRIPT</span></code> works as well.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">icon</span></code> attribute (optional): icon file to show as icon. Usually txs internal files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shortcut</span></code> attribute (optional): define a short cut, e.g. <code class="docutils literal notranslate"><span class="pre">shortcut=&quot;Ctrl+Shift+T&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">info</span></code>attribute (optional): define a tooltip which describes the functionality of this entry.</p></li>
+</ul>
+</li>
+</ul>
+<p>The “LaTeX” and “Math” menu are mainly defined by using this method. The source can be found <a class="reference external" href="https://github.com/texstudio-org/texstudio/blob/master/uiconfig.xml">here</a>.</p>
+</section>
+<section id="the-document-template-format">
+<h2>The Document Template Format<a class="headerlink" href="#the-document-template-format" title="Link to this heading">¶</a></h2>
+<p>In its simplest form, a template is only a .tex file. Multi-file
+templates can be created by packaging all .tex files in a zip archive.
+Optionally, meta data can be stored in JSON format in a separate file
+with the same name, but extension “.json” instead of “.tex” or
+“.zip”. Currently the following entries are supported in the meta
+data:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;Name&quot;</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Book&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Author&quot;</span><span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;TXS built-in&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Date&quot;</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;04.01.2013&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Version&quot;</span><span class="w">     </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Description&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Default LaTeX class for books using separate files for each chapter.&quot;</span><span class="p">,</span>
+<span class="s2">&quot;License&quot;</span><span class="w">     </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Public Domain&quot;</span><span class="p">,</span>
+<span class="s2">&quot;FilesToOpen&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./TeX_files/chapter01.tex;main.tex&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>FilesToOpen only has an effect for multi-file documents. You may add a
+preview image next to the template file. Again, it must have the same
+name, but extension “.webp”.</p>
+</section>
+<section id="creating-table-templates">
+<h2>Creating table templates<a class="headerlink" href="#creating-table-templates" title="Link to this heading">¶</a></h2>
+<p>The templates can be defined by the user as well. They have to be place
+in the config directory (Linux: ~/.config/texstudio) and need to named
+after the scheme tabletemplate_<em>name</em>.js.</p>
+<p>Meta data is used to provide additional information for the template. It
+can be stored in a <code class="docutils literal notranslate"><span class="pre">metaData</span></code> object in the source code. The code
+<code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">metaData</span> <span class="pre">=</span> <span class="pre">{</span></code> has to start on the first line of the file. Currently
+only string values are accepted. It is possible to use html tags for
+formatting. Example:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">metaData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="s2">&quot;Name&quot;</span><span class="w">       </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Colored rows&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Description&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Formats the table using alternate colors for rows. &lt;br&gt; &lt;code&gt;\usepackage[table]{xcolor}&lt;/code&gt; is necessary.&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Author&quot;</span><span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Jan Sundermeyer&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Date&quot;</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;4.9.2011&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Version&quot;</span><span class="w">     </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The template itself is a javascript (see above) with some predefined
+variables which contain the whole table. The new table is just placed as
+replacement of the old one, using information from that variables. 3
+variables are given:</p>
+<ul class="simple">
+<li><p>def the simplified table definition without any formatting (i.e. ll
+instead of |l|l|)</p></li>
+<li><p>defSplit the table definition split by column (<code class="docutils literal notranslate"><span class="pre">array=l,l,p{2cm}</span></code>)</p></li>
+<li><p>env the actual environment name of the old table like “tabular” or
+“longtable”</p></li>
+<li><p>tab the actual table. It is a list of lines, each line is a list of
+columns which contains the cell content as string</p></li>
+</ul>
+<p>To see the principle of work, the source for the “plain_tabular”
+template is given here.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">print</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span><span class="w"> </span><span class="c1">//define this function to make source more readable</span>
+<span class="nx">cursor</span><span class="p">.</span><span class="nx">insertText</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">println</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span><span class="w"> </span><span class="c1">//define this function to make source more readable</span>
+<span class="nx">cursor</span><span class="p">.</span><span class="nx">insertText</span><span class="p">(</span><span class="nx">str</span><span class="o">+</span><span class="s2">&quot;\n&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">arDef</span><span class="o">=</span><span class="nx">def</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// split the table definition (ll -&gt; &#39;l&#39; &#39;l&#39;)</span>
+<span class="nx">println</span><span class="p">(</span><span class="s2">&quot;\\begin{tabular}{&quot;</span><span class="o">+</span><span class="nx">arDef</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;}&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">//print table env</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="o">=</span><span class="mf">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">tab</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span><span class="w">  </span><span class="c1">// loop through all rows of the table</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">line</span><span class="o">=</span><span class="nx">tab</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span><span class="w">  </span><span class="c1">// line is a list of all columns of row[i]</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">j</span><span class="o">=</span><span class="mf">0</span><span class="p">;</span><span class="nx">j</span><span class="o">&lt;</span><span class="nx">line</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">){</span><span class="w"> </span><span class="c1">// loop through all columns of a row</span>
+<span class="w">        </span><span class="nx">print</span><span class="p">(</span><span class="nx">line</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span><span class="w"> </span><span class="c1">// print cell</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="nx">j</span><span class="o">&lt;</span><span class="nx">line</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="c1">// if not last columns</span>
+<span class="w">            </span><span class="nx">print</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// print &amp;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">println</span><span class="p">(</span><span class="s2">&quot;\\\\&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// close row with \\, note that js demands for backslashes in the string</span>
+<span class="p">}</span>
+<span class="nx">println</span><span class="p">(</span><span class="s2">&quot;\\end{tabular}&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// close environment</span>
+</pre></div>
+</div>
+<p>As can be seen in the example, the table has to be rebuilt completely,
+thus allowing new formatting. A second example gives a slightly more
+elaborate table (fullyframed_firstBold):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">print</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+<span class="nx">cursor</span><span class="p">.</span><span class="nx">insertText</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">println</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+<span class="nx">cursor</span><span class="p">.</span><span class="nx">insertText</span><span class="p">(</span><span class="nx">str</span><span class="o">+</span><span class="s2">&quot;\n&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">env</span><span class="o">==</span><span class="s2">&quot;tabularx&quot;</span><span class="p">){</span>
+<span class="w">    </span><span class="nx">println</span><span class="p">(</span><span class="s2">&quot;\\begin{tabularx}{\\linewidth}{|&quot;</span><span class="o">+</span><span class="nx">defSplit</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;|}&quot;</span><span class="p">)</span>
+<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">println</span><span class="p">(</span><span class="s2">&quot;\\begin{&quot;</span><span class="o">+</span><span class="nx">env</span><span class="o">+</span><span class="s2">&quot;}{|&quot;</span><span class="o">+</span><span class="nx">defSplit</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;|}&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">println</span><span class="p">(</span><span class="s2">&quot;\\hline&quot;</span><span class="p">)</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="o">=</span><span class="mf">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">tab</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">line</span><span class="o">=</span><span class="nx">tab</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">j</span><span class="o">=</span><span class="mf">0</span><span class="p">;</span><span class="nx">j</span><span class="o">&lt;</span><span class="nx">line</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">){</span>
+<span class="w">                </span><span class="kd">var</span><span class="w"> </span><span class="nx">col</span><span class="o">=</span><span class="nx">line</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
+<span class="w">                </span><span class="kd">var</span><span class="w"> </span><span class="nx">mt</span><span class="o">=</span><span class="nx">col</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^\\textbf/</span><span class="p">);</span>
+<span class="w">                </span><span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">==</span><span class="mf">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="nx">mt</span><span class="p">)</span>
+<span class="w">                    </span><span class="nx">print</span><span class="p">(</span><span class="s2">&quot;\\textbf{&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">print</span><span class="p">(</span><span class="nx">line</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span>
+<span class="w">                </span><span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">==</span><span class="mf">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="nx">mt</span><span class="p">)</span>
+<span class="w">                    </span><span class="nx">print</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="nx">j</span><span class="o">&lt;</span><span class="nx">line</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mf">1</span><span class="p">)</span>
+<span class="w">            </span><span class="nx">print</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">println</span><span class="p">(</span><span class="s2">&quot;\\\\ \\hline&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">println</span><span class="p">(</span><span class="s2">&quot;\\end{&quot;</span><span class="o">+</span><span class="nx">env</span><span class="o">+</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="style-sheets">
+<h2>Style Sheets<a class="headerlink" href="#style-sheets" title="Link to this heading">¶</a></h2>
+<p>Qt supports modifying the appearance of an application using <a class="reference external" href="http://doc.qt.io/qt-5/stylesheet-syntax.html">style sheets</a>. You may use this
+to adapt the GUI of the main window by placing a file <code class="docutils literal notranslate"><span class="pre">stylesheet.qss</span></code>
+into the settings directory. The file is read at program startup.</p>
+<p>Please note that the style sheet may interfere with other ways of
+configuring the GUI, in particular the style color scheme and other
+options. Therefore we do not guarantee a consistent behavior when using
+style sheets</p>
+</section>
+<section id="writing-your-own-language-definitions">
+<h2>Writing your own language definitions<a class="headerlink" href="#writing-your-own-language-definitions" title="Link to this heading">¶</a></h2>
+<p>TeXstudio uses QCodeEdit as editor component. It specifies languages in
+a special xml format named QNFA. This includes highlighting, parentheses
+(for matching) and code folding. In a normal TeXstudio installation you
+won’t find any .qnfa files, because we compile the files of the
+included languages into the binary. You can add your own languages or
+overwrite the default ones by placing appropriate .qnfa files in a
+<code class="docutils literal notranslate"><span class="pre">languages</span></code> folder inside the settings directory. Definitions here take
+precedence over the builtin ones.</p>
+<p>The .qnfa file specifies the syntax of the language. The actual format
+information is specified in a .qxf file. You can either use the formats
+specified in
+<a class="reference external" href="https://github.com/texstudio-org/texstudio/tree/master/utilities/qxs">defaultFormats.qxf</a>
+or provide your own .qxf file along with the .qnfa file.</p>
+<p>You should read the <a class="reference external" href="http://texstudio.sourceforge.net/manual/qce/QNFA.html">syntax format specification</a>
+and have a look at the <a class="reference external" href="https://github.com/texstudio-org/texstudio/tree/master/utilities/qxs">formats shipped with TeXstudio</a>.</p>
+<p>Note: We expose the language specification to you as end-user to give
+you more flexibility in adapting TeXstudio to your needs. But you should
+take it as is, because we don’t have the capacity to give support here.
+It’s a powerful API, but neither polished nor fully featured. You might
+find some constructs in the shipped .qnfa files, which are not
+documented in the syntax format specification. Additionally, the
+regular-expression based formatting of QNFA is not sufficient to define
+all the highlighting we wanted for LaTeX. Therefore we have extra
+highlighting functionality directly implemented in the sourcecode for
+the “(La)TeX” language, e.g. the highlighting inside the parentheses
+of <code class="docutils literal notranslate"><span class="pre">\begin</span></code> and <code class="docutils literal notranslate"><span class="pre">\end</span></code>. You won’t be able to modify this or add it to
+other languages.</p>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h3>
+<p>The following is a small example which specifies some highlighting of
+python code:</p>
+<p>python.qnfa</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE QNFA&gt;
+&lt;QNFA language=&quot;Python&quot; extensions=&quot;py&quot; defaultLineMark=&quot;&quot;&gt;
+    &lt;sequence parenthesis=&quot;round:open&quot; parenthesisWeight=&quot;00&quot;&gt;\(&lt;/sequence&gt;
+    &lt;sequence parenthesis=&quot;round:close&quot; parenthesisWeight=&quot;00&quot;&gt;\)&lt;/sequence&gt;
+
+    &lt;!-- highlight def and function name --&gt;
+    &lt;sequence id=&quot;python/definition&quot; format=&quot;python:definition&quot;&gt;def$s?$w*&lt;/sequence&gt;
+
+    &lt;sequence id=&quot;python/number&quot; format=&quot;python:number&quot;&gt;[0-9]+&lt;/sequence&gt;
+
+    &lt;list id=&quot;python/keyword&quot; format=&quot;python:keyword&quot;&gt;
+        &lt;word&gt;return&lt;/word&gt;
+        &lt;word&gt;if&lt;/word&gt;
+        &lt;word&gt;elif&lt;/word&gt;
+        &lt;word&gt;else&lt;/word&gt;
+    &lt;/list&gt;
+&lt;/QNFA&gt;
+</pre></div>
+</div>
+<p>python.qxf</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE QXF&gt;
+&lt;QXF version=&quot;1.0&quot; &gt;
+    &lt;!-- full specification --&gt;
+    &lt;format id=&quot;python:keyword&quot; &gt;
+        &lt;bold&gt;false&lt;/bold&gt;
+        &lt;italic&gt;false&lt;/italic&gt;
+        &lt;overline&gt;false&lt;/overline&gt;
+        &lt;underline&gt;false&lt;/underline&gt;
+        &lt;strikeout&gt;false&lt;/strikeout&gt;
+        &lt;waveUnderline&gt;false&lt;/waveUnderline&gt;
+        &lt;foreground&gt;#B200FF&lt;/foreground&gt;
+    &lt;/format&gt;
+    &lt;!-- but it is sufficient to specify deviations from default --&gt;
+    &lt;format id=&quot;python:number&quot; &gt;
+        &lt;italic&gt;true&lt;/italic&gt;
+        &lt;overline&gt;false&lt;/overline&gt;
+        &lt;foreground&gt;#007F0E&lt;/foreground&gt;
+    &lt;/format&gt;
+    &lt;format id=&quot;python:definition&quot; &gt;
+        &lt;bold&gt;true&lt;/bold&gt;
+    &lt;/format&gt;
+&lt;/QXF&gt;
+</pre></div>
+</div>
+<p>The results is the following highlighting:</p>
+<p><img alt="format_example" src="_images/format_example.webp" /></p>
+</section>
+</section>
+<section id="building-texstudio">
+<h2>Building TeXstudio<a class="headerlink" href="#building-texstudio" title="Link to this heading">¶</a></h2>
+<p>TeXstudio uses <code class="docutils literal notranslate"><span class="pre">cmake</span></code> as a building system.</p>
+<p>To compile and install TeXstudio, write in a terminal:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>mkdir build
+cd build
+cmake ..
+cmake --build . --target install
+</pre></div>
+</div>
+<p>On Unix and MacOSX you can also use:
+sudo sh BUILD.sh</p>
+<p>(you only need to use sudo if you want to install it system-wide)</p>
+<p>Requirements :</p>
+<ul class="simple">
+<li><p>Qt tool kit (qt.io) (6.2+ recommended)</p></li>
+<li><p>Poppler for the internal pdf preview
+(is automatically disabled if poppler is not found)</p></li>
+</ul>
+<p>More details on building TeXstudio can be found in the <a class="reference external" href="https://github.com/texstudio-org/texstudio/wiki/Compiling">wiki</a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cmake</span></code> detects the presence of optional dependencies and builds accordingly.
+The optional dependencies are listed below.</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>dependency</p></th>
+<th class="head"><p>feature when present</p></th>
+<th class="head"><p>when not present</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>poppler-qt</p></td>
+<td><p>internal pdf viewer</p></td>
+<td><p>no pdf viewer</p></td>
+</tr>
+<tr class="row-odd"><td><p>libquazip</p></td>
+<td><p>use system libquazip</p></td>
+<td><p>build and use internal libquazip</p></td>
+</tr>
+<tr class="row-even"><td><p>hunspell</p></td>
+<td><p>use system hunspell</p></td>
+<td><p>build and use internal hunspell</p></td>
+</tr>
+<tr class="row-odd"><td><p>qtermwidget</p></td>
+<td><p>provide terminal pane</p></td>
+<td><p>no terminal pane</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>TeXstudio offers some optional features which can be turned on/off as desired.
+The change is done via cmake options, e.g. <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-DTEXSTUDIO_ENABLE_CRASH_HANDLER=OFF</span> <span class="pre">..</span></code></p>
+<p>Options:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TEXSTUDIO_ENABLE_CRASH_HANDLER</p></td>
+<td><p>on</p></td>
+<td><p>provide a crash handler</p></td>
+</tr>
+<tr class="row-odd"><td><p>TEXSTUDIO_ENABLE_CPP23_CRASH_HANDLER</p></td>
+<td><p>off</p></td>
+<td><p>provide a crash handler based on CPP23</p></td>
+</tr>
+<tr class="row-even"><td><p>TEXSTUDIO_BUILD_ADWAITA</p></td>
+<td><p>on</p></td>
+<td><p>build adwaita style</p></td>
+</tr>
+<tr class="row-odd"><td><p>TEXSTUDIO_ENABLE_TESTS</p></td>
+<td><p>off</p></td>
+<td><p>build self-tests</p></td>
+</tr>
+<tr class="row-even"><td><p>TEXSTUDIO_ENABLE_DEBUG_LOGGER</p></td>
+<td><p>off</p></td>
+<td><p>build debug logger</p></td>
+</tr>
+<tr class="row-odd"><td><p>TEXSTUDIO_ENABLE_MEDIAPLAYER</p></td>
+<td><p>off</p></td>
+<td><p>build with pdf multimedia support. Requires QtMultimedia</p></td>
+</tr>
+<tr class="row-even"><td><p>APPDATA</p></td>
+<td><p>on</p></td>
+<td><p>on linux, install texstudio.metainfo.xml</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="updating-translations">
+<h3>Updating translations<a class="headerlink" href="#updating-translations" title="Link to this heading">¶</a></h3>
+<p>With <code class="docutils literal notranslate"><span class="pre">cmake</span></code> the command <code class="docutils literal notranslate"><span class="pre">lupdate</span></code> does not work directly.
+Instead when building for qt6 a debug build (<code class="docutils literal notranslate"><span class="pre">DCMAKE_BUILD_TYPE=Debug</span></code>), a target <code class="docutils literal notranslate"><span class="pre">update_translations</span></code> is defined which needs to be called.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>build&gt;qt-cmake .. -DCMAKE<span class="nb">_</span>BUILD<span class="nb">_</span>TYPE=Debug
+build&gt;cmake --build . -t update<span class="nb">_</span>translations
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">uiconfig.xml</span></code> contains latex menu entries. They, too, can be translated.
+By running <code class="docutils literal notranslate"><span class="pre">./texstudio</span> <span class="pre">--update-translations</span></code>, the file <code class="docutils literal notranslate"><span class="pre">src/additionaltranslations.cpp</span></code> is generated which contains the translation source files.
+This file needs to be copied to <code class="docutils literal notranslate"><span class="pre">src/additionaltranslations.cpp</span></code> where it is handled like all other translatable sources, use the commands above.</p>
+</section>
+<section id="translating-manual">
+<h3>Translating manual<a class="headerlink" href="#translating-manual" title="Link to this heading">¶</a></h3>
+<p>The manual is written as markdown in <code class="docutils literal notranslate"><span class="pre">utilities/manual/source</span></code>.
+The webpage <a class="reference external" href="https://texstudio-org.github.io">https://texstudio-org.github.io</a> needs html to show the pages.
+Txs uses sphinx to translate markdown to html.
+A call of <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> in the folder <code class="docutils literal notranslate"><span class="pre">utilities/manual</span></code> calls the translator.
+The following packages are needed on ubuntu to perform the task:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>sphinx
+furo
+python3-myst-parser
+python3-sphinx-inline-tabs
+python3-sphinx-designer
+python3-sphinxex-opengraph
+</pre></div>
+</div>
+<p>Alternatively sphinx can be directly installed as python packages (make sure that they are accessible via commandline):</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>pip install sphinx furo myst-parser sphinx-inline-tabs sphinx<span class="nb">_</span>design sphinxext<span class="nb">_</span>opengraph
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="CHANGELOG.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">CHANGELOG</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="configuration.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Configuring TeXstudio</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, TeXstudio Team
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Background information</a><ul>
+<li><a class="reference internal" href="#about-documents-separated-into-several-files">About documents separated into several files</a><ul>
+<li><a class="reference internal" href="#root-document">Root Document</a></li>
+<li><a class="reference internal" href="#loaded-documents">Loaded Documents</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#overview-of-texstudio-command-line-options">Overview of TeXstudio command-line options</a></li>
+<li><a class="reference internal" href="#collaborative-editing-background">Collaborative editing background</a></li>
+<li><a class="reference internal" href="#description-of-the-cwl-format">Description of the cwl format</a><ul>
+<li><a class="reference internal" href="#cwl-file-format">cwl file format</a></li>
+<li><a class="reference internal" href="#command-format">Command format</a><ul>
+<li><a class="reference internal" href="#argument-names">Argument Names</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#classification-format">Classification format</a></li>
+<li><a class="reference internal" href="#cwl-guidelines">cwl guidelines</a></li>
+<li><a class="reference internal" href="#cwl-file-placement">cwl file placement</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#menu-definitions">Menu Definitions</a></li>
+<li><a class="reference internal" href="#the-document-template-format">The Document Template Format</a></li>
+<li><a class="reference internal" href="#creating-table-templates">Creating table templates</a></li>
+<li><a class="reference internal" href="#style-sheets">Style Sheets</a></li>
+<li><a class="reference internal" href="#writing-your-own-language-definitions">Writing your own language definitions</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-texstudio">Building TeXstudio</a><ul>
+<li><a class="reference internal" href="#updating-translations">Updating translations</a></li>
+<li><a class="reference internal" href="#translating-manual">Translating manual</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=c3838959"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/tabs.js?v=3ee01567"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    </body>
+</html>

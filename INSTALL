@@ -1,0 +1,19 @@
+
+To compile and install TeXstudio, write:
+mkdir build
+cd build
+cmake ..
+cmake --build . --target install
+
+On Unix and MacOSX you can also use:
+sudo sh BUILD.sh
+
+(you only need to use sudo if you want to install it system-wide)
+
+Requirements : 
+* Qt tool kit (qt.io) (6.2+ recommended)
+* Poppler for the internal pdf preview 
+  (is automatically disabled if poppler is not found)
+
+For details, see https://github.com/texstudio-org/texstudio/wiki/Compiling
+

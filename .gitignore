@@ -1,0 +1,35 @@
+.moc
+Makefile
+.obj
+.ui
+.vscode
+.cache
+.DS_Store
+qrc_*.cpp
+texstudio
+texstudio.pro.user
+texstudio.pri
+translation/.tx/
+.qmake.stash
+hg_revision.cpp
+src/git_revision.cpp
+cov-int/
+.qtc_clangd
+# ignore macOS compiling result
+git_revision.o
+texstudio.app/
+build*/
+symbols-ng/generate
+symbols-ng/batik*
+!utilities/manual/build/html
+!utilities/manual/build
+utilities/manual/build/html/_sources
+utilities/manual/build/html/_images/social_previews
+utilities/manual/build/html/.buildinfo*
+utilities/manual/build/html/objects.inv
+utilities/manual/build/doctrees
+symbols-ng/gesymb-ng
+symbols-ng/gesymb-ng.o
+CMakeLists.txt.user
+# personal files
+js_*

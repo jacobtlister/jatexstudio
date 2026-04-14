@@ -1,0 +1,91 @@
+if(TEXSTUDIO_BUILD_ADWAITA)
+
+    set(INC_DIRECTORIES
+        ${INC_DIRECTORIES}
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/style
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/debug
+        PARENT_SCOPE
+    )
+
+    set(SOURCE_FILES ${SOURCE_FILES}
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaanimation.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaanimations.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaanimationdata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitabaseengine.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitabusyindicatordata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitabusyindicatorengine.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitadialdata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitadialengine.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaenabledata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitagenericdata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaheaderviewdata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaheaderviewengine.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitascrollbardata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitascrollbarengine.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaspinboxengine.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaspinboxdata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitastackedwidgetdata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitastackedwidgetengine.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitatabbarengine.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitatabbardata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitatoolboxengine.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitatransitiondata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitatransitionwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitawidgetstateengine.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitawidgetstatedata.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/debug/adwaitawidgetexplorer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitaaddeventfilter.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitahelper.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitamnemonics.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitasplitterproxy.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitastyle.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitastyleplugin.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitawindowmanager.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/kstylekde4compat.cpp
+        PARENT_SCOPE
+    )
+
+    set(HEADER_FILES ${HEADER_FILES}
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitaaddeventfilter.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitadebug.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaita.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitahelper.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitamnemonics.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitasplitterproxy.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitastyle.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/adwaitawindowmanager.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/config-adwaita.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/kstylekde4compat.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaanimationdata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaanimation.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaanimations.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitabaseengine.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitabusyindicatordata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitabusyindicatorengine.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitadatamap.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitadialdata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitadialengine.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaenabledata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitagenericdata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaheaderviewdata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaheaderviewengine.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitawidgetstateengine.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitascrollbardata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitascrollbarengine.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaspinboxdata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitaspinboxengine.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitastackedwidgetdata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitastackedwidgetengine.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitatabbardata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitatabbarengine.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitatoolboxengine.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitatransitiondata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitatransitionwidget.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/animations/adwaitawidgetstatedata.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/style/debug/adwaitawidgetexplorer.h
+        PARENT_SCOPE
+    )
+
+endif()
