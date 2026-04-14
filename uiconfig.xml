@@ -9,8 +9,8 @@
   <insert id="date" text="\date{}" insert="\date{%&lt;date%|%>}" info="If used, the \date command declares the date, either with explicit arg for explicit date or with empty arg for no date. If not used, the current date will automatically be inserted by \maketitle."/>
   <insert id="maketitle" text="\maketitle" insert="\maketitle" info="This command generates a title on a separate title page%n- except in the article class, where the title normally goes at the top of the first page."/>
   <insert id="tableofcontents" text="\tableofcontents" insert="\tableofcontents" info="Put this command where you want the table of contents to go"/>
-  
-  
+
+
   <menu id="sectioning" text="&amp;Sectioning">
     <insert id="part" text="part" insert="\part{%&lt;title%>}" icon="part"/>
     <insert id="chapter" text="chapter" insert="\chapter{%&lt;title%>}" icon="chapter"/>
@@ -30,7 +30,7 @@
   </menu>
 
   <menu id="environment" text="&amp;Environments">
-    <insert id="common" text="\begin{&lt;environment>}" insert="\begin{%&lt;environment-name%:id:1%>}%\%&lt;content%:cutInsert%>%\\end{%&lt;environment-name%:id:1,mirror%>}" shortcut="Ctrl+E"/>
+    <insert id="common" text="\begin{&lt;environment>}" insert="\begin{%&lt;environment-name%:id:1%>}%\%&lt;content%:cutInsert%>%\\end{%&lt;environment-name%:id:1,mirror%>}"/>
     <insert id="center" text="\begin{center}" insert="\begin{center}%\%|%\\end{center}" icon="format-justify-center"/>
     <insert id="flushleft" text="\begin{flushleft}" insert="\begin{flushleft}%\%|%\\end{flushleft}" icon="format-justify-left"/>
     <insert id="flushright" text="\begin{flushright}" insert="\begin{flushright}%\%|%\\end{flushright}" icon="format-justify-right"/>
@@ -42,7 +42,7 @@
     <insert id="figure" text="\begin{figure}" insert="\begin{figure}%\%|%\\caption{}%\\end{figure}"/>
     <insert id="titlepage" text="\begin{titlepage}" insert="\begin{titlepage}%\%|%\\end{titlepage}"/>
   </menu>
-  
+
 
   <menu id="listenvironment" text="&amp;List Environments">
     <insert id="itemize" text="\begin{itemize}" insert="%SCRIPT&#10;
@@ -58,7 +58,7 @@
 	text=&quot;\\begin{itemize}\n&quot;+text+&quot;\\end{itemize}&quot;&#10;
 	editor.insertSnippet(text);&#10;
 	cursor.moveTo(cursor.lineNumber()-1,0);&#10;
-	cursor.movePosition(1,cursorEnums.EndOfLine );" 
+	cursor.movePosition(1,cursorEnums.EndOfLine );"
     info="The itemize environment produces a 'bulleted' list.%nEach item of an itemized list begins with an \item command." icon="itemize"/>
     <insert id="enumerate" text="\begin{enumerate}" insert="%SCRIPT&#10;
     selected = cursor.selectedText(); &#10;
@@ -86,11 +86,11 @@
     }else{&#10;
 	ins=ins+&quot; &quot;&#10;
     }&#10;
-    editor.insertSnippet(ins);&#10;" 
-    info="\item[label] Hello" icon="item" shortcut="Ctrl+Shift+I"/>
+    editor.insertSnippet(ins);&#10;"
+    info="\item[label] Hello" icon="item"/>
   </menu>
-  
-  
+
+
   <menu id="boxes" text="Boxes">
      <insert id="mbox" text="mbox" insert="\mbox{%&lt;content%>}"/>
      <insert id="makebox" text="makebox" insert="\makebox[][]{%&lt;content%>}"/>
@@ -105,16 +105,16 @@
      <insert id="minipage" text="\begin{minipage}" insert="\begin{minipage}[][][]{%&lt;width%>}%\%|%\\end{minipage}"/>
      <insert id="rule" text="rule" insert="\rule[]{%&lt;width%>}{%&lt;height%>}"/>
   </menu>
-  
-  
+
+
   <menu id="fontstyles" text="Font St&amp;yles">
-    <insert id="emph" text="Emphasis - \emph" insert="\emph{%|}" icon="font_emph48" shortcut="Ctrl+Shift+E"/>
-    <insert id="textit" text="Italics - \textit" insert="\textit{%|}" icon="font_textit48" shortcut="Ctrl+I"/>
+    <insert id="emph" text="Emphasis - \emph" insert="\emph{%|}" icon="font_emph48"/>
+    <insert id="textit" text="Italics - \textit" insert="\textit{%|}" icon="font_textit48"/>
     <insert id="textsl" text="Slanted - \textsl" insert="\textsl{%|}" icon="font_textsl48" />
-    <insert id="textbf" text="Boldface - \textbf" insert="\textbf{%|}" icon="font_textbf48" shortcut="Ctrl+B"/>
-    <insert id="texttt" text="Typewriter - \texttt" insert="\texttt{%|}" icon="font_texttt48" shortcut="Ctrl+Shift+T"/>
-    <insert id="textsc" text="Small Caps - \textsc" insert="\textsc{%|}" icon="font_textsc48" shortcut="Ctrl+Shift+C"/>
-    <insert id="textsf" text="Sans Serif - \textsf" insert="\textsf{%|}" icon="font_textsf48" shortcut="Ctrl+Shift+A"/>
+    <insert id="textbf" text="Boldface - \textbf" insert="\textbf{%|}" icon="font_textbf48"/>
+    <insert id="texttt" text="Typewriter - \texttt" insert="\texttt{%|}" icon="font_texttt48"/>
+    <insert id="textsc" text="Small Caps - \textsc" insert="\textsc{%|}" icon="font_textsc48"/>
+    <insert id="textsf" text="Sans Serif - \textsf" insert="\textsf{%|}" icon="font_textsf48"/>
     <insert id="underline" text="Underline - \underline" insert="\underline{%|}" icon="font_underline48"/>
   </menu>
 
@@ -131,7 +131,7 @@
     <insert id="Huge" text="Huge" insert="{\Huge %|}"/>
   </menu>
 
-  
+
   <menu id="tabular" text="&amp;Tabular Environment">
     <insert id="tabbing" text="\begin{tabbing}" insert="\begin{tabbing}%\%|%\\end{tabbing}" info="\begin{tabbing}%ntext \= more text \= still more text \= last text \\%nsecond row \>  \> more \\%n\end{tabbing}"/>
     <insert id="tabular" text="\begin{tabular}" insert="\begin{tabular}{%&lt;columns%>}%\%|%\\end{tabular}" info="\begin{tabular}[pos]{cols}%ncolumn 1 entry &amp; column 2 entry ... &amp; column n entry \\%n...%n\end{tabular}"/>
@@ -164,9 +164,9 @@
     <insert id="smallskip" text="\smallskip" insert="\smallskip" info="The \smallskip command adds a 'small' vertical space."/>
     <insert id="vspace" text="\vspace" insert="\vspace{%&lt;skip%>}" info="The \vspace command inserts an amount of skip (positive, zero or negative) of vertical space."/>
     <insert id="vfill" text="\vfill" insert="\vfill" info="The \vfill command inserts a rubber length which has no natural space but that can stretch vertically as far as needed."/>
-    <insert id="newline" text="New line - \\" insert="\\%\" info="The \newline command breaks the line right where it is." icon="newline" shortcut="Ctrl+Return"/>
+    <insert id="newline" text="New line - \\" insert="\\%\" info="The \newline command breaks the line right where it is." icon="newline"/>
   </menu>
-  
+
   <menu id="accents" text="International &amp;Accents">
     <insert id="1" text="\'{}" insert="\'{}" icon="accent1"/>
     <insert id="2" text="\`{}" insert="\`{}" icon="accent2"/>
@@ -215,7 +215,7 @@
   </menu>
 
   <separator/>
-  
+
   <menu id="review" text="Review remarks (changes)">
     <insert id="highlight" text="\highlight{}" insert="\highlight{%&lt;text%>}" info="\highlight{text} (changes)" icon="annotation_highlight"/>
     <insert id="comment" text="\comment{}" insert="\comment{%&lt;comment%>}" info="\comment{comment} (changes)" icon="annotation_text"/>
@@ -226,40 +226,40 @@
 
   <menu id="references" text="Cross References">
     <insert id="label" text="label" insert="\label{%&lt;key%>}" info="\label{key}"/>
-    <action id="ref" text="ref" slot="1insertRef()"/> 
-    <action id="eqref" text="eqref" slot="1insertEqRef()"/> 
-    <action id="pageref" text="pageref" slot="1insertPageRef()"/> 
+    <action id="ref" text="ref" slot="1insertRef()"/>
+    <action id="eqref" text="eqref" slot="1insertEqRef()"/>
+    <action id="pageref" text="pageref" slot="1insertPageRef()"/>
     <insert id="index" text="index" insert="\index{%&lt;key%>}"/>
     <insert id="cite" text="cite" insert="\cite{%&lt;key%>}"  info="This command generates an in-text citation to the reference associated with the ref entry in the bib file"/>
     <insert id="footnote" text="footnote" insert="\footnote{%&lt;text%|%>}" info="\footnote[number]{text}%nThe \footnote command places the numbered footnote text at the bottom of the current page."/>
   </menu>
-  
+
   <menu id="bibliographyMenu" text="Bibliography">
 	<insert id="bibliographystyle" text="\bibliographystyle{}" insert="\bibliographystyle{%|}" info="The argument to \bibliographystyle refers to a file style.bst, which defines how your citations will look"/>
-	<action id="bibliography" text="\bibliography{}" slot="1insertBib()"/> 
+	<action id="bibliography" text="\bibliography{}" slot="1insertBib()"/>
     <insert id="addbibresource" text="\addbibresource{}" insert="\addbibresource{%&lt;bibfile%>}" info="\addbibresource{bibfile} specifies the location of a resource file for biblatex such as a .bib file. The filename should contain the extension (e.g. '\addbibresource{mybibliography.bib}'). You can only add one file per \addbibresource{} command (no comma-separated lists allowed). But you can use multiple commands."/>
   </menu>
-  
+
 </menu>
 
 <menu id="main/math" text="&amp;Math">
-  
-  <insert id="mathmode" text="Inline math - $...$" insert="$%&lt; %>$" info="Math (in text style) within a paragraph of text" icon="mathmode" shortcut="Ctrl+Shift+M"/>
-  <insert id="latexmathmode" text="Inline math - \(...\)" insert="\( %| \)" info="Same as $...$ and the math environment"/>
-  <insert id="displaymath" text="Display math - \[...\]" insert="\[ %| \]" info="Math (in display style) apart from paragraph of text" shortcut="Alt+Shift+M"/>
-  <insert id="subscript" text="Subscript - _{}" insert="_{%|}" icon="subscript" shortcut="Ctrl+Shift+D"/>  
-  <insert id="superscript" text="Superscript - ^{}" insert="^{%|}"  icon="superscript" shortcut="Ctrl+Shift+U"/>  
-  <insert id="frac" text="Fraction - \frac{}{}" insert="\frac{%&lt;num%|%:translatable%>}{%&lt;den%:translatable%>}" icon="smallfrac" shortcut="Alt+Shift+F"/>    
-  <insert id="dfrac" text="Fraction - \dfrac{}{}" insert="\dfrac{%&lt;num%|%:translatable%>}{%&lt;den%:translatable%>}" info="\dfrac (amsmath) always uses display style for the fraction" icon="dfrac" shortcut="Ctrl+Shift+F"/>  
-  <insert id="sqrt" text="Square Root - \sqrt{}" insert="\sqrt{%|}" icon="sqrt" shortcut="Ctrl+Shift+Q"/>  
-  <insert id="left" text="\left" insert="\left " info="Autosize opening delimiter" shortcut="Ctrl+Shift+L"/>  
-  <insert id="right" text="\right" insert="\right " info="Autosize closing delimiter" shortcut="Ctrl+Shift+R"/>  
-  <insert id="array" text="\begin{array}...\end{array}" insert="\begin{array}{%&lt;columns%>}%\%&lt;content%|%>%\\end{array}" info="Tabular for math (used inside one of the other math environments)"/>  
 
-  
+  <insert id="mathmode" text="Inline math - $...$" insert="$%&lt; %>$" info="Math (in text style) within a paragraph of text" icon="mathmode"/>
+  <insert id="latexmathmode" text="Inline math - \(...\)" insert="\( %| \)" info="Same as $...$ and the math environment"/>
+  <insert id="displaymath" text="Display math - \[...\]" insert="\[ %| \]" info="Math (in display style) apart from paragraph of text"/>
+  <insert id="subscript" text="Subscript - _{}" insert="_{%|}" icon="subscript"/>
+  <insert id="superscript" text="Superscript - ^{}" insert="^{%|}"  icon="superscript"/>
+  <insert id="frac" text="Fraction - \frac{}{}" insert="\frac{%&lt;num%|%:translatable%>}{%&lt;den%:translatable%>}" icon="smallfrac"/>
+  <insert id="dfrac" text="Fraction - \dfrac{}{}" insert="\dfrac{%&lt;num%|%:translatable%>}{%&lt;den%:translatable%>}" info="\dfrac (amsmath) always uses display style for the fraction" icon="dfrac"/>
+  <insert id="sqrt" text="Square Root - \sqrt{}" insert="\sqrt{%|}" icon="sqrt"/>
+  <insert id="left" text="\left" insert="\left " info="Autosize opening delimiter"/>
+  <insert id="right" text="\right" insert="\right " info="Autosize closing delimiter"/>
+  <insert id="array" text="\begin{array}...\end{array}" insert="\begin{array}{%&lt;columns%>}%\%&lt;content%|%>%\\end{array}" info="Tabular for math (used inside one of the other math environments)"/>
+
+
   <menu id="equations" text="Math &amp;Equations">  // s. issue #3002 for a discussion about the tooltips
       // envs with numbers
-      <insert id="equation" text="env equation" insert="\begin{equation}%\    %&lt;eqn%>%\\end{equation}" info="Single equation centered in a row" shortcut="Ctrl+Shift+N"/>
+      <insert id="equation" text="env equation" insert="\begin{equation}%\    %&lt;eqn%>%\\end{equation}" info="Single equation centered in a row"/>
       <insert id="align" text="env align (amsmath)" insert="\begin{align}%\    %&lt;ralign%> &amp; %&lt;lalign%> \\%\    %&lt;ralign%> &amp; %&lt;lalign%>%\\end{align}" info="Multiple equations aligned within columns"/>
       <insert id="alignat" text="env alignat (amsmath)" insert="\begin{alignat}{%&lt;ncols%>}%\    %&lt;ralign%> &amp; %&lt;lalign%>  &amp; %&lt;dist%>  %&lt;ralign%> &amp; %&lt;lalign%> \\%\    %&lt;ralign%> &amp; %&lt;lalign%>  &amp;       %&lt;ralign%> &amp; %&lt;lalign%>%\\end{alignat}" info="Multiple equations aligned within columns with customizable column spacing"/>
       <insert id="flalign" text="env flalign (amsmath)" insert="\begin{flalign}%\    %&lt;ralign%> &amp; %&lt;lalign%>  &amp;  %&lt;ralign%> &amp; %&lt;lalign%> \\%\    %&lt;ralign%> &amp; %&lt;lalign%>  &amp;  %&lt;ralign%> &amp; %&lt;lalign%>%\\end{flalign}" info="Multiple equations aligned within columns having column spacing to fill full line"/>
@@ -280,9 +280,9 @@
 
       <insert id="cases" text="env cases (amsmath)" insert="\begin{cases}%\    %&lt;val1%>  &amp;  \text{%&lt;cond1%>} \\%\    %&lt;val2%>  &amp;  \text{%&lt;cond2%>}%\\end{cases}" info="Distinction of cases (within other math env)"/>
       <insert id="split" text="env split (amsmath)" insert="\begin{split}%\    %&lt;ralign%> &amp; %&lt;lalign%> \\%\           &amp; %&lt;lalign%>%\\end{split}" info="Single equation split into multiple aligned lines (within other math env)"/>
-  </menu>   
-      
-  
+  </menu>
+
+
   <menu id="functions" text="Math &amp;Functions">
     <insert id="arccos" text="\arccos" insert="\arccos "/>
     <insert id="arcsin" text="\arcsin" insert="\arcsin "/>
@@ -315,7 +315,7 @@
     <insert id="tan" text="\tan" insert="\tan "/>
     <insert id="tanh" text="\tanh" insert="\tanh "/>
   </menu>
-  
+
   <!-- definitions from \usepackage[standard]{ntheorem} -->
   <menu id="definitions" text="Math &amp;Definitions">
      <insert id="Corollary" text="env Corollary (ntheorem)" insert="\begin{Corollary}%\%|%\\end{Corollary}" info="Needs \usepackage[standard]{ntheorem}"/>
@@ -327,7 +327,7 @@
      <insert id="Remark" text="env Remark (ntheorem)" insert="\begin{Remark}%\%|%\\end{Remark}" info="Needs \usepackage[standard]{ntheorem}"/>
      <insert id="Theorem" text="env Theorem (ntheorem)" insert="\begin{Theorem}%\%|%\\end{Theorem}" info="Needs \usepackage[standard]{ntheorem}"/>
   </menu>
-     
+
   <menu id="fontstyles" text="Math Font St&amp;yles">
     <insert id="mathrm" text="Roman - \mathrm{}" insert="\mathrm{%|}" icon="font_mathrm"/>
     <insert id="mathit" text="Italic - \mathit{}" insert="\mathit{%|}" icon="font_mathit"/>
@@ -341,9 +341,9 @@
 
   <menu id="grouping" text="Math &amp;Stacking Symbols">
      <insert id="overline" text="\overline" insert="\overline{%&lt;content%>}"/>
-     <insert id="underline" text="\underline" insert="\underline{%&lt;content%>}"/> 
-     <insert id="overbrace" text="\overbrace" insert="\overbrace{%&lt;content%>}"/> 
-     <insert id="underbrace" text="\underbrace" insert="\underbrace{%&lt;content%>}"/> 
+     <insert id="underline" text="\underline" insert="\underline{%&lt;content%>}"/>
+     <insert id="overbrace" text="\overbrace" insert="\overbrace{%&lt;content%>}"/>
+     <insert id="underbrace" text="\underbrace" insert="\underbrace{%&lt;content%>}"/>
      <insert id="overleftarrow" text="\overleftarrow" insert="\overleftarrow{%&lt;content%>}"/>
      <insert id="overrightarrow" text="\overrightarrow" insert="\overrightarrow{%&lt;content%>}"/>
      <insert id="stackrel" text="\stackrel" insert="\stackrel{%&lt;top symbol%>}{%&lt;bottom symbol%>}"/>
@@ -352,8 +352,8 @@
      <insert id="sideset" text="\sideset (amsmath)" insert="\sideset{%&lt;left ind+exp%>}{%&lt;right ind+exp%>}"/>
      <insert id="prescript" text="\prescript (mathtools)" insert="\prescript{%&lt;left exp%>}{%&lt;left ind%>}{%&lt;arg%>}"/>
   </menu>
-  
-  
+
+
   <menu id="fontaccent" text="Math &amp;Accents">
     <insert id="acute" text="\acute{}" insert="\acute{%|}" icon="acute"/>
     <insert id="grave" text="\grave{}" insert="\grave{%|}" icon="grave"/>
@@ -367,8 +367,8 @@
     <insert id="dot" text="\dot{}" insert="\dot{%|}" icon="dot"/>
     <insert id="ddot" text="\ddot{}" insert="\ddot{%|}" icon="ddot"/>
   </menu>
-  
-  
+
+
   <menu id="fontspaces" text="Math S&amp;paces">
     <insert id="negative" text="Negative - \!" insert="\!" info="Negative thin space"/>
     <insert id="small" text="Thin - \," insert="\," info="3/18 of a \quad"/>
