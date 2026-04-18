@@ -5563,6 +5563,467 @@ void QEditor::write(const QString& s)
     repaintCursor();
 }
 
+// /*!
+//     performs QDocumentCursor::()
+//     on the editor's cursor and all mirrors
+
+//     This function is provided to make editing operations easier
+//     from the outside and to keep them compatible with cursor
+//     mirrors.
+// */
+// void QEditor::() {
+//     document()->clearLanguageMatches();
+
+//     bool macroing=false;
+
+//     if (!m_mirrors.empty()) {
+//         m_doc->beginMacro();
+//         macroing = true;
+//     }
+
+//     m_cursor.;
+
+//     for (int i = 0; i < m_mirrors.count(); ++i) {
+//         m_mirrors[i].;
+//     }
+
+//     if (macroing)
+//         m_doc->endMacro();
+
+//     emitCursorPositionChanged();
+//     setFlag(CursorOn, true);
+//     ensureCursorVisible();
+//     repaintCursor();
+// }
+
+/*!
+    performs write and shift back to back
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::writeAndShift(const QString& s, int offset) {
+    document()->clearLanguageMatches();
+
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    insertText(m_cursor, s);
+    m_cursor.shift(offset);
+
+    for (int i = 0; i < m_mirrors.count(); ++i) {
+        insertText(m_mirrors[i], s);
+        m_mirrors[i].shift(offset);
+    }
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    intelligently insert parentheses, square brackets, or curly brackets, ie:
+        if a selection is active, insert type brackets around the selection
+        if the next character is not a space, ), ], }, or newline, insert a pair of type brackets
+        otherwise, insert the opening type bracket
+
+    0 - ()
+    1 - []
+    2 - {}
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::insertBrackets(int type) {
+    Q_ASSERT(type == 0 || type == 1 || type == 2);
+
+    document()->clearLanguageMatches();
+
+    QString openBracket  = type == 0 ? "(" : type == 1 ? "[" : "{";
+    QString closeBracket = type == 0 ? ")" : type == 1 ? "]" : "}";
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    if(m_cursor.hasSelection()) {
+        m_cursor.replaceSelectedText(openBracket + m_cursor.selectedText() + closeBracket);
+
+        int sline = m_cursor.startLineNumber();
+        int scol  = m_cursor.startColumnNumber() + 1;
+        int eline = m_cursor.endLineNumber();
+        int ecol  = m_cursor.endColumnNumber() - 1;
+
+        m_cursor.select(sline, scol, eline, ecol);
+    } else if(QString(" )]}\n").indexOf(m_cursor.nextChar()) != -1) {
+        insertText(m_cursor, openBracket + closeBracket);
+        m_cursor.shift(-1);
+    } else {
+        insertText(m_cursor, openBracket);
+    }
+
+    for (int i = 0; i < m_mirrors.count(); ++i) {
+        if(m_mirrors[i].hasSelection()) {
+            m_mirrors[i].replaceSelectedText(openBracket + m_mirrors[i].selectedText() + closeBracket);
+
+            int sline = m_mirrors[i].startLineNumber();
+            int scol  = m_mirrors[i].startColumnNumber() + 1;
+            int eline = m_mirrors[i].endLineNumber();
+            int ecol  = m_mirrors[i].endColumnNumber() - 1;
+
+            m_mirrors[i].select(sline, scol, eline, ecol);
+        } else if(QString(" )]}\n").indexOf(m_mirrors[i].nextChar()) != -1) {
+            insertText(m_mirrors[i], openBracket + closeBracket);
+            m_mirrors[i].shift(-1);
+        } else {
+            insertText(m_mirrors[i], openBracket);
+        }
+    }
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    shift 1 character right if next character is end type bracket, otherwise insert end type bracket
+
+    0 - ()
+    1 - []
+    2 - {}
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::insertEndBrackets(int type) {
+    Q_ASSERT(type == 0 || type == 1 || type == 2);
+
+    document()->clearLanguageMatches();
+
+    QString closeBracket = type == 0 ? ")" : type == 1 ? "]" : "}";
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    if(QString(m_cursor.nextChar()) == closeBracket) {
+        m_cursor.shift(1);
+    } else {
+        insertText(m_cursor, closeBracket);
+    }
+
+    for (int i = 0; i < m_mirrors.count(); ++i) {
+        if(QString(m_mirrors[i].nextChar()) == closeBracket) {
+            m_mirrors[i].shift(1);
+        } else {
+            insertText(m_mirrors[i], closeBracket);
+        }
+    }
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    intelligently insert double quotes, ie:
+        if a selection is active, insert double quotes around the selection
+        if the next character is a double quote, shift 1 character right
+        otherwise, insert a pair of double quotes
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::insertDoubleQuotes() {
+    document()->clearLanguageMatches();
+
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    if(m_cursor.hasSelection()) {
+        m_cursor.replaceSelectedText("\"" + m_cursor.selectedText() + "\"");
+
+        int sline = m_cursor.startLineNumber();
+        int scol  = m_cursor.startColumnNumber() + 1;
+        int eline = m_cursor.endLineNumber();
+        int ecol  = m_cursor.endColumnNumber() - 1;
+
+        m_cursor.select(sline, scol, eline, ecol);
+    } else if(m_cursor.nextChar() == '\"') {
+        m_cursor.shift(1);
+    } else {
+        insertText(m_cursor, "\"\"");
+        m_cursor.shift(-1);
+    }
+
+    for (int i = 0; i < m_mirrors.count(); ++i) {
+        if(m_mirrors[i].hasSelection()) {
+            m_mirrors[i].replaceSelectedText("\"" + m_mirrors[i].selectedText() + "\"");
+
+            int sline = m_mirrors[i].startLineNumber();
+            int scol  = m_mirrors[i].startColumnNumber() + 1;
+            int eline = m_mirrors[i].endLineNumber();
+            int ecol  = m_mirrors[i].endColumnNumber() - 1;
+
+            m_mirrors[i].select(sline, scol, eline, ecol);
+        } else if(m_mirrors[i].nextChar() == '\"') {
+            m_mirrors[i].shift(1);
+        } else {
+            insertText(m_mirrors[i], "\"\"");
+            m_mirrors[i].shift(-1);
+        }
+    }
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    intelligently insert dollar signs (inline math), ie:
+        if a selection is active, insert dollar signs around the selection
+        otherwise, insert a pair of double quotes
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::insertDollarSigns() {
+    document()->clearLanguageMatches();
+
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    if(m_cursor.hasSelection()) {
+        m_cursor.replaceSelectedText("$" + m_cursor.selectedText() + "$");
+
+        int sline = m_cursor.startLineNumber();
+        int scol  = m_cursor.startColumnNumber() + 1;
+        int eline = m_cursor.endLineNumber();
+        int ecol  = m_cursor.endColumnNumber() - 1;
+
+        m_cursor.select(sline, scol, eline, ecol);
+    } else {
+        insertText(m_cursor, "$$");
+        m_cursor.shift(-1);
+    }
+
+    for (int i = 0; i < m_mirrors.count(); ++i) {
+        if(m_mirrors[i].hasSelection()) {
+            m_mirrors[i].replaceSelectedText("$" + m_mirrors[i].selectedText() + "$");
+
+            int sline = m_mirrors[i].startLineNumber();
+            int scol  = m_mirrors[i].startColumnNumber() + 1;
+            int eline = m_mirrors[i].endLineNumber();
+            int ecol  = m_mirrors[i].endColumnNumber() - 1;
+
+            m_mirrors[i].select(sline, scol, eline, ecol);
+        } else {
+            insertText(m_mirrors[i], "$$");
+            m_mirrors[i].shift(-1);
+        }
+    }
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    dynamically insert a comment marker (%) with spaces before and after
+    ensuring it has exactly 1 leading and 1 trailing space
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::insertCommentMarkerWithSpaces() {
+    document()->clearLanguageMatches();
+
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    int line = m_cursor.lineNumber();
+    int col  = m_cursor.columnNumber();
+    QString text = m_cursor.line().text();
+    QString str  = "%";
+
+    if (text[col] != ' ') {
+        str = str + " ";
+    }
+
+    if (text != "" && text[col - 1] != ' ') {
+        str = " " + str;
+    }
+
+    insertText(m_cursor, str);
+
+    for (int i = 0; i < m_mirrors.count(); ++i) {
+        line = m_mirrors[i].lineNumber();
+        col  = m_mirrors[i].columnNumber();
+        text = m_mirrors[i].line().text();
+        str  = "%";
+
+        if (text[col] != ' ') {
+            str = str + " ";
+        }
+
+        if (text != "" && text[col - 1] != ' ') {
+            str = " " + str;
+        }
+
+        insertText(m_mirrors[i], str);
+    }
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    performs QDocumentCursor::clearSelection()
+    on the editor's cursor and all mirrors
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::clearSelection() {
+    document()->clearLanguageMatches();
+
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    m_cursor.clearSelection();
+
+    for (int i = 0; i < m_mirrors.count(); ++i)
+        m_mirrors[i].clearSelection();
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    performs QDocumentCursor::removeSelectedText()
+    on the editor's cursor and all mirrors
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::removeSelectedText() {
+    document()->clearLanguageMatches();
+
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    m_cursor.removeSelectedText();
+
+    for (int i = 0; i < m_mirrors.count(); ++i)
+        m_mirrors[i].removeSelectedText();
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    performs QDocumentCursor::replaceSelectedText(const QString& text)
+    on the editor's cursor and all mirrors
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::replaceSelectedText(const QString& text) {
+    document()->clearLanguageMatches();
+
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    m_cursor.replaceSelectedText(text);
+
+    for (int i = 0; i < m_mirrors.count(); ++i)
+        m_mirrors[i].replaceSelectedText(text);
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
 /*!
     performs QDocumentCursor::shift(int offset)
     on the editor's cursor and all mirrors
@@ -5705,6 +6166,49 @@ void QEditor::deletePreviousChar() {
 
     for (int i = 0; i < m_mirrors.count(); ++i)
         m_mirrors[i].deletePreviousChar();
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    if the cursor has a selection, delete the selection
+    if the cursor has no selection and is surrounded by a delimiter pair, delete the delimiter pair.
+    else delete left character like normal
+    supports the following delimiter pairs: (), [], {}, "", $$
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::betterBackspace() {
+    document()->clearLanguageMatches();
+
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    if(m_cursor.hasSelection()) {
+        m_cursor.removeSelectedText();
+    } else {
+        m_cursor.deletePreviousCharBetter();
+    }
+
+    for (int i = 0; i < m_mirrors.count(); ++i) {
+        if(m_mirrors[i].hasSelection()) {
+            m_mirrors[i].removeSelectedText();
+        } else {
+            m_mirrors[i].deletePreviousCharBetter();
+        }
+    }
 
     if (macroing)
         m_doc->endMacro();

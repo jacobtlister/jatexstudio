@@ -459,6 +459,18 @@ public slots:
 
         virtual void write(const QString& s);
 
+        Q_INVOKABLE void writeAndShift(const QString& s, int offset);
+
+        Q_INVOKABLE void insertBrackets(int type);
+        Q_INVOKABLE void insertEndBrackets(int type);
+        Q_INVOKABLE void insertDoubleQuotes();
+        Q_INVOKABLE void insertDollarSigns();
+        Q_INVOKABLE void insertCommentMarkerWithSpaces();
+
+        Q_INVOKABLE void clearSelection();
+        Q_INVOKABLE void removeSelectedText();
+        Q_INVOKABLE void replaceSelectedText(const QString& text);
+
         Q_INVOKABLE void shift(int offset);
 
         Q_INVOKABLE QString nextChar();
@@ -466,6 +478,7 @@ public slots:
 
         Q_INVOKABLE void deleteChar();
         Q_INVOKABLE void deletePreviousChar();
+        Q_INVOKABLE void betterBackspace();
 
         void addAction(QAction *a, const QString& menu, const QString& toolbar = QString());
         void removeAction(QAction *a, const QString& menu, const QString& toolbar = QString());
