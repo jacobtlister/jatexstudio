@@ -5667,7 +5667,7 @@ void QEditor::insertBrackets(int type) {
         int ecol  = m_cursor.endColumnNumber() - 1;
 
         m_cursor.select(sline, scol, eline, ecol);
-    } else if(QString(" )]}\n").indexOf(m_cursor.nextChar()) != -1) {
+    } else if(QString(" )]}\"$\n").indexOf(m_cursor.nextChar()) != -1) {
         insertText(m_cursor, openBracket + closeBracket);
         m_cursor.shift(-1);
     } else {
@@ -5684,7 +5684,7 @@ void QEditor::insertBrackets(int type) {
             int ecol  = m_mirrors[i].endColumnNumber() - 1;
 
             m_mirrors[i].select(sline, scol, eline, ecol);
-        } else if(QString(" )]}\n").indexOf(m_mirrors[i].nextChar()) != -1) {
+        } else if(QString(" )]}\"$\n").indexOf(m_mirrors[i].nextChar()) != -1) {
             insertText(m_mirrors[i], openBracket + closeBracket);
             m_mirrors[i].shift(-1);
         } else {
