@@ -5073,9 +5073,11 @@ void QEditor::processEditOperation(QDocumentCursor& c, const QKeyEvent* e, EditO
 
         if(originalCol == 0 && c.selectedText() != "\n")
             c.movePosition(1, QDocumentCursor::EndOfLine, QDocumentCursor::KeepAnchor);
-
-        else if(!isWord(c.selectedText().back()) && !isDelimiter(c.selectedText().back()) &&
+        else if(!(isWord(c.selectedText(). back()) || isDelimiter(c.selectedText(). back())) &&
                 originalCol != 0 && c.columnNumber() != 0)
+            c.movePosition(1, QDocumentCursor::NextWord, QDocumentCursor::KeepAnchor);
+        else if( (isWord(c.selectedText().front()) || isDelimiter(c.selectedText().front())) &&
+                originalCol != 0 && c.columnNumber() == 0)
             c.movePosition(1, QDocumentCursor::NextWord, QDocumentCursor::KeepAnchor);
 
         c.removeSelectedText();
@@ -5087,9 +5089,11 @@ void QEditor::processEditOperation(QDocumentCursor& c, const QKeyEvent* e, EditO
 
         if(originalCol == originalLen && c.selectedText() != "\n")
             c.movePosition(1, QDocumentCursor::StartOfLine, QDocumentCursor::KeepAnchor);
-
-        else if(!isWord(c.selectedText().front()) && !isDelimiter(c.selectedText().front()) &&
+        else if(!(isWord(c.selectedText().front()) || isDelimiter(c.selectedText().front())) &&
                 originalCol != originalLen && c.columnNumber() != c.line().text().length())
+            c.movePosition(1, QDocumentCursor::PreviousWord, QDocumentCursor::KeepAnchor);
+        else if( (isWord(c.selectedText(). back()) || isDelimiter(c.selectedText(). back())) &&
+                originalCol != originalLen && c.columnNumber() == c.line().text().length())
             c.movePosition(1, QDocumentCursor::PreviousWord, QDocumentCursor::KeepAnchor);
 
         c.removeSelectedText();
