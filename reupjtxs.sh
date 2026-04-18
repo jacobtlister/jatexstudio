@@ -14,12 +14,13 @@
 info
 
 # clean up the old installation to make way for the new one
-rm     "${JATEXSTUDIO_PATH}/local/bin/texstudio"
-rm -rf "${JATEXSTUDIO_PATH}/local/share/"
-rm -rf "${JATEXSTUDIO_PATH}/build/"
+rm -r "${JATEXSTUDIO_PATH}/local/"
+rm -r "${JATEXSTUDIO_PATH}/build/"
 
-mkdir  "${JATEXSTUDIO_PATH}/local/share/"
-mkdir  "${JATEXSTUDIO_PATH}/build/"
+mkdir "${JATEXSTUDIO_PATH}/local/"
+mkdir "${JATEXSTUDIO_PATH}/local/bin/"
+mkdir "${JATEXSTUDIO_PATH}/local/share/"
+mkdir "${JATEXSTUDIO_PATH}/build/"
 
 # append a modified version of BUILD.sh for convenience
 echo "TeXstudio compilation :"
