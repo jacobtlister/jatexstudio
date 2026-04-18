@@ -654,6 +654,29 @@ void QDocumentCursor::deletePreviousChar()
 }
 
 /*!
+    if the cursor is surrounded by a delimiter pair, delete the delimiter pair
+    else delete the character at the position immediately before the cursor
+    supports the following delimiter pairs: (), [], {}, &quot;&quot;, $$
+*/
+void QDocumentCursor::deletePreviousCharBetter()
+{
+    if ( m_handle ) {
+        QChar nchar = m_handle->nextChar();
+        QChar pchar = m_handle->previousChar();
+
+        if((pchar == '('  && nchar == ')' ) ||
+           (pchar == '['  && nchar == ']' ) ||
+           (pchar == '{'  && nchar == '}' ) ||
+           (pchar == '\"' && nchar == '\"') ||
+           (pchar == '$'  && nchar == '$' )) {
+            m_handle->deleteChar();
+        }
+
+        m_handle->deletePreviousChar();
+    }
+}
+
+/*!
     \brief erase the whole line the cursor is on, newline included
 */
 void QDocumentCursor::eraseLine()

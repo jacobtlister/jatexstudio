@@ -227,6 +227,7 @@ class QCE_EXPORT QDocumentCursor : public QObject
 
         Q_INVOKABLE void deleteChar();
         Q_INVOKABLE void deletePreviousChar();
+        Q_INVOKABLE void deletePreviousCharBetter();
 
         Q_INVOKABLE void beginEditBlock();
         Q_INVOKABLE void endEditBlock();
