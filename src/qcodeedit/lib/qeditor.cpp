@@ -5563,6 +5563,158 @@ void QEditor::write(const QString& s)
     repaintCursor();
 }
 
+/*!
+    performs QDocumentCursor::shift(int offset)
+    on the editor's cursor and all mirrors
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::shift(int offset) {
+    document()->clearLanguageMatches();
+
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    m_cursor.shift(offset);
+
+    for (int i = 0; i < m_mirrors.count(); ++i)
+        m_mirrors[i].shift(offset);
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    performs QDocumentCursor::nextChar()
+    on the editor's cursor and all mirrors
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+QString QEditor::nextChar() {
+    QString chars = "";
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    chars.append(m_cursor.nextChar());
+
+    for (int i = 0; i < m_mirrors.count(); ++i)
+        chars.append(m_mirrors[i].nextChar());
+
+    if (macroing)
+        m_doc->endMacro();
+
+    return chars;
+}
+
+/*!
+    performs QDocumentCursor::previousChar()
+    on the editor's cursor and all mirrors
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+QString QEditor::previousChar() {
+    QString chars = "";
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    chars.append(m_cursor.previousChar());
+
+    for (int i = 0; i < m_mirrors.count(); ++i)
+        chars.append(m_mirrors[i].previousChar());
+
+    if (macroing)
+        m_doc->endMacro();
+
+    return chars;
+}
+
+/*!
+    performs QDocumentCursor::deleteChar()
+    on the editor's cursor and all mirrors
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::deleteChar() {
+    document()->clearLanguageMatches();
+
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    m_cursor.deleteChar();
+
+    for (int i = 0; i < m_mirrors.count(); ++i)
+        m_mirrors[i].deleteChar();
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    performs QDocumentCursor::deletePreviousChar()
+    on the editor's cursor and all mirrors
+
+    This function is provided to make editing operations easier
+    from the outside and to keep them compatible with cursor
+    mirrors.
+*/
+void QEditor::deletePreviousChar() {
+    document()->clearLanguageMatches();
+
+    bool macroing=false;
+
+    if (!m_mirrors.empty()) {
+        m_doc->beginMacro();
+        macroing = true;
+    }
+
+    m_cursor.deletePreviousChar();
+
+    for (int i = 0; i < m_mirrors.count(); ++i)
+        m_mirrors[i].deletePreviousChar();
+
+    if (macroing)
+        m_doc->endMacro();
+
+    emitCursorPositionChanged();
+    setFlag(CursorOn, true);
+    ensureCursorVisible();
+    repaintCursor();
+}
+
 void QEditor::zoomIn()
 {
     zoom(1);

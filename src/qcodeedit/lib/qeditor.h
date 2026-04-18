@@ -459,6 +459,14 @@ public slots:
 
         virtual void write(const QString& s);
 
+        Q_INVOKABLE void shift(int offset);
+
+        Q_INVOKABLE QString nextChar();
+        Q_INVOKABLE QString previousChar();
+
+        Q_INVOKABLE void deleteChar();
+        Q_INVOKABLE void deletePreviousChar();
+
         void addAction(QAction *a, const QString& menu, const QString& toolbar = QString());
         void removeAction(QAction *a, const QString& menu, const QString& toolbar = QString());
 
