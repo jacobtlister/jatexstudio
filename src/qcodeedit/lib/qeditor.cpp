@@ -5004,6 +5004,22 @@ void QEditor::pageDown(QDocumentCursor::MoveMode moveMode)
     emitCursorPositionChanged();
 }
 
+/*! check if character c is a delimiter ( "(){}$+-*,/;." )
+ */
+inline static bool isDelimiter(QChar c)
+{
+    QString delimiters = "()[]{}$&,:;.\%"; // "(){}$+-/*,;.";
+    return delimiters.contains(c);
+}
+
+/*! check if character c is a letter or number or backslah (part of command)
+ */
+inline static bool isWord(QChar c)
+{
+    QString extraChars = "\\*";
+    return c.isLetterOrNumber() || extraChars.contains(c);
+} // see qnfa.cpp isWord  || (c == QLatin1Char('_')); }, _ is no word character in LaTeX
+
 /*!
     \internal
     \brief Process a key event for a given cursor
@@ -5020,6 +5036,9 @@ void QEditor::processEditOperation(QDocumentCursor& c, const QKeyEvent* e, EditO
         }
         c.removeSelectedText();
     }
+
+    int originalCol = c.columnNumber();
+    int originalLen = c.line().text().length();
 
     switch ( op )
     {
@@ -5050,13 +5069,29 @@ void QEditor::processEditOperation(QDocumentCursor& c, const QKeyEvent* e, EditO
         break;
 
     case DeleteLeftWord :
-        c.movePosition(1,QDocumentCursor::PreviousWord,QDocumentCursor::KeepAnchor);
+        c.movePosition(1, QDocumentCursor::PreviousWord, QDocumentCursor::KeepAnchor);
+
+        if(originalCol == 0 && c.selectedText() != "\n")
+            c.movePosition(1, QDocumentCursor::EndOfLine, QDocumentCursor::KeepAnchor);
+
+        else if(!isWord(c.selectedText().back()) && !isDelimiter(c.selectedText().back()) &&
+                originalCol != 0 && c.columnNumber() != 0)
+            c.movePosition(1, QDocumentCursor::NextWord, QDocumentCursor::KeepAnchor);
+
         c.removeSelectedText();
         cutBuffer.clear();
         break;
 
     case DeleteRightWord :
-        c.movePosition(1,QDocumentCursor::NextWord,QDocumentCursor::KeepAnchor);
+        c.movePosition(1, QDocumentCursor::NextWord, QDocumentCursor::KeepAnchor);
+
+        if(originalCol == originalLen && c.selectedText() != "\n")
+            c.movePosition(1, QDocumentCursor::StartOfLine, QDocumentCursor::KeepAnchor);
+
+        else if(!isWord(c.selectedText().front()) && !isDelimiter(c.selectedText().front()) &&
+                originalCol != originalLen && c.columnNumber() != c.line().text().length())
+            c.movePosition(1, QDocumentCursor::PreviousWord, QDocumentCursor::KeepAnchor);
+
         c.removeSelectedText();
         cutBuffer.clear();
         break;

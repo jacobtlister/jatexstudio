@@ -197,21 +197,21 @@ static QList<GuessEncodingCallback> guessEncodingCallbacks;
 
 static int PICTURE_BORDER = 4;
 
-/*! check if character c is a letter or nummber or backslah (part of command)
- */
-inline static bool isWord(QChar c)
-{
-    QString extraChars="\\";
-    return c.isLetterOrNumber() || extraChars.contains(c);
-} // see qnfa.cpp isWord  || (c == QLatin1Char('_')); }, _ is no word character in LaTeX
-
 /*! check if character c is a delimiter ( "(){}$+-*,/;." )
  */
 inline static bool isDelimiter(QChar c)
 {
-    QString delimiters="(){}$+-/*,;.";
+    QString delimiters = "()[]{}$&,:;.\%"; // "(){}$+-/*,;.";
     return delimiters.contains(c);
 }
+
+/*! check if character c is a letter or number or backslah (part of command)
+ */
+inline static bool isWord(QChar c)
+{
+    QString extraChars = "\\*";
+    return c.isLetterOrNumber() || extraChars.contains(c);
+} // see qnfa.cpp isWord  || (c == QLatin1Char('_')); }, _ is no word character in LaTeX
 
 /*! set the line width without modifying any other properties of the pen
  */
@@ -5281,33 +5281,55 @@ bool QDocumentCursorHandle::movePosition(int count, int op, const QDocumentCurso
                 return false;
 
             l = m_doc->line(line);
+            bool delimiter_used = false;
+
+            /* start of line */
+            if ( offset == 0 ) {
+                /* first line, first char => nothing to do */
+                if( line == beg )
+                    return true;
+
+                do {
+                    --line;
+                    l = m_doc->line(line);
+                    offset = l.length();
+                } while ( (line != beg) && l.isValid() && l.hasFlag(QDocumentLine::Hidden) && !(m & QDocumentCursor::ThroughFolding));
+
+                /* empty line */
+                if ( l.text().length() == 0 )
+                    return true;
+
+                /* eats up white space */
+                while ( (offset > 0) && !isWord(l.text().at(offset - 1)) && !isDelimiter(l.text().at(offset - 1)) )
+                    --offset;
+
+                /* eats up delimiters */
+                // don't jump over more than one delimiter (see https://github.com/texstudio-org/texstudio/issues/2311)
+                if ( (offset > 0) && isDelimiter(l.text().at(offset - 1)) ){
+                    --offset;
+                    delimiter_used = true;
+                }
+
+                /* eats up whole word */
+                if(!delimiter_used){
+                    while ( (offset > 0) && isWord(l.text().at(offset - 1)) )
+                        --offset;
+                }
+
+                return true;
+            }
 
             /* eats up white space */
             while ( (offset > 0) && !isWord(l.text().at(offset - 1)) && !isDelimiter(l.text().at(offset - 1)) )
                 --offset;
 
-            /* start of line */
-            if ( offset == 0 )
-            {
-                /* first line, first char => nothing to do */
-                if( line == beg )
-                    return true;
-
-                do
-                {
-                    --line;
-                    l = m_doc->line(line);
-                    offset = l.length();
-                } while ( (line != beg) && l.isValid() && l.hasFlag(QDocumentLine::Hidden) && !(m & QDocumentCursor::ThroughFolding));
-                return true;
-            }
-
             /* eats up delimiters */
-            bool delimiter_used=false;
-            if ( (offset > 0) && isDelimiter(l.text().at(offset-1)) ){ // don't jump over more than one delimiter (see https://github.com/texstudio-org/texstudio/issues/2311)
+            // don't jump over more than one delimiter (see https://github.com/texstudio-org/texstudio/issues/2311)
+            if ( (offset > 0) && isDelimiter(l.text().at(offset - 1)) ){
                 --offset;
-                delimiter_used=true;
+                delimiter_used = true;
             }
+
             /* eats up whole word */
             if(!delimiter_used){
                 while ( (offset > 0) && isWord(l.text().at(offset - 1)) )
@@ -5327,9 +5349,9 @@ bool QDocumentCursorHandle::movePosition(int count, int op, const QDocumentCurso
 
             l = m_doc->line(line);
             int lineLength = l.text().length();
+            bool delimiter_used = false;
 
-            if ( offset == lineLength )
-             {
+            if ( offset == lineLength ) {
                 /* last line, last char => nothing to do */
                 if ( line == end )
                     return true;
@@ -5341,26 +5363,40 @@ bool QDocumentCursorHandle::movePosition(int count, int op, const QDocumentCurso
                 } while ( (line != end) && l.isValid() && l.hasFlag(QDocumentLine::Hidden) && !(m & QDocumentCursor::ThroughFolding));
 
                 lineLength = l.text().length();
+
                 /* empty line */
                 if ( lineLength == 0 )
                     return true;
 
                 /* eats up white space */
-                while ( !isWord(l.text().at(offset)) )
-                {
+                while ( (offset < lineLength) && !isWord(l.text().at(offset)) && !isDelimiter(l.text().at(offset)) )
                     ++offset;
-                    /* move to end of line */
-                    if ( offset == lineLength )
-                        break;
+
+                /* eats up delimiters */
+                // don't jump over more than one delimiter (see https://github.com/texstudio-org/texstudio/issues/2311)
+                if ( (offset < lineLength) && isDelimiter(l.text().at(offset)) ){
+                    ++offset;
+                    delimiter_used = true;
                 }
+
+                /* eats up whole word */
+                if(!delimiter_used){
+                    while ( (offset < lineLength) && isWord(l.text().at(offset)) )
+                        ++offset;
+                }
+
                 return true;
             }
 
-            /* next char */
-            bool delimiter_used=false;
-            if ( (offset < lineLength) && isDelimiter(l.text().at(offset)) ){ // don't jump over more than one delimiter (see https://github.com/texstudio-org/texstudio/issues/2311)
+            /* eats up white space */
+            while ( (offset < lineLength) && !isWord(l.text().at(offset)) && !isDelimiter(l.text().at(offset)) )
                 ++offset;
-                delimiter_used=true;
+
+            /* eats up delimiters */
+            // don't jump over more than one delimiter (see https://github.com/texstudio-org/texstudio/issues/2311)
+            if ( (offset < lineLength) && isDelimiter(l.text().at(offset)) ){
+                ++offset;
+                delimiter_used = true;
             }
 
             /* eats up whole word */
@@ -5369,12 +5405,7 @@ bool QDocumentCursorHandle::movePosition(int count, int op, const QDocumentCurso
                     ++offset;
             }
 
-            /* eats up white space */
-            while ( (offset < lineLength) && !isWord(l.text().at(offset))&&!isDelimiter(l.text().at(offset)) )
-                ++offset;
-
             refreshColumnMemory();
-
 
             break;
         }
