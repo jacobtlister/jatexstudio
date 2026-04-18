@@ -2208,7 +2208,7 @@ void ConfigManager::updateUserMacroMenu()
         i++;
     }
     recreatedMenu->addSeparator();
-    QList<QKeySequence> editMacrosSeqList = QList<QKeySequence>() << QKeySequence(Qt::Key_F2) << QKeySequence(Qt::Key_F2);
+    QList<QKeySequence> editMacrosSeqList = QList<QKeySequence>() << QKeySequence(Qt::Key_F2);
     const QList<QKeySequence>* editMacrosPtr = &editMacrosSeqList;
     newOrLostOldManagedAction(recreatedMenu, "manage", QCoreApplication::translate("Texstudio", "Edit &Macros..."), SLOT(editMacros()), editMacrosPtr);
     // update quote replacement
