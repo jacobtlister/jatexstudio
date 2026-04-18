@@ -927,7 +927,6 @@ void Texstudio::setupMenus()
     newManagedAction(menu, "saveall", tr("Save A&ll"), SLOT(fileSaveAll()), QKeySequence());
     newManagedAction(menu, "maketemplate", tr("&Make Template..."), SLOT(fileMakeTemplate()));
 
-
     submenu = newManagedMenu(menu, "utilities", tr("Fifi&x"));
     newManagedAction(submenu, "rename", tr("Save renamed/&moved file..."), "fileUtilCopyMove", 0, QString(), QList<QVariant>() << true);
     newManagedAction(submenu, "copy", tr("Save copied file..."), "fileUtilCopyMove", 0, QString(), QList<QVariant>() << false);
@@ -1058,7 +1057,6 @@ void Texstudio::setupMenus()
         newManagedEditorAction(submenu, QString("bookmark%1").arg(i), tr("Bookmark %1").arg(i), "jumpToBookmark", shortcut, "", QList<QVariant>() << i);
     }
 
-
     submenu = newManagedMenu(menu, "toggleBookmark", tr("Toggle Bookmark"));
 
 #if (QT_VERSION>=QT_VERSION_CHECK(6,0,0))
@@ -1070,7 +1068,6 @@ void Texstudio::setupMenus()
     foreach (int i, bookmarkIndicies)
         newManagedEditorAction(submenu, QString("bookmark%1").arg(i), tr("Bookmark %1").arg(i), "toggleBookmark", QKeySequence(), "", QList<QVariant>() << i);
 #endif
-
 
     menu->addSeparator();
     submenu = newManagedMenu(menu, "lineend", tr("Line Ending"));
@@ -1088,15 +1085,12 @@ void Texstudio::setupMenus()
     act->setCheckable(true);
     lineEndingGroup->addAction(act);
 
-
     newManagedAction(menu, "encoding", tr("Setup Encoding..."), SLOT(editSetupEncoding()))->setMenuRole(QAction::NoRole); // with the default "QAction::TextHeuristicRole" this was interperted as Preferences on OSX
 #if (QT_VERSION>=QT_VERSION_CHECK(6,0,0))
     newManagedAction(menu, "unicodeChar", tr("Insert Unicode Character..."), SLOT(editInsertUnicode()), QKeySequence());
 #else
     newManagedAction(menu, "unicodeChar", tr("Insert Unicode Character..."), SLOT(editInsertUnicode()), QKeySequence());
 #endif
-
-
 
     //Edit 2 (for LaTeX related things)
     menu = newManagedMenu("main/edit2", tr("&Idefix"));
@@ -1201,7 +1195,7 @@ void Texstudio::setupMenus()
     newManagedAction(menu, "reparse", tr("Refresh Structure"), SLOT(updateStructure()));
     act = newManagedAction(menu, "refreshQNFA", tr("Refresh Language Model"), SLOT(updateTexQNFA()));
     act->setStatusTip(tr("Force an update of the dynamic language model used for highlighting and folding. Likely, you do not need to call this because updates are usually automatic."));
-    newManagedAction(menu, "removePlaceHolders", tr("Remove Placeholders"), SLOT(editRemovePlaceHolders()), QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_K));
+    newManagedAction(menu, "removePlaceHolders", tr("Remove Placeholders"), SLOT(editRemovePlaceHolders()), QKeySequence());
     newManagedAction(menu, "removeCurrentPlaceHolder", tr("Remove Current Placeholder"), SLOT(editRemoveCurrentPlaceHolder()));
 
     // tools
