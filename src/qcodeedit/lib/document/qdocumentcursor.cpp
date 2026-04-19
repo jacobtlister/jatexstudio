@@ -707,6 +707,23 @@ void QDocumentCursor::insertText(const QString& s, bool keepAnchor)
         m_handle->insertText(s, keepAnchor);
 }
 
+
+
+/*!
+    \brief insert some text at the cursor position
+
+    Selected text will be removed before insertion happens.
+
+    this action cannot be undone
+
+    \note Nothing happens if \a s is empty
+*/
+void QDocumentCursor::insertTextNoUndo(const QString& s, bool keepAnchor)
+{
+    if ( m_handle )
+        m_handle->insertTextNoUndo(s, keepAnchor);
+}
+
 /*!
     \return A cursor pointing at the position of the selection start.
 

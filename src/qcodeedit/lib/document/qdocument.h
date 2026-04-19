@@ -187,6 +187,8 @@ class QCE_EXPORT QDocument : public QObject
 		Q_INVOKABLE QStringList textLines() const;
 		Q_INVOKABLE void setText(const QString& s, bool allowUndo);
 
+        void removeTrailingWhitespace(bool allowUndo = false);
+
 		void load(const QString& file, QTextCodec* codec);
 
         enum SaveErrorCode

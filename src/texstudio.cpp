@@ -2969,6 +2969,46 @@ void Texstudio::fileSave(const bool saveSilently, QEditor *editor)
     }
     updateCaption();
 }
+
+/*!
+ * \brief remove trailing whitespace, save current editor content, focus the
+ * editor, and update the internal pdf viewer to show the pdf for the
+ * currently saved document
+ *
+ * Optionally a different editor may be used
+ * Necessary for hidden docuements
+ *
+ * \param saveSilently
+ */
+void Texstudio::fileCompoundSave(const bool saveSilently, QEditor *editor)
+{
+    if(!editor){
+        // fallback to current editor
+        editor=currentEditor();
+    }
+    if (!editor)
+        return;
+
+    if (editor->fileName() == "" || !QFileInfo::exists(editor->fileName())) {
+        removeDiffMarkers();// clean document from diff markers first
+        fileSaveAs(editor->fileName(), saveSilently);
+    } else {
+        removeDiffMarkers();// clean document from diff markers first
+
+        editor->removeTrailingWhitespace();
+
+        editor->save();
+        editor->document()->markViewDirty();//force repaint of line markers (yellow -> green)
+        MarkCurrentFileAsRecent();
+        int checkIn = (configManager.autoCheckinAfterSaveLevel > 0 && !saveSilently) ? 2 : 1;
+        emit infoFileSaved(editor->fileName(), checkIn);
+
+        updatePdfViewer();
+        focusEditor();
+    }
+    updateCaption();
+}
+
 /*!
  * \brief save current editor content to new filename
  *

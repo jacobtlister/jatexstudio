@@ -113,6 +113,7 @@ class QCE_EXPORT QDocumentCursorHandle
 		bool movePosition(int offset, int op, const QDocumentCursor::MoveMode& m);
 
 		void insertText(const QString& s, bool keepAnchor = false);
+        void insertTextNoUndo(const QString& s, bool keepAnchor = false);
 
 		QChar nextChar() const;
 		QChar previousChar() const;
@@ -158,6 +159,7 @@ class QCE_EXPORT QDocumentCursorHandle
 
 		void beginEditBlock();
 		void endEditBlock();
+		void endEditBlockNoUndo();
 
         void moveTo(int line, int column, const QDocumentCursor::MoveMode& m = QDocumentCursor::MoveAnchor);
 		void moveTo(const QDocumentCursor &c, const QDocumentCursor::MoveMode& m );

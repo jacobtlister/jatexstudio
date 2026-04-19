@@ -988,7 +988,6 @@ void QEditor::save()
     update();
 }
 
-
 bool QEditor::saveCopy(const QString& filename){
     Q_ASSERT(m_doc);
 
@@ -6255,6 +6254,26 @@ void QEditor::betterBackspace() {
     emitCursorPositionChanged();
     setFlag(CursorOn, true);
     ensureCursorVisible();
+    repaintCursor();
+}
+
+/*!
+    \brief a version of setText which removes trailing whitespace from all lines
+
+    also will make sure your cursor ends up in the position it was before the command ran
+
+    this is the version that users should run in things like scripts, not QDocument::removeTrailingWhitespace
+*/
+void QEditor::removeTrailingWhitespace(bool allowUndo) {
+    int tline = getFirstVisibleLine();
+    int cline = m_cursor.lineNumber();
+    int ccol  = qMin(m_cursor.columnNumber(), trimRight(m_cursor.line().text()).length());
+
+    m_doc->removeTrailingWhitespace(allowUndo);
+
+    m_cursor.moveTo(cline, ccol);
+    scrollToFirstLine(tline + 1);
+
     repaintCursor();
 }
 

@@ -480,6 +480,8 @@ public slots:
         Q_INVOKABLE void deletePreviousChar();
         Q_INVOKABLE void betterBackspace();
 
+        Q_INVOKABLE void removeTrailingWhitespace(bool allowUndo = false);
+
         void addAction(QAction *a, const QString& menu, const QString& toolbar = QString());
         void removeAction(QAction *a, const QString& menu, const QString& toolbar = QString());
 

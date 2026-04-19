@@ -300,6 +300,7 @@ protected slots:
     void fileOpen(QString currentDir="");
     void fileRestoreSession(bool showProgress = true, bool warnMissing = true);
     void fileSave(const bool saveSilently = false,QEditor *editor=nullptr);
+    void fileCompoundSave(const bool saveSilently = false,QEditor *editor=nullptr);
     void fileSaveAll();
     void fileSaveAllFromTimer();
     void fileSaveAll(bool alsoUnnamedFiles, bool alwaysCurrentFile);

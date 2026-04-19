@@ -652,6 +652,26 @@ QStringList QDocument::textLines() const{
 }
 
 /*!
+    \brief a version of setText which removes trailing whitespace from all lines
+*/
+void QDocument::removeTrailingWhitespace(bool allowUndo) {
+    if ( !m_impl )
+        return;
+
+    // for each line in the document, match trailing whitespace using a regex and remove it
+    QStringList lines = textLines();
+
+    lines = lines.replaceInStrings(QRegularExpression("[ \t]+$"), "");
+
+    QDocumentCursor temp(this);
+    temp.movePosition(1, QDocumentCursor::Start);
+    temp.movePosition(1, QDocumentCursor::End, QDocumentCursor::KeepAnchor);
+
+    if(allowUndo) { temp.insertText(lines.join("\n"));       }
+    else          { temp.insertTextNoUndo(lines.join("\n")); }
+}
+
+/*!
     \brief Set the content of the document
 */
 void QDocument::setText(const QString& s, bool allowUndo)
@@ -5588,6 +5608,37 @@ void QDocumentCursorHandle::insertText(const QString& s, bool keepAnchor)
         endEditBlock();
 }
 
+// is QDocumentCursorHandle::insertText but this command is not allowed to be undone
+void QDocumentCursorHandle::insertTextNoUndo(const QString& s, bool keepAnchor)
+{
+    if ( !m_doc || s.isEmpty() || m_doc->line(m_begLine).isNull() )
+        return;
+
+    bool sel = hasSelection();
+
+    if ( sel )
+    {
+        beginEditBlock();
+        removeSelectedText(keepAnchor);
+    }
+
+    QDocumentCommand *command = new QDocumentInsertCommand(
+                                        m_begLine,
+                                        m_begOffset,
+                                        s,
+                                        m_doc,
+                                        nullptr,
+                                        hasFlag(ExternalCursor)
+                                    );
+
+    command->setKeepAnchor(keepAnchor);
+    command->setTargetCursor(this);
+    execute(command);
+
+    if ( sel )
+        endEditBlockNoUndo();
+}
+
 void QDocumentCursorHandle::eraseLine()
 {
     if ( !m_doc )
@@ -5802,6 +5853,23 @@ void QDocumentCursorHandle::endEditBlock()
     //qDebug("Cursor handle executing command : 0x%x [block]", this);
 
     QDocumentCommandBlock *block = m_blocks.pop();
+
+    // special trick to prevent double redo() while getting rid of
+    // bugs occuring in when inserting/erasing in overlapping lines
+    // inside a command block
+    block->setWeakLock(true);
+
+    execute(block);
+}
+
+void QDocumentCursorHandle::endEditBlockNoUndo() {
+    if ( !m_doc || m_blocks.isEmpty() )
+        return;
+
+    //qDebug("Cursor handle executing command : 0x%x [block]", this);
+
+    QDocumentCommandBlock *block = m_blocks.pop();
+    block->setObsolete(true);
 
     // special trick to prevent double redo() while getting rid of
     // bugs occuring in when inserting/erasing in overlapping lines

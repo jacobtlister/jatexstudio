@@ -198,6 +198,7 @@ class QCE_EXPORT QDocumentCursor : public QObject
         Q_INVOKABLE void eraseLine();
         Q_INVOKABLE void insertLine(bool keepAnchor = false);
         Q_INVOKABLE void insertText(const QString& s, bool keepAnchor = false);
+        Q_INVOKABLE void insertTextNoUndo(const QString& s, bool keepAnchor = false);
 
         QDocumentCursor selectionStart() const;
         QDocumentCursor selectionEnd() const;
