@@ -520,7 +520,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/undo.png"), tr("&Undo"), this);
         a->setObjectName("undo");
-        Q_SHORTCUT(a, "Ctrl+Z", "Edit");
+        Q_SHORTCUT(a, "", "Edit");
         a->setEnabled(false);
         connect(this , SIGNAL( undoAvailable(bool) ),
                 a    , SLOT  ( setEnabled(bool) ) );
@@ -531,7 +531,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/redo.png"), tr("&Redo"), this);
         a->setObjectName("redo");
-        Q_SHORTCUT(a, "Ctrl+Y", "Edit");
+        Q_SHORTCUT(a, "", "Edit");
         a->setEnabled(false);
         connect(this , SIGNAL( redoAvailable(bool) ),
                 a    , SLOT  ( setEnabled(bool) ) );
@@ -546,7 +546,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/cut.png"), tr("Cu&t"), this);
         a->setObjectName("cut");
-        Q_SHORTCUT(a, "Ctrl+X", "Edit");
+        Q_SHORTCUT(a, "", "Edit");
         a->setEnabled(false);
         connect(this, SIGNAL( copyAvailable(bool) ),
                 a    , SLOT  ( setEnabled(bool) ) );
@@ -557,7 +557,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/copy.png"), tr("&Copy"), this);
         a->setObjectName("copy");
-        Q_SHORTCUT(a, "Ctrl+C", "Edit");
+        Q_SHORTCUT(a, "", "Edit");
         a->setEnabled(false);
         connect(this , SIGNAL( copyAvailable(bool) ),
                 a    , SLOT  ( setEnabled(bool) ) );
@@ -569,7 +569,7 @@ void QEditor::init(bool actions,QDocument *doc)
         a = new QAction(QIcon(":/paste.png"), tr("&Paste"), this);
         a->setObjectName("paste");
         //aPaste->setEnabled(QApplication::clipboard()->text().count());
-        Q_SHORTCUT(a, "Ctrl+V", "Edit");
+        Q_SHORTCUT(a, "", "Edit");
         connect(QApplication::clipboard()    , SIGNAL( dataChanged() ),
                 this                        , SLOT  ( checkClipboard() ) );
 
@@ -584,7 +584,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/indent.png"), tr("&Indent"), this);
         a->setObjectName("indent");
-        Q_SHORTCUT(a, "Ctrl+I", "Edit");
+        Q_SHORTCUT(a, "", "Edit");
         connect(a    , SIGNAL( triggered() ),
                 this, SLOT  ( indentSelection() ) );
 
@@ -592,7 +592,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/unindent.png"), tr("&Unindent"), this);
         a->setObjectName("unindent");
-        Q_SHORTCUT(a, "Ctrl+Shift+I", "Edit");
+        Q_SHORTCUT(a, "", "Edit");
         connect(a    , SIGNAL( triggered() ),
                 this, SLOT  ( unindentSelection() ) );
 
@@ -609,7 +609,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/comment.png"), tr("Co&mment"), this);
         a->setObjectName("comment");
-        Q_SHORTCUT(a, "Ctrl+D", "Edit");
+        Q_SHORTCUT(a, "", "Edit");
         connect(a    , SIGNAL( triggered() ),
                 this, SLOT  ( commentSelection() ) );
 
@@ -617,7 +617,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/uncomment.png"), tr("Unc&omment"), this);
         a->setObjectName("uncomment");
-        Q_SHORTCUT(a, "Ctrl+Shift+D", "Edit");
+        Q_SHORTCUT(a, "", "Edit");
         connect(a    , SIGNAL( triggered() ),
                 this, SLOT  ( uncommentSelection() ) );
 
@@ -629,7 +629,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(tr("&Select all"), this);
         a->setObjectName("selectAll");
-        Q_SHORTCUT(a, "Ctrl+A", "Edit");
+        Q_SHORTCUT(a, "", "Edit");
         connect(a    , SIGNAL( triggered() ),
                 this, SLOT  ( selectAll() ) );
 
@@ -641,7 +641,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/find.png"), tr("&Find"), this);
         a->setObjectName("find");
-        Q_SHORTCUT(a, "Ctrl+F", "Search");
+        Q_SHORTCUT(a, "", "Search");
         connect(a    , SIGNAL( triggered() ),
                 this, SLOT  ( find() ) );
 
@@ -649,7 +649,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/next.png"), tr("Fin&d next"), pMenu);
         a->setObjectName("findNext");
-        Q_SHORTCUT(a, "F3", "Search");
+        Q_SHORTCUT(a, "", "Search");
         connect(a    , SIGNAL( triggered() ),
                 this, SLOT  ( findNext() ) );
 
@@ -657,7 +657,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/replace.png"), tr("&Replace"), this);
         a->setObjectName("replace");
-        Q_SHORTCUT(a, "Ctrl+R", "Search");
+        Q_SHORTCUT(a, "", "Search");
         connect(a    , SIGNAL( triggered() ),
                 this, SLOT  ( replacePanel() ));
 
@@ -669,7 +669,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         a = new QAction(QIcon(":/goto.png"), tr("&Goto line..."), this);
         a->setObjectName("goto");
-        Q_SHORTCUT(a, "Ctrl+G", "Search");
+        Q_SHORTCUT(a, "", "Search");
         connect(a    , SIGNAL( triggered() ),
                 this, SLOT  ( gotoLine() ) );
 
@@ -686,7 +686,7 @@ void QEditor::init(bool actions,QDocument *doc)
 
         addAction(a, "&Edit", "");
 
-        Q_SHORTCUT(a, "F10", "Edit");
+        Q_SHORTCUT(a, "", "Edit");
         connect(a    , SIGNAL( toggled(bool) ),
                 this, SLOT  ( setLineWrapping(bool) ) );
 
@@ -4604,27 +4604,27 @@ QHash<QString, int> QEditor::getEditOperations(bool excludeDefault){
     if (!m_defaultKeysSet) { //todo: thread safe lock
         m_defaultKeysSet = true;
 
-    addEditOperation(CursorUp, QKeySequence::MoveToPreviousLine);
-    addEditOperation(CursorDown, QKeySequence::MoveToNextLine);
-    addEditOperation(SelectCursorUp, QKeySequence::SelectPreviousLine);
-    addEditOperation(SelectCursorDown, QKeySequence::SelectNextLine);
+    addEditOperation(CursorUp, Qt::NoModifier, Qt::Key_Up);
+    addEditOperation(CursorDown, Qt::NoModifier, Qt::Key_Down);
+    addEditOperation(SelectCursorUp, Qt::ShiftModifier, Qt::Key_Up);
+    addEditOperation(SelectCursorDown, Qt::ShiftModifier, Qt::Key_Down);
 
-    addEditOperation(CursorLeft, QKeySequence::MoveToPreviousChar);
-    addEditOperation(CursorRight, QKeySequence::MoveToNextChar);
-    addEditOperation(SelectCursorLeft, QKeySequence::SelectPreviousChar);
-    addEditOperation(SelectCursorRight, QKeySequence::SelectNextChar);
+    addEditOperation(CursorLeft, Qt::NoModifier, Qt::Key_Left);
+    addEditOperation(CursorRight, Qt::NoModifier, Qt::Key_Right);
+    addEditOperation(SelectCursorLeft, Qt::ShiftModifier, Qt::Key_Left);
+    addEditOperation(SelectCursorRight, Qt::ShiftModifier, Qt::Key_Right);
 
-    addEditOperation(CursorStartOfLineText, QKeySequence::MoveToStartOfLine);
+    addEditOperation(CursorStartOfLineText, Qt::NoModifier, Qt::Key_unknown);
     registerEditOperation(CursorStartOfLine);
-    addEditOperation(CursorEndOfLine, QKeySequence::MoveToEndOfLine);
-    addEditOperation(SelectCursorStartOfLineText, QKeySequence::SelectStartOfLine);
+    addEditOperation(CursorEndOfLine, Qt::NoModifier, Qt::Key_unknown);
+    addEditOperation(SelectCursorStartOfLineText, Qt::NoModifier, Qt::Key_unknown);
     registerEditOperation(SelectCursorStartOfLine);
-    addEditOperation(SelectCursorEndOfLine, QKeySequence::SelectEndOfLine);
+    addEditOperation(SelectCursorEndOfLine, Qt::NoModifier, Qt::Key_unknown);
 
-    addEditOperation(CursorStartOfDocument, QKeySequence::MoveToStartOfDocument);
-    addEditOperation(CursorEndOfDocument, QKeySequence::MoveToEndOfDocument);
-    addEditOperation(SelectCursorStartOfDocument, QKeySequence::SelectStartOfDocument);
-    addEditOperation(SelectCursorEndOfDocument, QKeySequence::SelectEndOfDocument);
+    addEditOperation(CursorStartOfDocument, Qt::NoModifier, Qt::Key_unknown);
+    addEditOperation(CursorEndOfDocument, Qt::NoModifier, Qt::Key_unknown);
+    addEditOperation(SelectCursorStartOfDocument, Qt::NoModifier, Qt::Key_unknown);
+    addEditOperation(SelectCursorEndOfDocument, Qt::NoModifier, Qt::Key_unknown);
 
     #ifndef Q_OS_MAC  // Use the default Windows bindings.
         addEditOperation(CursorWordLeft, Qt::ControlModifier, Qt::Key_Left);
@@ -4632,10 +4632,10 @@ QHash<QString, int> QEditor::getEditOperations(bool excludeDefault){
         addEditOperation(SelectCursorWordLeft, Qt::ControlModifier | Qt::ShiftModifier, Qt::Key_Left);
         addEditOperation(SelectCursorWordRight, Qt::ControlModifier | Qt::ShiftModifier, Qt::Key_Right);
 
-        addEditOperation(CursorStartOfDocument, Qt::ControlModifier, Qt::Key_Home);
-        addEditOperation(CursorEndOfDocument, Qt::ControlModifier, Qt::Key_End);
-        addEditOperation(SelectCursorStartOfDocument, Qt::ControlModifier | Qt::ShiftModifier, Qt::Key_Home);
-        addEditOperation(SelectCursorEndOfDocument, Qt::ControlModifier | Qt::ShiftModifier, Qt::Key_End);
+        addEditOperation(CursorStartOfDocument, Qt::NoModifier, Qt::Key_unknown);
+        addEditOperation(CursorEndOfDocument, Qt::NoModifier, Qt::Key_unknown);
+        addEditOperation(SelectCursorStartOfDocument, Qt::NoModifier, Qt::Key_unknown);
+        addEditOperation(SelectCursorEndOfDocument, Qt::NoModifier, Qt::Key_unknown);
     #else
     /*
         Except for pageup and pagedown, Mac OS X has very different behavior, we
@@ -4693,10 +4693,10 @@ QHash<QString, int> QEditor::getEditOperations(bool excludeDefault){
         addEditOperation(SelectCursorWordRight, Qt::ShiftModifier | Qt::AltModifier, Qt::Key_Right);
     #endif
 
-        addEditOperation(CursorPageUp, Qt::NoModifier, Qt::Key_PageUp);
-        addEditOperation(SelectPageUp, Qt::ShiftModifier, Qt::Key_PageUp);
-        addEditOperation(CursorPageDown, Qt::NoModifier, Qt::Key_PageDown);
-        addEditOperation(SelectPageDown, Qt::ShiftModifier, Qt::Key_PageDown);
+        addEditOperation(CursorPageUp, Qt::NoModifier, Qt::Key_unknown);
+        addEditOperation(SelectPageUp, Qt::NoModifier, Qt::Key_unknown);
+        addEditOperation(CursorPageDown, Qt::NoModifier, Qt::Key_unknown);
+        addEditOperation(SelectPageDown, Qt::NoModifier, Qt::Key_unknown);
 
         registerEditOperation(CursorNextBlock);
         registerEditOperation(SelectCursorNextBlock);
@@ -4704,11 +4704,12 @@ QHash<QString, int> QEditor::getEditOperations(bool excludeDefault){
         registerEditOperation(SelectCursorPrevBlock);
 
         addEditOperation(DeleteLeft, Qt::NoModifier, Qt::Key_Backspace);
-        addEditOperation(DeleteRight, QKeySequence::Delete);
+        addEditOperation(DeleteRight, Qt::NoModifier, Qt::Key_Delete);
     #ifdef Q_OS_MAC
         addEditOperation(DeleteRight, Qt::ShiftModifier, Qt::Key_Backspace);
     #else
         addEditOperation(DeleteLeft, Qt::ShiftModifier, Qt::Key_Backspace);
+        addEditOperation(DeleteRight, Qt::ShiftModifier, Qt::Key_Delete);
     #endif
 
     #ifdef Q_OS_MAC
@@ -4722,10 +4723,10 @@ QHash<QString, int> QEditor::getEditOperations(bool excludeDefault){
         addEditOperation(NewLine, Qt::NoModifier, Qt::Key_Enter);
         addEditOperation(NewLine, Qt::NoModifier, Qt::Key_Return);
 
-        addEditOperation(ChangeOverwrite, Qt::NoModifier, Qt::Key_Insert);
+        addEditOperation(ChangeOverwrite, Qt::NoModifier, Qt::Key_unknown);
 
-        addEditOperation(CreateMirrorUp, Qt::AltModifier | Qt::ControlModifier, Qt::Key_Up);
-        addEditOperation(CreateMirrorDown, Qt::AltModifier | Qt::ControlModifier, Qt::Key_Down);
+        addEditOperation(CreateMirrorUp, Qt::AltModifier, Qt::Key_Up);
+        addEditOperation(CreateMirrorDown, Qt::AltModifier, Qt::Key_Down);
 
         registerEditOperation(NextPlaceHolder);
         registerEditOperation(PreviousPlaceHolder);
@@ -4734,26 +4735,26 @@ QHash<QString, int> QEditor::getEditOperations(bool excludeDefault){
         addEditOperation(PreviousPlaceHolderOrWord, Qt::AltModifier, Qt::Key_Left);
         addEditOperation(Cut, QKeySequence::Cut);
     #else
-        addEditOperation(NextPlaceHolderOrWord, Qt::ControlModifier, Qt::Key_Right);
-        addEditOperation(PreviousPlaceHolderOrWord, Qt::ControlModifier, Qt::Key_Left);
-        addEditOperation(Cut, Qt::ControlModifier,Qt::Key_X); // don't use keysequence cut as shift+del is used somewhere else
+        addEditOperation(NextPlaceHolderOrWord, Qt::NoModifier, Qt::Key_unknown);
+        addEditOperation(PreviousPlaceHolderOrWord, Qt::NoModifier, Qt::Key_unknown);
+        addEditOperation(Cut, Qt::ControlModifier, Qt::Key_X); // don't use keysequence cut as shift+del is used somewhere else
     #endif
         registerEditOperation(NextPlaceHolderOrChar);
         registerEditOperation(PreviousPlaceHolderOrChar);
 
         addEditOperation(TabOrIndentSelection, Qt::NoModifier, Qt::Key_Tab);
-        addEditOperation(UnindentSelection, Qt::ShiftModifier, Qt::Key_Backtab);
+        addEditOperation(UnindentSelection, Qt::NoModifier, Qt::Key_unknown);
 
-        addEditOperation(Undo, QKeySequence::Undo);
-        addEditOperation(Redo, QKeySequence::Redo);
-        addEditOperation(Copy, QKeySequence::Copy);
-        addEditOperation(Paste, QKeySequence::Paste);
-        addEditOperation(Print, QKeySequence::Print);
-        addEditOperation(SelectAll, QKeySequence::SelectAll);
-        addEditOperation(Find, QKeySequence::Find);
-        addEditOperation(FindNext, QKeySequence::FindNext);
-        addEditOperation(FindPrevious, QKeySequence::FindPrevious);
-        addEditOperation(Replace, QKeySequence::Replace);
+        addEditOperation(Undo, Qt::ControlModifier, Qt::Key_Z);
+        addEditOperation(Redo, Qt::ControlModifier, Qt::Key_Y);
+        addEditOperation(Copy, Qt::ControlModifier, Qt::Key_C);
+        addEditOperation(Paste, Qt::ControlModifier, Qt::Key_V);
+        addEditOperation(Print, Qt::NoModifier, Qt::Key_unknown);
+        addEditOperation(SelectAll, Qt::ControlModifier, Qt::Key_A);
+        addEditOperation(Find, Qt::ControlModifier, Qt::Key_F);
+        addEditOperation(FindNext, Qt::NoModifier, Qt::Key_unknown);
+        addEditOperation(FindPrevious, Qt::NoModifier, Qt::Key_unknown);
+        addEditOperation(Replace, Qt::ControlModifier, Qt::Key_H);
 
         m_registeredDefaultKeys = m_registeredKeys;
     }
