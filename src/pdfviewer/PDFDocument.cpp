@@ -831,10 +831,10 @@ PDFWidget::PDFWidget(bool embedded)
     addAction(action);
 
     Qt::ShortcutContext context = embedded ? Qt::WidgetWithChildrenShortcut : Qt::WindowShortcut;
-    shortcutUp = new QShortcut(QKeySequence("Up"), this, SLOT(upOrPrev()), nullptr, context);
-    shortcutLeft = new QShortcut(QKeySequence("Left"), this, SLOT(leftOrPrev()), nullptr, context);
-    shortcutDown = new QShortcut(QKeySequence("Down"), this, SLOT(downOrNext()), nullptr, context);
-    shortcutRight = new QShortcut(QKeySequence("Right"), this, SLOT(rightOrNext()), nullptr, context);
+    shortcutUp = new QShortcut(QKeySequence(), this, SLOT(upOrPrev()), nullptr, context);
+    shortcutLeft = new QShortcut(QKeySequence(), this, SLOT(leftOrPrev()), nullptr, context);
+    shortcutDown = new QShortcut(QKeySequence(), this, SLOT(downOrNext()), nullptr, context);
+    shortcutRight = new QShortcut(QKeySequence(), this, SLOT(rightOrNext()), nullptr, context);
 
     highlightRemover.setSingleShot(true);
     highlightPage = -1;
@@ -3616,9 +3616,9 @@ void PDFDocument::init(bool embedded)
     connect(pdfWidget, SIGNAL(syncClick(int,const QPointF&,bool)), this, SLOT(syncClick(int,const QPointF&,bool)));
 
     if (actionZoom_In->shortcut() == QKeySequence("Ctrl++"))
-        new QShortcut(QKeySequence("Ctrl+="), pdfWidget, SLOT(zoomIn()), Q_NULLPTR, Qt::WidgetShortcut);
+        new QShortcut(QKeySequence(), pdfWidget, SLOT(zoomIn()), Q_NULLPTR, Qt::WidgetShortcut);
     if (!actionActual_Size->shortcut().isEmpty())
-        new QShortcut(QKeySequence("Ctrl+0"), pdfWidget, SLOT(fixedScale()), Q_NULLPTR, Qt::WidgetShortcut);
+        new QShortcut(QKeySequence(), pdfWidget, SLOT(fixedScale()), Q_NULLPTR, Qt::WidgetShortcut);
 
 
     conf->registerOption("Preview/Scrolling Follows Cursor", &globalConfig->followFromCursor, false);
