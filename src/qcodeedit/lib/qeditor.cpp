@@ -5791,7 +5791,7 @@ void QEditor::insertEndBrackets(int type) {
     intelligently insert double quotes, ie:
         if a selection is active, insert double quotes around the selection
         if the next character is a double quote, shift 1 character right
-        otherwise, insert a pair of double quotes
+        otherwise, insert a pair of double quotes and put the cursor between them
 
     This function is provided to make editing operations easier
     from the outside and to keep them compatible with cursor
@@ -5852,8 +5852,10 @@ void QEditor::insertDoubleQuotes() {
 
 /*!
     intelligently insert dollar signs (inline math), ie:
-        if a selection is active, insert dollar signs around the selection
-        otherwise, insert a pair of double quotes
+        if a  selection is active, insert dollar signs around the selection
+        if no selection is active, if the next character is a double quote, shift 1 character right
+                                 , if the leading character is a \, insert a single $ (to type \$)
+                                 , otherwise, if insert a pair of dollar signs and put the cursor between them
 
     This function is provided to make editing operations easier
     from the outside and to keep them compatible with cursor
@@ -5880,6 +5882,8 @@ void QEditor::insertDollarSigns() {
         m_cursor.select(sline, scol, eline, ecol);
     } else if(m_cursor.nextChar() == '$') {
         m_cursor.shift(1);
+    } else if(m_cursor.previousChar() == '\\') {
+        insertText(m_cursor, "$");
     } else {
         insertText(m_cursor, "$$");
         m_cursor.shift(-1);
@@ -5897,6 +5901,8 @@ void QEditor::insertDollarSigns() {
             m_mirrors[i].select(sline, scol, eline, ecol);
         } else if(m_mirrors[i].nextChar() == '$') {
             m_mirrors[i].shift(1);
+        } else if(m_mirrors[i].previousChar() == '\\') {
+            insertText(m_mirrors[i], "$");
         } else {
             insertText(m_mirrors[i], "$$");
             m_mirrors[i].shift(-1);
