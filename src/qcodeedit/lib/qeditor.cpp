@@ -5914,7 +5914,8 @@ void QEditor::insertDollarSigns() {
 
 /*!
     dynamically insert a comment marker (%) with spaces before and after
-    ensuring it has exactly 1 leading and 1 trailing space
+    ensuring it has exactly 1 leading and 1 trailing space except if the
+    leading character is a backslash (so you can type \%)
 
     This function is provided to make editing operations easier
     from the outside and to keep them compatible with cursor
@@ -5935,22 +5936,9 @@ void QEditor::insertCommentMarkerWithSpaces() {
     QString text = m_cursor.line().text();
     QString str  = "%";
 
-    if (text[col] != ' ') {
-        str = str + " ";
-    }
-
-    if (text != "" && text[col - 1] != ' ') {
-        str = " " + str;
-    }
-
-    insertText(m_cursor, str);
-
-    for (int i = 0; i < m_mirrors.count(); ++i) {
-        line = m_mirrors[i].lineNumber();
-        col  = m_mirrors[i].columnNumber();
-        text = m_mirrors[i].line().text();
-        str  = "%";
-
+    if (text[col - 1] == '\\') {
+        insertText(m_cursor, str);
+    } else if (text[col] != '\\') {
         if (text[col] != ' ') {
             str = str + " ";
         }
@@ -5959,7 +5947,28 @@ void QEditor::insertCommentMarkerWithSpaces() {
             str = " " + str;
         }
 
-        insertText(m_mirrors[i], str);
+        insertText(m_cursor, str);
+    }
+
+    for (int i = 0; i < m_mirrors.count(); ++i) {
+        line = m_mirrors[i].lineNumber();
+        col  = m_mirrors[i].columnNumber();
+        text = m_mirrors[i].line().text();
+        str  = "%";
+
+        if (text[col - 1] == '\\') {
+            insertText(m_cursor, str);
+        } else if (text[col] != '\\') {
+            if (text[col] != ' ') {
+                str = str + " ";
+            }
+
+            if (text != "" && text[col - 1] != ' ') {
+                str = " " + str;
+            }
+
+            insertText(m_mirrors[i], str);
+        }
     }
 
     if (macroing)
