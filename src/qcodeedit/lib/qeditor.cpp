@@ -5800,7 +5800,7 @@ void QEditor::insertEndBrackets(int type) {
 void QEditor::insertDoubleQuotes() {
     document()->clearLanguageMatches();
 
-    bool macroing=false;
+    bool macroing = false;
 
     if (!m_mirrors.empty()) {
         m_doc->beginMacro();
@@ -5862,7 +5862,7 @@ void QEditor::insertDoubleQuotes() {
 void QEditor::insertDollarSigns() {
     document()->clearLanguageMatches();
 
-    bool macroing=false;
+    bool macroing = false;
 
     if (!m_mirrors.empty()) {
         m_doc->beginMacro();
@@ -5878,6 +5878,8 @@ void QEditor::insertDollarSigns() {
         int ecol  = m_cursor.endColumnNumber() - 1;
 
         m_cursor.select(sline, scol, eline, ecol);
+    } else if(m_cursor.nextChar() == '$') {
+        m_cursor.shift(1);
     } else {
         insertText(m_cursor, "$$");
         m_cursor.shift(-1);
@@ -5893,6 +5895,8 @@ void QEditor::insertDollarSigns() {
             int ecol  = m_mirrors[i].endColumnNumber() - 1;
 
             m_mirrors[i].select(sline, scol, eline, ecol);
+        } else if(m_mirrors[i].nextChar() == '$') {
+            m_mirrors[i].shift(1);
         } else {
             insertText(m_mirrors[i], "$$");
             m_mirrors[i].shift(-1);
