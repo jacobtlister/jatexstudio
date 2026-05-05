@@ -173,6 +173,7 @@ class QCE_EXPORT QDocumentCursorHandle
 		bool isRTL() const;
 
 		virtual void execute(QDocumentCommand *c);
+        virtual void executeNoUndo(QDocumentCommand *c);
 
 		inline void ref() { m_ref.ref(); }
 		inline void deref() { if ( !m_ref.deref() ) delete this; }

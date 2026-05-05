@@ -1702,6 +1702,16 @@ void QDocument::execute(QDocumentCommand *cmd)
 }
 
 /*!
+    \brief Execute a document command (editing operation)
+*/
+void QDocument::executeNoUndo(QDocumentCommand *cmd)
+{
+    Q_ASSERT(m_impl || !cmd);
+    if ( m_impl && cmd && !isReadOnly() )
+        m_impl->executeNoUndo(cmd);
+}
+
+/*!
     \return The default line ending policy
 */
 QDocument::LineEnding QDocument::defaultLineEnding()
@@ -5840,6 +5850,23 @@ void QDocumentCursorHandle::execute(QDocumentCommand *c)
     }
 }
 
+void QDocumentCursorHandle::executeNoUndo(QDocumentCommand *c)
+{
+    Q_ASSERT(m_doc);
+
+    if ( !m_doc || m_doc->isReadOnly() )
+        return; //returning means c will never freed
+
+    if ( isSilent() && !c->isSilent() )
+        c->setSilent(isSilent());
+
+    if ( m_doc ) {
+        //qDebug("Cursor handle executing command : 0x%x", this);
+
+        m_doc->executeNoUndo(c);
+    }
+}
+
 void QDocumentCursorHandle::beginEditBlock()
 {
     m_blocks.push(new QDocumentCommandBlock(m_doc));
@@ -5869,14 +5896,14 @@ void QDocumentCursorHandle::endEditBlockNoUndo() {
     //qDebug("Cursor handle executing command : 0x%x [block]", this);
 
     QDocumentCommandBlock *block = m_blocks.pop();
-    block->setObsolete(true);
+    // block->setObsolete(true);
 
     // special trick to prevent double redo() while getting rid of
     // bugs occuring in when inserting/erasing in overlapping lines
     // inside a command block
     block->setWeakLock(true);
 
-    execute(block);
+    executeNoUndo(block);
 }
 
 QDocumentCursor QDocumentCursorHandle::selectionStart() const
@@ -6810,7 +6837,15 @@ void QDocumentPrivate::execute(QDocumentCommand *cmd)
         m_macros.top()->addCommand(cmd);
     } else {
     m_commands.push(cmd);
+    }
 }
+
+void QDocumentPrivate::executeNoUndo(QDocumentCommand *cmd)
+{
+    if ( !cmd || m_readOnly)
+        return;
+
+    cmd->redo();
 }
 
 void QDocumentPrivate::draw(QPainter *p, QDocument::PaintContext& cxt)

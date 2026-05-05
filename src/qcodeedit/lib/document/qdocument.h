@@ -278,6 +278,7 @@ class QCE_EXPORT QDocument : public QObject
 		virtual QString exportAsHtml(const QDocumentCursor &range, bool includeHeader=true, bool simplifyCSS = false, int maxLineWidth = -1, int maxWrap = 0) const;
 
 		void execute(QDocumentCommand *cmd);
+        void executeNoUndo(QDocumentCommand *cmd);
 
 		inline QDocumentPrivate* impl() { return m_impl; }
 
