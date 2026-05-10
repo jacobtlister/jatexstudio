@@ -85,4 +85,7 @@ if [[ "$DO_INSTALL" == "yes" ]]; then
     echo "Icons and desktop file can be found in the ${PREFIX}/share/texstudio directory"
 fi
 
+# to stop a new launcher from being available
+rm -rf "${JATEXSTUDIO_PATH}/local/share/applications"
+
 exit 0
