@@ -5942,14 +5942,14 @@ void QEditor::insertCommentMarkerWithSpaces() {
     QString text = m_cursor.line().text();
     QString str  = "%";
 
-    if (text[col - 1] == '\\') {
+    if (m_cursor.previousChar() == '\\') {
         insertText(m_cursor, str);
-    } else if (text[col] != '\\') {
-        if (text[col] != ' ') {
+    } else if (m_cursor.nextChar() != '\\') {
+        if (m_cursor.nextChar() != ' ') {
             str = str + " ";
         }
 
-        if (text != "" && text[col - 1] != ' ') {
+        if (text != "" && m_cursor.previousChar() != ' ') {
             str = " " + str;
         }
 
@@ -5962,14 +5962,14 @@ void QEditor::insertCommentMarkerWithSpaces() {
         text = m_mirrors[i].line().text();
         str  = "%";
 
-        if (text[col - 1] == '\\') {
+        if (m_mirrors[i].previousChar() == '\\') {
             insertText(m_cursor, str);
-        } else if (text[col] != '\\') {
-            if (text[col] != ' ') {
+        } else if (m_mirrors[i].nextChar() != '\\') {
+            if (m_mirrors[i].nextChar() != ' ') {
                 str = str + " ";
             }
 
-            if (text != "" && text[col - 1] != ' ') {
+            if (text != "" && m_mirrors[i].previousChar() != ' ') {
                 str = " " + str;
             }
 
