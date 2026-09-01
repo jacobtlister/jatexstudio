@@ -91,6 +91,8 @@ rm -rf "${JATEXSTUDIO_PATH}/local/share/applications"
 # create copies of everything of the ./scripts/ directory in ./local/bin/
 # so jtxs can find the using [txs-app-dir] when executing macros making
 # use of the scripts
+mkdir "${JATEXSTUDIO_PATH}/local/bin/jatexstudio-scripts/"
+
 for script in "${JATEXSTUDIO_PATH}/scripts"/*; do
     if [ -f "${script}" ]; then
         cp "${JATEXSTUDIO_PATH}/scripts/${script}" "${JATEXSTUDIO_PATH}/local/bin/jatexstudio-scripts/${script}"
