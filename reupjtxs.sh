@@ -93,9 +93,9 @@ rm -rf "${JATEXSTUDIO_PATH}/local/share/applications"
 # use of the scripts
 mkdir "${JATEXSTUDIO_PATH}/local/bin/jatexstudio-scripts/"
 
-for script in "${JATEXSTUDIO_PATH}/scripts"/*; do
+for script in "${JATEXSTUDIO_PATH}"/scripts/*.sh; do
     if [ -f "${script}" ]; then
-        cp "${JATEXSTUDIO_PATH}/scripts/${script}" "${JATEXSTUDIO_PATH}/local/bin/jatexstudio-scripts/${script}"
+        cp "${JATEXSTUDIO_PATH}/scripts/${script##*/}" "${JATEXSTUDIO_PATH}/local/bin/jatexstudio-scripts/${script##*/}"
     fi
 done
 
