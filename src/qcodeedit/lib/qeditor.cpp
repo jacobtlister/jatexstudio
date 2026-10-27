@@ -5937,44 +5937,32 @@ void QEditor::insertCommentMarkerWithSpaces() {
         macroing = true;
     }
 
-    int line = m_cursor.lineNumber();
-    int col  = m_cursor.columnNumber();
     QString text = m_cursor.line().text();
     QString str  = "%";
 
-    if (m_cursor.previousChar() == '\\') {
-        insertText(m_cursor, str);
-    } else if (m_cursor.nextChar() != '\n') {
-        if (m_cursor.nextChar() != ' ') {
-            str = str + " ";
-        }
-
-        if (text != "" && m_cursor.previousChar() != ' ') {
-            str = " " + str;
-        }
-
-        insertText(m_cursor, str);
+    if (m_cursor.nextChar() != ' ' && m_cursor.nextChar() != '\t') {
+        str = str + " ";
     }
 
+    if (m_cursor.previousChar() != '\\' && text != "" && m_cursor.previousChar() != ' ' && m_cursor.previousChar() != '\n' && m_cursor.previousChar() != '\t') {
+        str = " " + str;
+    }
+
+    insertText(m_cursor, str);
+
     for (int i = 0; i < m_mirrors.count(); ++i) {
-        line = m_mirrors[i].lineNumber();
-        col  = m_mirrors[i].columnNumber();
         text = m_mirrors[i].line().text();
         str  = "%";
 
-        if (m_mirrors[i].previousChar() == '\\') {
-            insertText(m_cursor, str);
-        } else if (m_mirrors[i].nextChar() != '\n') {
-            if (m_mirrors[i].nextChar() != ' ') {
-                str = str + " ";
-            }
-
-            if (text != "" && m_mirrors[i].previousChar() != ' ') {
-                str = " " + str;
-            }
-
-            insertText(m_mirrors[i], str);
+        if (m_mirrors[i].nextChar() != ' ' && m_mirrors[i].nextChar() != '\t') {
+            str = str + " ";
         }
+
+        if (m_mirrors[i].previousChar() != '\\' && text != "" && m_mirrors[i].previousChar() != ' ' && m_mirrors[i].previousChar() != '\n' && m_mirrors[i].previousChar() != '\t') {
+            str = " " + str;
+        }
+
+        insertText(m_mirrors[i], str);
     }
 
     if (macroing)
